@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-#if NETFX_CORE || WINDOWS_PHONE 
-using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-#else
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-#endif
 
-namespace Mindbox.Expressions.Tests
+namespace IharBury.Expressions.Tests
 {
 	[TestClass]
 	public class ReflectionExpressionsTests
@@ -181,29 +174,14 @@ namespace Mindbox.Expressions.Tests
 
 			public int X { get; set; }
 
-			public int this[string key]
-			{
-				get { return key == null ? 0 : key.Length; }
-			}
+			public int this[string key] => key?.Length ?? 0;
 		}
 
 		private class Test3 : Test2, ITest1
 		{
-			int ITest1.Y
-			{
-				get
-				{
-					return 0;
-				}
-			}
+			int ITest1.Y => 0;
 
-			Test2 ITest1.Z
-			{
-				get
-				{
-					return null;
-				}
-			}
+			Test2 ITest1.Z => null;
 		}
 
 		private abstract class Test8

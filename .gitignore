@@ -1,5 +1,4 @@
 syntax: glob
-.hg
 bin
 obj
 *.suo

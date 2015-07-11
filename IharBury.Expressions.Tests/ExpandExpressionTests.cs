@@ -3,14 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
-#if NETFX_CORE || WINDOWS_PHONE 
-using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-#else
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-#endif
 
-namespace Mindbox.Expressions.Tests
+namespace IharBury.Expressions.Tests
 {
 	[TestClass]
 	public class ExpandExpressionTests
@@ -477,7 +472,7 @@ namespace Mindbox.Expressions.Tests
 			protected override Expression VisitMethodCall(MethodCallExpression node)
 			{
 				if (node == null)
-					throw new ArgumentNullException("node");
+					throw new ArgumentNullException(nameof(node));
 
 				ValidateMethod(node, node.Method);
 
@@ -487,18 +482,13 @@ namespace Mindbox.Expressions.Tests
 			protected override Expression VisitInvocation(InvocationExpression node)
 			{
 				if (node == null)
-					throw new ArgumentNullException("node");
+					throw new ArgumentNullException(nameof(node));
 
 				if (node.Expression.NodeType == ExpressionType.Call)
 				{
 					var methodCallExpression = (MethodCallExpression)node.Expression;
 					if ((methodCallExpression.Method.DeclaringType != null) &&
-#if NET45 || CORE45 || WINDOWS_PHONE_APP
 							methodCallExpression.Method.DeclaringType.IsConstructedGenericType &&
-#else
-							methodCallExpression.Method.DeclaringType.IsGenericType &&
-							!methodCallExpression.Method.DeclaringType.IsGenericTypeDefinition &&
-#endif
 							(methodCallExpression.Method.DeclaringType.GetGenericTypeDefinition() == typeof(Expression<>)) &&
 							(methodCallExpression.Method.Name == CompileMethodName))
 						Assert.Fail("The expression body has evaluation: \"{0}\".", node);
@@ -510,7 +500,7 @@ namespace Mindbox.Expressions.Tests
 			protected override Expression VisitConstant(ConstantExpression node)
 			{
 				if (node == null)
-					throw new ArgumentNullException("node");
+					throw new ArgumentNullException(nameof(node));
 
 				if (node.Type == typeof(MethodInfo))
 					ValidateMethod(node, (MethodInfo)node.Value);
@@ -522,21 +512,16 @@ namespace Mindbox.Expressions.Tests
 			private static void ValidateMethod(Expression node, MethodInfo method)
 			{
 				if (node == null)
-					throw new ArgumentNullException("node");
+					throw new ArgumentNullException(nameof(node));
 				if (method == null)
-					throw new ArgumentNullException("method");
+					throw new ArgumentNullException(nameof(method));
 
 				if ((method.DeclaringType == typeof(Extensions)) && 
 						(method.Name == ReflectionExpressions.GetMethodName<Expression<Func<object>>>(
 							expression => expression.Evaluate())))
 					Assert.Fail("The expression body has evaluation: \"{0}\".", node);
 				if ((method.DeclaringType != null) && 
-#if NET35 || SL3 || WINDOWS_PHONE || PORTABLE36 || PORTABLE88 || PORTABLE328
-						(method.DeclaringType.BaseType == 
-#else
-						(method.DeclaringType.GetTypeInfo().BaseType ==
-#endif
-							typeof(MulticastDelegate)) && 
+						(method.DeclaringType.BaseType == typeof(MulticastDelegate)) && 
 						(method.Name == ReflectionExpressions.GetMethodName<Action>(action => action.Invoke())))
 					Assert.Fail("The expression body has invokation: \"{0}\".", node);
 			}
@@ -557,7 +542,7 @@ namespace Mindbox.Expressions.Tests
 			protected override Expression VisitUnary(UnaryExpression node)
 			{
 				if (node == null)
-					throw new ArgumentNullException("node");
+					throw new ArgumentNullException(nameof(node));
 
 				if (node.NodeType == ExpressionType.Convert)
 					Assert.Fail("The expression body has convert: \"{0}\".", node);
@@ -582,11 +567,10 @@ namespace Mindbox.Expressions.Tests
 			private readonly List<ParameterExpression> parameters = new List<ParameterExpression>();
 
 
-#if NET40 || SL4 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE36 || PORTABLE328
 			protected override Expression VisitLambda<T>(Expression<T> node)
 			{
 				if (node == null)
-					throw new ArgumentNullException("node");
+					throw new ArgumentNullException(nameof(node));
 
 				foreach (var parameter in node.Parameters)
 				{
@@ -598,22 +582,5 @@ namespace Mindbox.Expressions.Tests
 				return base.VisitLambda(node);
 			}
 		}
-#else
-			protected override Expression VisitLambda(LambdaExpression node)
-			{
-				if (node == null)
-					throw new ArgumentNullException("node");
-
-				foreach (var parameter in node.Parameters)
-				{
-					if (parameters.Contains(parameter))
-						Assert.Fail("Duplicate parameter detected: \"{0}\".", parameter);
-					parameters.Add(parameter);
-				}
-
-				return base.VisitLambda(node);
-			}
-		}
-#endif
 	}
 }

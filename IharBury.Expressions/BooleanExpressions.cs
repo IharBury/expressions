@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 
-namespace Mindbox.Expressions
+namespace IharBury.Expressions
 {
 	/// <summary>
 	/// Combines boolean expressions.
@@ -23,15 +21,9 @@ namespace Mindbox.Expressions
 		public static Expression<Func<bool>> CombineViaAndAlso(IEnumerable<Expression<Func<bool>>> expressions)
 		{
 			if (expressions == null)
-				throw new ArgumentNullException("expressions");
+				throw new ArgumentNullException(nameof(expressions));
 
-			return (Expression<Func<bool>>)Combine(
-#if NET40 || SL5 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE328
-				expressions, 
-#else
-				expressions.Select(expression => (LambdaExpression)expression),
-#endif
-				Expression.AndAlso);
+			return (Expression<Func<bool>>)Combine(expressions, Expression.AndAlso);
 		}
 
 		/// <summary>
@@ -47,15 +39,9 @@ namespace Mindbox.Expressions
 			IEnumerable<Expression<Func<T1, bool>>> expressions)
 		{
 			if (expressions == null)
-				throw new ArgumentNullException("expressions");
+				throw new ArgumentNullException(nameof(expressions));
 
-			return (Expression<Func<T1, bool>>)Combine(
-#if NET40 || SL5 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE328
-				expressions, 
-#else
-				expressions.Select(expression => (LambdaExpression)expression),
-#endif
-				Expression.AndAlso);
+			return (Expression<Func<T1, bool>>)Combine(expressions, Expression.AndAlso);
 		}
 
 		/// <summary>
@@ -71,15 +57,9 @@ namespace Mindbox.Expressions
 			IEnumerable<Expression<Func<T1, T2, bool>>> expressions)
 		{
 			if (expressions == null)
-				throw new ArgumentNullException("expressions");
+				throw new ArgumentNullException(nameof(expressions));
 
-			return (Expression<Func<T1, T2, bool>>)Combine(
-#if NET40 || SL5 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE328
-				expressions, 
-#else
-				expressions.Select(expression => (LambdaExpression)expression),
-#endif
-				Expression.AndAlso);
+			return (Expression<Func<T1, T2, bool>>)Combine(expressions, Expression.AndAlso);
 		}
 
 		/// <summary>
@@ -95,15 +75,9 @@ namespace Mindbox.Expressions
 			IEnumerable<Expression<Func<T1, T2, T3, bool>>> expressions)
 		{
 			if (expressions == null)
-				throw new ArgumentNullException("expressions");
+				throw new ArgumentNullException(nameof(expressions));
 
-			return (Expression<Func<T1, T2, T3, bool>>)Combine(
-#if NET40 || SL5 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE328
-				expressions, 
-#else
-				expressions.Select(expression => (LambdaExpression)expression),
-#endif
-				Expression.AndAlso);
+			return (Expression<Func<T1, T2, T3, bool>>)Combine(expressions, Expression.AndAlso);
 		}
 
 		/// <summary>
@@ -119,18 +93,11 @@ namespace Mindbox.Expressions
 			IEnumerable<Expression<Func<T1, T2, T3, T4, bool>>> expressions)
 		{
 			if (expressions == null)
-				throw new ArgumentNullException("expressions");
+				throw new ArgumentNullException(nameof(expressions));
 
-			return (Expression<Func<T1, T2, T3, T4, bool>>)Combine(
-#if NET40 || SL5 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE328
-				expressions, 
-#else
-				expressions.Select(expression => (LambdaExpression)expression),
-#endif
-				Expression.AndAlso);
+			return (Expression<Func<T1, T2, T3, T4, bool>>)Combine(expressions, Expression.AndAlso);
 		}
 
-#if NET40 || SL4 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE36 || PORTABLE328
 		/// <summary>
 		/// Combines boolean expressions with same parameters via AndAlso 
 		/// (logical "and" that evaluates the second argument only when the first one is true).
@@ -144,15 +111,9 @@ namespace Mindbox.Expressions
 			IEnumerable<Expression<Func<T1, T2, T3, T4, T5, bool>>> expressions)
 		{
 			if (expressions == null)
-				throw new ArgumentNullException("expressions");
+				throw new ArgumentNullException(nameof(expressions));
 
-			return (Expression<Func<T1, T2, T3, T4, T5, bool>>)Combine(
-#if NET40 || SL5 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE328
-				expressions, 
-#else
-				expressions.Select(expression => (LambdaExpression)expression),
-#endif
-				Expression.AndAlso);
+			return (Expression<Func<T1, T2, T3, T4, T5, bool>>)Combine(expressions, Expression.AndAlso);
 		}
 
 		/// <summary>
@@ -168,15 +129,9 @@ namespace Mindbox.Expressions
 			IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, bool>>> expressions)
 		{
 			if (expressions == null)
-				throw new ArgumentNullException("expressions");
+				throw new ArgumentNullException(nameof(expressions));
 
-			return (Expression<Func<T1, T2, T3, T4, T5, T6, bool>>)Combine(
-#if NET40 || SL5 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE328
-				expressions, 
-#else
-				expressions.Select(expression => (LambdaExpression)expression),
-#endif
-				Expression.AndAlso);
+			return (Expression<Func<T1, T2, T3, T4, T5, T6, bool>>)Combine(expressions, Expression.AndAlso);
 		}
 
 		/// <summary>
@@ -192,15 +147,9 @@ namespace Mindbox.Expressions
 			IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, T7, bool>>> expressions)
 		{
 			if (expressions == null)
-				throw new ArgumentNullException("expressions");
+				throw new ArgumentNullException(nameof(expressions));
 
-			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, bool>>)Combine(
-#if NET40 || SL5 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE328
-				expressions, 
-#else
-				expressions.Select(expression => (LambdaExpression)expression),
-#endif
-				Expression.AndAlso);
+			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, bool>>)Combine(expressions, Expression.AndAlso);
 		}
 
 		/// <summary>
@@ -217,15 +166,9 @@ namespace Mindbox.Expressions
 				IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, bool>>> expressions)
 		{
 			if (expressions == null)
-				throw new ArgumentNullException("expressions");
+				throw new ArgumentNullException(nameof(expressions));
 
-			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, bool>>)Combine(
-#if NET40 || SL5 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE328
-				expressions, 
-#else
-				expressions.Select(expression => (LambdaExpression)expression),
-#endif
-				Expression.AndAlso);
+			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, bool>>)Combine(expressions, Expression.AndAlso);
 		}
 
 		/// <summary>
@@ -242,15 +185,9 @@ namespace Mindbox.Expressions
 				IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, bool>>> expressions)
 		{
 			if (expressions == null)
-				throw new ArgumentNullException("expressions");
+				throw new ArgumentNullException(nameof(expressions));
 
-			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, bool>>)Combine(
-#if NET40 || SL5 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE328
-				expressions, 
-#else
-				expressions.Select(expression => (LambdaExpression)expression),
-#endif
-				Expression.AndAlso);
+			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, bool>>)Combine(expressions, Expression.AndAlso);
 		}
 
 		/// <summary>
@@ -267,15 +204,9 @@ namespace Mindbox.Expressions
 				IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, bool>>> expressions)
 		{
 			if (expressions == null)
-				throw new ArgumentNullException("expressions");
+				throw new ArgumentNullException(nameof(expressions));
 
-			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, bool>>)Combine(
-#if NET40 || SL5 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE328
-				expressions, 
-#else
-				expressions.Select(expression => (LambdaExpression)expression),
-#endif
-				Expression.AndAlso);
+			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, bool>>)Combine(expressions, Expression.AndAlso);
 		}
 
 		/// <summary>
@@ -292,15 +223,9 @@ namespace Mindbox.Expressions
 				IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, bool>>> expressions)
 		{
 			if (expressions == null)
-				throw new ArgumentNullException("expressions");
+				throw new ArgumentNullException(nameof(expressions));
 
-			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, bool>>)Combine(
-#if NET40 || SL5 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE328
-				expressions, 
-#else
-				expressions.Select(expression => (LambdaExpression)expression),
-#endif
-				Expression.AndAlso);
+			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, bool>>)Combine(expressions, Expression.AndAlso);
 		}
 
 		/// <summary>
@@ -317,15 +242,9 @@ namespace Mindbox.Expressions
 				IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, bool>>> expressions)
 		{
 			if (expressions == null)
-				throw new ArgumentNullException("expressions");
+				throw new ArgumentNullException(nameof(expressions));
 
-			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, bool>>)Combine(
-#if NET40 || SL5 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE328
-				expressions, 
-#else
-				expressions.Select(expression => (LambdaExpression)expression),
-#endif
-				Expression.AndAlso);
+			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, bool>>)Combine(expressions, Expression.AndAlso);
 		}
 
 		/// <summary>
@@ -342,15 +261,9 @@ namespace Mindbox.Expressions
 				IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, bool>>> expressions)
 		{
 			if (expressions == null)
-				throw new ArgumentNullException("expressions");
+				throw new ArgumentNullException(nameof(expressions));
 
-			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, bool>>)Combine(
-#if NET40 || SL5 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE328
-				expressions, 
-#else
-				expressions.Select(expression => (LambdaExpression)expression),
-#endif
-				Expression.AndAlso);
+			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, bool>>)Combine(expressions, Expression.AndAlso);
 		}
 
 		/// <summary>
@@ -367,15 +280,9 @@ namespace Mindbox.Expressions
 				IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, bool>>> expressions)
 		{
 			if (expressions == null)
-				throw new ArgumentNullException("expressions");
+				throw new ArgumentNullException(nameof(expressions));
 
-			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, bool>>)Combine(
-#if NET40 || SL5 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE328
-				expressions, 
-#else
-				expressions.Select(expression => (LambdaExpression)expression),
-#endif
-				Expression.AndAlso);
+			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, bool>>)Combine(expressions, Expression.AndAlso);
 		}
 
 		/// <summary>
@@ -393,15 +300,9 @@ namespace Mindbox.Expressions
 					expressions)
 		{
 			if (expressions == null)
-				throw new ArgumentNullException("expressions");
+				throw new ArgumentNullException(nameof(expressions));
 
-			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, bool>>)Combine(
-#if NET40 || SL5 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE328
-				expressions, 
-#else
-				expressions.Select(expression => (LambdaExpression)expression),
-#endif
-				Expression.AndAlso);
+			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, bool>>)Combine(expressions, Expression.AndAlso);
 		}
 
 		/// <summary>
@@ -419,17 +320,10 @@ namespace Mindbox.Expressions
 					expressions)
 		{
 			if (expressions == null)
-				throw new ArgumentNullException("expressions");
+				throw new ArgumentNullException(nameof(expressions));
 
-			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, bool>>)Combine(
-#if NET40 || SL5 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE328
-				expressions, 
-#else
-				expressions.Select(expression => (LambdaExpression)expression),
-#endif
-				Expression.AndAlso);
+			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, bool>>)Combine(expressions, Expression.AndAlso);
 		}
-#endif
 
 		/// <summary>
 		/// Combines boolean expressions without parameters via OrElse 
@@ -443,15 +337,9 @@ namespace Mindbox.Expressions
 		public static Expression<Func<bool>> CombineViaOrElse(IEnumerable<Expression<Func<bool>>> expressions)
 		{
 			if (expressions == null)
-				throw new ArgumentNullException("expressions");
+				throw new ArgumentNullException(nameof(expressions));
 
-			return (Expression<Func<bool>>)Combine(
-#if NET40 || SL5 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE328
-				expressions, 
-#else
-				expressions.Select(expression => (LambdaExpression)expression),
-#endif
-				Expression.OrElse);
+			return (Expression<Func<bool>>)Combine(expressions, Expression.OrElse);
 		}
 
 		/// <summary>
@@ -467,15 +355,9 @@ namespace Mindbox.Expressions
 			IEnumerable<Expression<Func<T1, bool>>> expressions)
 		{
 			if (expressions == null)
-				throw new ArgumentNullException("expressions");
+				throw new ArgumentNullException(nameof(expressions));
 
-			return (Expression<Func<T1, bool>>)Combine(
-#if NET40 || SL5 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE328
-				expressions, 
-#else
-				expressions.Select(expression => (LambdaExpression)expression),
-#endif
-				Expression.OrElse);
+			return (Expression<Func<T1, bool>>)Combine(expressions, Expression.OrElse);
 		}
 
 		/// <summary>
@@ -491,15 +373,9 @@ namespace Mindbox.Expressions
 			IEnumerable<Expression<Func<T1, T2, bool>>> expressions)
 		{
 			if (expressions == null)
-				throw new ArgumentNullException("expressions");
+				throw new ArgumentNullException(nameof(expressions));
 
-			return (Expression<Func<T1, T2, bool>>)Combine(
-#if NET40 || SL5 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE328
-				expressions, 
-#else
-				expressions.Select(expression => (LambdaExpression)expression),
-#endif
-				Expression.OrElse);
+			return (Expression<Func<T1, T2, bool>>)Combine(expressions, Expression.OrElse);
 		}
 
 		/// <summary>
@@ -515,15 +391,9 @@ namespace Mindbox.Expressions
 			IEnumerable<Expression<Func<T1, T2, T3, bool>>> expressions)
 		{
 			if (expressions == null)
-				throw new ArgumentNullException("expressions");
+				throw new ArgumentNullException(nameof(expressions));
 
-			return (Expression<Func<T1, T2, T3, bool>>)Combine(
-#if NET40 || SL5 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE328
-				expressions, 
-#else
-				expressions.Select(expression => (LambdaExpression)expression),
-#endif
-				Expression.OrElse);
+			return (Expression<Func<T1, T2, T3, bool>>)Combine(expressions, Expression.OrElse);
 		}
 
 		/// <summary>
@@ -539,18 +409,11 @@ namespace Mindbox.Expressions
 			IEnumerable<Expression<Func<T1, T2, T3, T4, bool>>> expressions)
 		{
 			if (expressions == null)
-				throw new ArgumentNullException("expressions");
+				throw new ArgumentNullException(nameof(expressions));
 
-			return (Expression<Func<T1, T2, T3, T4, bool>>)Combine(
-#if NET40 || SL5 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE328
-				expressions, 
-#else
-				expressions.Select(expression => (LambdaExpression)expression),
-#endif
-				Expression.OrElse);
+			return (Expression<Func<T1, T2, T3, T4, bool>>)Combine(expressions, Expression.OrElse);
 		}
 
-#if NET40 || SL4 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE36 || PORTABLE328
 		/// <summary>
 		/// Combines boolean expressions with same parameters via OrElse 
 		/// (logical "or" that evaluates the second argument only when the first one is false).
@@ -564,15 +427,9 @@ namespace Mindbox.Expressions
 			IEnumerable<Expression<Func<T1, T2, T3, T4, T5, bool>>> expressions)
 		{
 			if (expressions == null)
-				throw new ArgumentNullException("expressions");
+				throw new ArgumentNullException(nameof(expressions));
 
-			return (Expression<Func<T1, T2, T3, T4, T5, bool>>)Combine(
-#if NET40 || SL5 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE328
-				expressions, 
-#else
-				expressions.Select(expression => (LambdaExpression)expression),
-#endif
-				Expression.OrElse);
+			return (Expression<Func<T1, T2, T3, T4, T5, bool>>)Combine(expressions, Expression.OrElse);
 		}
 
 		/// <summary>
@@ -588,15 +445,9 @@ namespace Mindbox.Expressions
 			IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, bool>>> expressions)
 		{
 			if (expressions == null)
-				throw new ArgumentNullException("expressions");
+				throw new ArgumentNullException(nameof(expressions));
 
-			return (Expression<Func<T1, T2, T3, T4, T5, T6, bool>>)Combine(
-#if NET40 || SL5 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE328
-				expressions, 
-#else
-				expressions.Select(expression => (LambdaExpression)expression),
-#endif
-				Expression.OrElse);
+			return (Expression<Func<T1, T2, T3, T4, T5, T6, bool>>)Combine(expressions, Expression.OrElse);
 		}
 
 		/// <summary>
@@ -612,15 +463,9 @@ namespace Mindbox.Expressions
 			IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, T7, bool>>> expressions)
 		{
 			if (expressions == null)
-				throw new ArgumentNullException("expressions");
+				throw new ArgumentNullException(nameof(expressions));
 
-			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, bool>>)Combine(
-#if NET40 || SL5 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE328
-				expressions, 
-#else
-				expressions.Select(expression => (LambdaExpression)expression),
-#endif
-				Expression.OrElse);
+			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, bool>>)Combine(expressions, Expression.OrElse);
 		}
 
 		/// <summary>
@@ -637,15 +482,9 @@ namespace Mindbox.Expressions
 				IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, bool>>> expressions)
 		{
 			if (expressions == null)
-				throw new ArgumentNullException("expressions");
+				throw new ArgumentNullException(nameof(expressions));
 
-			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, bool>>)Combine(
-#if NET40 || SL5 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE328
-				expressions, 
-#else
-				expressions.Select(expression => (LambdaExpression)expression),
-#endif
-				Expression.OrElse);
+			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, bool>>)Combine(expressions, Expression.OrElse);
 		}
 
 		/// <summary>
@@ -662,15 +501,9 @@ namespace Mindbox.Expressions
 				IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, bool>>> expressions)
 		{
 			if (expressions == null)
-				throw new ArgumentNullException("expressions");
+				throw new ArgumentNullException(nameof(expressions));
 
-			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, bool>>)Combine(
-#if NET40 || SL5 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE328
-				expressions, 
-#else
-				expressions.Select(expression => (LambdaExpression)expression),
-#endif
-				Expression.OrElse);
+			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, bool>>)Combine(expressions, Expression.OrElse);
 		}
 
 		/// <summary>
@@ -687,15 +520,9 @@ namespace Mindbox.Expressions
 				IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, bool>>> expressions)
 		{
 			if (expressions == null)
-				throw new ArgumentNullException("expressions");
+				throw new ArgumentNullException(nameof(expressions));
 
-			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, bool>>)Combine(
-#if NET40 || SL5 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE328
-				expressions, 
-#else
-				expressions.Select(expression => (LambdaExpression)expression),
-#endif
-				Expression.OrElse);
+			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, bool>>)Combine(expressions, Expression.OrElse);
 		}
 
 		/// <summary>
@@ -712,15 +539,9 @@ namespace Mindbox.Expressions
 				IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, bool>>> expressions)
 		{
 			if (expressions == null)
-				throw new ArgumentNullException("expressions");
+				throw new ArgumentNullException(nameof(expressions));
 
-			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, bool>>)Combine(
-#if NET40 || SL5 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE328
-				expressions, 
-#else
-				expressions.Select(expression => (LambdaExpression)expression),
-#endif
-				Expression.OrElse);
+			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, bool>>)Combine(expressions, Expression.OrElse);
 		}
 
 		/// <summary>
@@ -737,15 +558,9 @@ namespace Mindbox.Expressions
 				IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, bool>>> expressions)
 		{
 			if (expressions == null)
-				throw new ArgumentNullException("expressions");
+				throw new ArgumentNullException(nameof(expressions));
 
-			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, bool>>)Combine(
-#if NET40 || SL5 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE328
-				expressions, 
-#else
-				expressions.Select(expression => (LambdaExpression)expression),
-#endif
-				Expression.OrElse);
+			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, bool>>)Combine(expressions, Expression.OrElse);
 		}
 
 		/// <summary>
@@ -762,15 +577,9 @@ namespace Mindbox.Expressions
 				IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, bool>>> expressions)
 		{
 			if (expressions == null)
-				throw new ArgumentNullException("expressions");
+				throw new ArgumentNullException(nameof(expressions));
 
-			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, bool>>)Combine(
-#if NET40 || SL5 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE328
-				expressions, 
-#else
-				expressions.Select(expression => (LambdaExpression)expression),
-#endif
-				Expression.OrElse);
+			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, bool>>)Combine(expressions, Expression.OrElse);
 		}
 
 		/// <summary>
@@ -787,15 +596,9 @@ namespace Mindbox.Expressions
 				IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, bool>>> expressions)
 		{
 			if (expressions == null)
-				throw new ArgumentNullException("expressions");
+				throw new ArgumentNullException(nameof(expressions));
 
-			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, bool>>)Combine(
-#if NET40 || SL5 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE328
-				expressions, 
-#else
-				expressions.Select(expression => (LambdaExpression)expression),
-#endif
-				Expression.OrElse);
+			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, bool>>)Combine(expressions, Expression.OrElse);
 		}
 
 		/// <summary>
@@ -813,15 +616,9 @@ namespace Mindbox.Expressions
 					expressions)
 		{
 			if (expressions == null)
-				throw new ArgumentNullException("expressions");
+				throw new ArgumentNullException(nameof(expressions));
 
-			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, bool>>)Combine(
-#if NET40 || SL5 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE328
-				expressions, 
-#else
-				expressions.Select(expression => (LambdaExpression)expression),
-#endif
-				Expression.OrElse);
+			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, bool>>)Combine(expressions, Expression.OrElse);
 		}
 
 		/// <summary>
@@ -839,17 +636,10 @@ namespace Mindbox.Expressions
 					expressions)
 		{
 			if (expressions == null)
-				throw new ArgumentNullException("expressions");
+				throw new ArgumentNullException(nameof(expressions));
 
-			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, bool>>)Combine(
-#if NET40 || SL5 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE328
-				expressions, 
-#else
-				expressions.Select(expression => (LambdaExpression)expression),
-#endif
-				Expression.OrElse);
+			return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, bool>>)Combine(expressions, Expression.OrElse);
 		}
-#endif
 
 
 		private static LambdaExpression Combine(
@@ -857,20 +647,16 @@ namespace Mindbox.Expressions
 			Func<Expression, Expression, Expression> operation)
 		{
 			if (expressions == null)
-				throw new ArgumentNullException("expressions");
+				throw new ArgumentNullException(nameof(expressions));
 			if (operation == null)
-				throw new ArgumentNullException("operation");
+				throw new ArgumentNullException(nameof(operation));
 
 			Expression resultBody = null;
-#if NET45 || CORE45 || WINDOWS_PHONE_APP
 			IReadOnlyList<ParameterExpression> resultParameters = null;
-#else
-			IList<ParameterExpression> resultParameters = null;
-#endif
 			foreach (var expression in expressions)
 			{
 				if (expression == null)
-					throw new ArgumentException("Expressions cannot be null.", "expressions");
+					throw new ArgumentException("Expressions cannot be null.", nameof(expressions));
 
 				if (resultBody == null)
 				{
@@ -880,13 +666,13 @@ namespace Mindbox.Expressions
 				else
 				{
 					if (expression.Parameters.Count != resultParameters.Count)
-						throw new ArgumentException("Expressions have different parameter counts.", "expressions");
+						throw new ArgumentException("Expressions have different parameter counts.", nameof(expressions));
 
 					var parameterSubstitutions = new Dictionary<ParameterExpression, Expression>(resultParameters.Count);
 					for (var parameterIndex = 0; parameterIndex < resultParameters.Count; parameterIndex++)
 					{
 						if (expression.Parameters[parameterIndex].Type != resultParameters[parameterIndex].Type)
-							throw new ArgumentException("Expressions have different parameter types.", "expressions");
+							throw new ArgumentException("Expressions have different parameter types.", nameof(expressions));
 						parameterSubstitutions.Add(expression.Parameters[parameterIndex], resultParameters[parameterIndex]);
 					}
 					resultBody = operation(
@@ -895,12 +681,8 @@ namespace Mindbox.Expressions
 				}
 			}
 			if (resultBody == null)
-				throw new ArgumentException("No expressions provided.", "expressions");
-#if NET40 || SL4 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE36 || PORTABLE328
+				throw new ArgumentException("No expressions provided.", nameof(expressions));
 			return Expression.Lambda(resultBody, resultParameters);
-#else
-			return Expression.Lambda(resultBody, resultParameters.ToArray());
-#endif
 		}
 	}
 }

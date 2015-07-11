@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 
-namespace Mindbox.Expressions
+namespace IharBury.Expressions
 {
 	internal sealed class ExpressionParameterSubstitutor : ExpressionVisitor
 	{
@@ -14,7 +12,7 @@ namespace Mindbox.Expressions
 			IDictionary<ParameterExpression, Expression> parameterSubstitutions)
 		{
 			if (parameterSubstitutions == null)
-				throw new ArgumentNullException("parameterSubstitutions");
+				throw new ArgumentNullException(nameof(parameterSubstitutions));
 
 			return new ExpressionParameterSubstitutor(parameterSubstitutions).Visit(expression);
 		}
@@ -42,7 +40,7 @@ namespace Mindbox.Expressions
 		private ExpressionParameterSubstitutor(IDictionary<ParameterExpression, Expression> parameterSubstitutions)
 		{
 			if (parameterSubstitutions == null)
-				throw new ArgumentNullException("parameterSubstitutions");
+				throw new ArgumentNullException(nameof(parameterSubstitutions));
 
 			this.parameterSubstitutions = new Dictionary<ParameterExpression, Expression>(parameterSubstitutions);
 		}
@@ -51,7 +49,7 @@ namespace Mindbox.Expressions
 		protected override Expression VisitParameter(ParameterExpression node)
 		{
 			if (node == null)
-				throw new ArgumentNullException("node");
+				throw new ArgumentNullException(nameof(node));
 
 			Expression substitution;
 			return parameterSubstitutions.TryGetValue(node, out substitution) ?
@@ -59,11 +57,10 @@ namespace Mindbox.Expressions
 				base.VisitParameter(node);
 		}
 
-#if NET40 || SL4 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE36 || PORTABLE328
 		protected override Expression VisitLambda<T>(Expression<T> node)
 		{
 			if (node == null)
-				throw new ArgumentNullException("node");
+				throw new ArgumentNullException(nameof(node));
 
 			var newParameters = new List<ParameterExpression>(node.Parameters.Count);
 
@@ -76,23 +73,5 @@ namespace Mindbox.Expressions
 
 			return node.Update(Visit(node.Body), newParameters);
 		}
-#else
-		protected override Expression VisitLambda(LambdaExpression node)
-		{
-			if (node == null)
-				throw new ArgumentNullException("node");
-
-			var newParameters = new List<ParameterExpression>(node.Parameters.Count);
-
-			foreach (var oldParameter in node.Parameters)
-			{
-				var newParameter = Expression.Parameter(oldParameter.Type, oldParameter.Name);
-				newParameters.Add(newParameter);
-				parameterSubstitutions.Add(oldParameter, newParameter);
-			}
-
-			return Expression.Lambda(node.Type, Visit(node.Body), newParameters);
-		}
-#endif
 	}
 }

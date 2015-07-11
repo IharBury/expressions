@@ -3,44 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
 
-namespace Mindbox.Expressions
+namespace IharBury.Expressions
 {
 	internal sealed class ExpressionExpander : ExpressionVisitor
 	{
 		private static readonly MethodInfo MethodInfoCreateDelegateMethod = 
-#if NET45 || SL5 || CORE45 || WP8 || WINDOWS_PHONE_APP
 			ReflectionExpressions.GetMethodInfo<MethodInfo>(methodInfo => 
 				methodInfo.CreateDelegate(default(Type), default(object)));
-#else
-			typeof(MethodInfo).GetMethod(
-				"CreateDelegate",
-				new[]
-				{
-					typeof(Type),
-					typeof(object)
-				});
-#endif
 
 		private static readonly MethodInfo DelegateCreateDelegateMethod =
-#if NET35 || SL3 || WINDOWS_PHONE || PORTABLE36 || PORTABLE88 || PORTABLE328
 			ReflectionExpressions.GetMethodInfo(() => 
 				Delegate.CreateDelegate(default(Type), default(object), default(MethodInfo)));
-#else
-			typeof(Delegate)
-				.GetTypeInfo()
-				.GetDeclaredMethods("CreateDelegate")
-				.SingleOrDefault(method => method
-					.GetParameters()
-					.Select(parameter => parameter.ParameterType)
-					.SequenceEqual(new[]
-					{
-						typeof(Type),
-						typeof(object),
-						typeof(MethodInfo)
-					}));
-#endif
 
 		private static readonly string EvaluateMethodName = 
 			ReflectionExpressions.GetMethodName<Expression<Func<object>>>(expression => expression.Evaluate());
@@ -55,7 +29,7 @@ namespace Mindbox.Expressions
 		public static Expression ExpandExpression(Expression expression)
 		{
 			if (expression == null)
-				throw new ArgumentNullException("expression");
+				throw new ArgumentNullException(nameof(expression));
 
 			return new ExpressionExpander().Visit(expression);
 		}
@@ -64,7 +38,7 @@ namespace Mindbox.Expressions
 		private static LambdaExpression TryGetLambdaExpressionFromExpression(Expression expression)
 		{
 			if (expression == null)
-				throw new ArgumentNullException("expression");
+				throw new ArgumentNullException(nameof(expression));
 
 			if (expression.NodeType == ExpressionType.Quote)
 				return (LambdaExpression)((UnaryExpression)expression).Operand;
@@ -79,7 +53,7 @@ namespace Mindbox.Expressions
 		private static bool IsEvaluateMethod(MethodInfo method)
 		{
 			if (method == null)
-				throw new ArgumentNullException("method");
+				throw new ArgumentNullException(nameof(method));
 
 			return (method.DeclaringType == typeof(Extensions)) && (method.Name == EvaluateMethodName);
 		}
@@ -87,15 +61,10 @@ namespace Mindbox.Expressions
 		private static bool IsCompileMethod(MethodInfo method)
 		{
 			if (method == null)
-				throw new ArgumentNullException("method");
+				throw new ArgumentNullException(nameof(method));
 
 			return (method.DeclaringType != null) &&
-#if NET45 || CORE45 || WINDOWS_PHONE_APP
 				method.DeclaringType.IsConstructedGenericType &&
-#else
-				method.DeclaringType.IsGenericType &&
-				!method.DeclaringType.IsGenericTypeDefinition &&
-#endif
 				(method.DeclaringType.GetGenericTypeDefinition() == typeof(Expression<>)) &&
 				(method.Name == CompileMethodName);
 		}
@@ -107,7 +76,7 @@ namespace Mindbox.Expressions
 		protected override Expression VisitInvocation(InvocationExpression node)
 		{
 			if (node == null)
-				throw new ArgumentNullException("node");
+				throw new ArgumentNullException(nameof(node));
 
 			var baseResult = (InvocationExpression)base.VisitInvocation(node);
 
@@ -129,7 +98,7 @@ namespace Mindbox.Expressions
 		protected override Expression VisitMethodCall(MethodCallExpression node)
 		{
 			if (node == null)
-				throw new ArgumentNullException("node");
+				throw new ArgumentNullException(nameof(node));
 
 			var baseResult = (MethodCallExpression)base.VisitMethodCall(node);
 
@@ -141,12 +110,7 @@ namespace Mindbox.Expressions
 			}
 
 			if ((baseResult.Method.DeclaringType != null) &&
-#if NET35 || SL3 || WINDOWS_PHONE || PORTABLE36 || PORTABLE88 || PORTABLE328
-				(baseResult.Method.DeclaringType.BaseType ==
-#else
-				(baseResult.Method.DeclaringType.GetTypeInfo().BaseType ==
-#endif
-					typeof(MulticastDelegate)) &&
+				(baseResult.Method.DeclaringType.BaseType == typeof(MulticastDelegate)) &&
 				(baseResult.Method.Name == InvokeMethodName) &&
 				(baseResult.Object != null) &&
 				(baseResult.Object.NodeType == ExpressionType.Call))
@@ -194,7 +158,7 @@ namespace Mindbox.Expressions
 		protected override Expression VisitUnary(UnaryExpression node)
 		{
 			if (node == null)
-				throw new ArgumentNullException("node");
+				throw new ArgumentNullException(nameof(node));
 
 			var baseResult = base.VisitUnary(node);
 			if (baseResult.NodeType == ExpressionType.Convert)
@@ -213,11 +177,7 @@ namespace Mindbox.Expressions
 
 		private bool TrySubstituteExpression(
 			Expression expressionExpression, 
-#if NET45 || CORE45 || WINDOWS_PHONE_APP
 			IReadOnlyList<Expression> arguments,
-#else
-			IList<Expression> arguments, 
-#endif
 			out Expression result)
 		{
 			if (expressionExpression == null)

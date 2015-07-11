@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>http://opensource.org/licenses/mit-license.php</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <projectUrl>https://github.com/IharBury/expressions/wiki</projectUrl>
+    <releaseNotes>Initial fork. Only .NET 4.6 is supported.</releaseNotes>
+    <copyright>Copyright 2014 Mindbox, 2015 Ihar Bury</copyright>
+    <tags>expressions linq lambda reflection iqueryable entityframework ef nhibernate</tags>
+  </metadata>
+  <files>
+    <file src="bin\Release\*.*" target="lib\net46" />
+  </files>
+</package>

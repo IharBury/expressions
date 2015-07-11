@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-#if NETFX_CORE || WINDOWS_PHONE 
-using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-#else
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-#endif
 
-namespace Mindbox.Expressions.Tests
+namespace IharBury.Expressions.Tests
 {
 	[TestClass]
 	public class BooleanExpressionsTests
@@ -124,7 +117,6 @@ namespace Mindbox.Expressions.Tests
 			}
 		}
 
-#if NET40 || SL4 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE36 || PORTABLE328
 		[TestMethod]
 		public void AndAlso5ParameterTest()
 		{
@@ -400,7 +392,6 @@ namespace Mindbox.Expressions.Tests
 				}
 			}
 		}
-#endif
 
 		[TestMethod]
 		public void AndAlso2ParameterReplacementTest()
@@ -534,7 +525,6 @@ namespace Mindbox.Expressions.Tests
 			}
 		}
 
-#if NET40 || SL4 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE36 || PORTABLE328
 		[TestMethod]
 		public void OrElse5ParameterTest()
 		{
@@ -810,7 +800,6 @@ namespace Mindbox.Expressions.Tests
 				}
 			}
 		}
-#endif
 
 		[TestMethod]
 		public void OrElse2ParameterReplacementTest()

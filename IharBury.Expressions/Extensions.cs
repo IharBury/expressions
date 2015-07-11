@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 
-namespace Mindbox.Expressions
+namespace IharBury.Expressions
 {
 	/// <summary>
 	/// Contains extension methods.
@@ -22,7 +20,7 @@ namespace Mindbox.Expressions
 		public static Expression ExpandExpressions(this Expression expression)
 		{
 			if (expression == null)
-				throw new ArgumentNullException("expression");
+				throw new ArgumentNullException(nameof(expression));
 
 			return ExpressionExpander.ExpandExpression(expression);
 		}
@@ -38,7 +36,7 @@ namespace Mindbox.Expressions
 		public static Expression<TDelegate> ExpandExpressions<TDelegate>(this Expression<TDelegate> expression)
 		{
 			if (expression == null)
-				throw new ArgumentNullException("expression");
+				throw new ArgumentNullException(nameof(expression));
 
 			return (Expression<TDelegate>)ExpandExpressions((Expression)expression);
 		}
@@ -55,7 +53,7 @@ namespace Mindbox.Expressions
 		public static IQueryable<T> ExpandExpressions<T>(this IQueryable<T> query)
 		{
 			if (query == null)
-				throw new ArgumentNullException("query");
+				throw new ArgumentNullException(nameof(query));
 
 			return (IQueryable<T>)query.Provider.CreateQuery(query.Expression.ExpandExpressions());
 		}
@@ -71,7 +69,7 @@ namespace Mindbox.Expressions
 		public static TResult Evaluate<TResult>(this Expression<Func<TResult>> expression)
 		{
 			if (expression == null)
-				throw new ArgumentNullException("expression");
+				throw new ArgumentNullException(nameof(expression));
 
 			return expression.Compile().Invoke();
 		}
@@ -91,7 +89,7 @@ namespace Mindbox.Expressions
 			T1 argument1)
 		{
 			if (expression == null)
-				throw new ArgumentNullException("expression");
+				throw new ArgumentNullException(nameof(expression));
 
 			return expression.Compile().Invoke(argument1);
 		}
@@ -114,7 +112,7 @@ namespace Mindbox.Expressions
 			T2 argument2)
 		{
 			if (expression == null)
-				throw new ArgumentNullException("expression");
+				throw new ArgumentNullException(nameof(expression));
 
 			return expression.Compile().Invoke(
 				argument1, 
@@ -142,7 +140,7 @@ namespace Mindbox.Expressions
 			T3 argument3)
 		{
 			if (expression == null)
-				throw new ArgumentNullException("expression");
+				throw new ArgumentNullException(nameof(expression));
 
 			return expression.Compile().Invoke(
 				argument1,
@@ -174,7 +172,7 @@ namespace Mindbox.Expressions
 			T4 argument4)
 		{
 			if (expression == null)
-				throw new ArgumentNullException("expression");
+				throw new ArgumentNullException(nameof(expression));
 
 			return expression.Compile().Invoke(
 				argument1,
@@ -183,7 +181,6 @@ namespace Mindbox.Expressions
 				argument4);
 		}
 
-#if NET40 || SL4 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE36 || PORTABLE328
 		/// <summary>
 		/// Represent expression evaluation. Intended to be used in another expression that is later transformed
 		/// via <c>ExpandExpressions</c> method.
@@ -211,7 +208,7 @@ namespace Mindbox.Expressions
 			T5 argument5)
 		{
 			if (expression == null)
-				throw new ArgumentNullException("expression");
+				throw new ArgumentNullException(nameof(expression));
 
 			return expression.Compile().Invoke(
 				argument1,
@@ -251,7 +248,7 @@ namespace Mindbox.Expressions
 			T6 argument6)
 		{
 			if (expression == null)
-				throw new ArgumentNullException("expression");
+				throw new ArgumentNullException(nameof(expression));
 
 			return expression.Compile().Invoke(
 				argument1,
@@ -295,7 +292,7 @@ namespace Mindbox.Expressions
 			T7 argument7)
 		{
 			if (expression == null)
-				throw new ArgumentNullException("expression");
+				throw new ArgumentNullException(nameof(expression));
 
 			return expression.Compile().Invoke(
 				argument1,
@@ -343,7 +340,7 @@ namespace Mindbox.Expressions
 			T8 argument8)
 		{
 			if (expression == null)
-				throw new ArgumentNullException("expression");
+				throw new ArgumentNullException(nameof(expression));
 
 			return expression.Compile().Invoke(
 				argument1,
@@ -395,7 +392,7 @@ namespace Mindbox.Expressions
 			T9 argument9)
 		{
 			if (expression == null)
-				throw new ArgumentNullException("expression");
+				throw new ArgumentNullException(nameof(expression));
 
 			return expression.Compile().Invoke(
 				argument1,
@@ -451,7 +448,7 @@ namespace Mindbox.Expressions
 			T10 argument10)
 		{
 			if (expression == null)
-				throw new ArgumentNullException("expression");
+				throw new ArgumentNullException(nameof(expression));
 
 			return expression.Compile().Invoke(
 				argument1,
@@ -511,7 +508,7 @@ namespace Mindbox.Expressions
 			T11 argument11)
 		{
 			if (expression == null)
-				throw new ArgumentNullException("expression");
+				throw new ArgumentNullException(nameof(expression));
 
 			return expression.Compile().Invoke(
 				argument1,
@@ -575,7 +572,7 @@ namespace Mindbox.Expressions
 			T12 argument12)
 		{
 			if (expression == null)
-				throw new ArgumentNullException("expression");
+				throw new ArgumentNullException(nameof(expression));
 
 			return expression.Compile().Invoke(
 				argument1,
@@ -643,7 +640,7 @@ namespace Mindbox.Expressions
 			T13 argument13)
 		{
 			if (expression == null)
-				throw new ArgumentNullException("expression");
+				throw new ArgumentNullException(nameof(expression));
 
 			return expression.Compile().Invoke(
 				argument1,
@@ -715,7 +712,7 @@ namespace Mindbox.Expressions
 			T14 argument14)
 		{
 			if (expression == null)
-				throw new ArgumentNullException("expression");
+				throw new ArgumentNullException(nameof(expression));
 
 			return expression.Compile().Invoke(
 				argument1,
@@ -791,7 +788,7 @@ namespace Mindbox.Expressions
 			T15 argument15)
 		{
 			if (expression == null)
-				throw new ArgumentNullException("expression");
+				throw new ArgumentNullException(nameof(expression));
 
 			return expression.Compile().Invoke(
 				argument1,
@@ -871,7 +868,7 @@ namespace Mindbox.Expressions
 			T16 argument16)
 		{
 			if (expression == null)
-				throw new ArgumentNullException("expression");
+				throw new ArgumentNullException(nameof(expression));
 
 			return expression.Compile().Invoke(
 				argument1,
@@ -891,7 +888,6 @@ namespace Mindbox.Expressions
 				argument15,
 				argument16);
 		}
-#endif
 
 		/// <summary>
 		/// Combines two boolean expressions without parameters via AndAlso 
@@ -906,9 +902,9 @@ namespace Mindbox.Expressions
 			Expression<Func<bool>> expression2)
 		{
 			if (expression1 == null)
-				throw new ArgumentNullException("expression1");
+				throw new ArgumentNullException(nameof(expression1));
 			if (expression2 == null)
-				throw new ArgumentNullException("expression2");
+				throw new ArgumentNullException(nameof(expression2));
 
 			return BooleanExpressions.CombineViaAndAlso(new[]
 			{
@@ -930,9 +926,9 @@ namespace Mindbox.Expressions
 			Expression<Func<T1, bool>> expression2)
 		{
 			if (expression1 == null)
-				throw new ArgumentNullException("expression1");
+				throw new ArgumentNullException(nameof(expression1));
 			if (expression2 == null)
-				throw new ArgumentNullException("expression2");
+				throw new ArgumentNullException(nameof(expression2));
 
 			return BooleanExpressions.CombineViaAndAlso(new[]
 			{
@@ -954,9 +950,9 @@ namespace Mindbox.Expressions
 			Expression<Func<T1, T2, bool>> expression2)
 		{
 			if (expression1 == null)
-				throw new ArgumentNullException("expression1");
+				throw new ArgumentNullException(nameof(expression1));
 			if (expression2 == null)
-				throw new ArgumentNullException("expression2");
+				throw new ArgumentNullException(nameof(expression2));
 
 			return BooleanExpressions.CombineViaAndAlso(new[]
 			{
@@ -978,9 +974,9 @@ namespace Mindbox.Expressions
 			Expression<Func<T1, T2, T3, bool>> expression2)
 		{
 			if (expression1 == null)
-				throw new ArgumentNullException("expression1");
+				throw new ArgumentNullException(nameof(expression1));
 			if (expression2 == null)
-				throw new ArgumentNullException("expression2");
+				throw new ArgumentNullException(nameof(expression2));
 
 			return BooleanExpressions.CombineViaAndAlso(new[]
 			{
@@ -1002,9 +998,9 @@ namespace Mindbox.Expressions
 			Expression<Func<T1, T2, T3, T4, bool>> expression2)
 		{
 			if (expression1 == null)
-				throw new ArgumentNullException("expression1");
+				throw new ArgumentNullException(nameof(expression1));
 			if (expression2 == null)
-				throw new ArgumentNullException("expression2");
+				throw new ArgumentNullException(nameof(expression2));
 
 			return BooleanExpressions.CombineViaAndAlso(new[]
 			{
@@ -1013,7 +1009,6 @@ namespace Mindbox.Expressions
 			});
 		}
 
-#if NET40 || SL4 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE36 || PORTABLE328
 		/// <summary>
 		/// Combines two boolean expressions with same parameters via AndAlso 
 		/// (logical "and" that evaluates the second argument only when the first one is true).
@@ -1027,9 +1022,9 @@ namespace Mindbox.Expressions
 			Expression<Func<T1, T2, T3, T4, T5, bool>> expression2)
 		{
 			if (expression1 == null)
-				throw new ArgumentNullException("expression1");
+				throw new ArgumentNullException(nameof(expression1));
 			if (expression2 == null)
-				throw new ArgumentNullException("expression2");
+				throw new ArgumentNullException(nameof(expression2));
 
 			return BooleanExpressions.CombineViaAndAlso(new[]
 			{
@@ -1051,9 +1046,9 @@ namespace Mindbox.Expressions
 			Expression<Func<T1, T2, T3, T4, T5, T6, bool>> expression2)
 		{
 			if (expression1 == null)
-				throw new ArgumentNullException("expression1");
+				throw new ArgumentNullException(nameof(expression1));
 			if (expression2 == null)
-				throw new ArgumentNullException("expression2");
+				throw new ArgumentNullException(nameof(expression2));
 
 			return BooleanExpressions.CombineViaAndAlso(new[]
 			{
@@ -1075,9 +1070,9 @@ namespace Mindbox.Expressions
 			Expression<Func<T1, T2, T3, T4, T5, T6, T7, bool>> expression2)
 		{
 			if (expression1 == null)
-				throw new ArgumentNullException("expression1");
+				throw new ArgumentNullException(nameof(expression1));
 			if (expression2 == null)
-				throw new ArgumentNullException("expression2");
+				throw new ArgumentNullException(nameof(expression2));
 
 			return BooleanExpressions.CombineViaAndAlso(new[]
 			{
@@ -1100,9 +1095,9 @@ namespace Mindbox.Expressions
 				Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, bool>> expression2)
 		{
 			if (expression1 == null)
-				throw new ArgumentNullException("expression1");
+				throw new ArgumentNullException(nameof(expression1));
 			if (expression2 == null)
-				throw new ArgumentNullException("expression2");
+				throw new ArgumentNullException(nameof(expression2));
 
 			return BooleanExpressions.CombineViaAndAlso(new[]
 			{
@@ -1125,9 +1120,9 @@ namespace Mindbox.Expressions
 				Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, bool>> expression2)
 		{
 			if (expression1 == null)
-				throw new ArgumentNullException("expression1");
+				throw new ArgumentNullException(nameof(expression1));
 			if (expression2 == null)
-				throw new ArgumentNullException("expression2");
+				throw new ArgumentNullException(nameof(expression2));
 
 			return BooleanExpressions.CombineViaAndAlso(new[]
 			{
@@ -1150,9 +1145,9 @@ namespace Mindbox.Expressions
 				Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, bool>> expression2)
 		{
 			if (expression1 == null)
-				throw new ArgumentNullException("expression1");
+				throw new ArgumentNullException(nameof(expression1));
 			if (expression2 == null)
-				throw new ArgumentNullException("expression2");
+				throw new ArgumentNullException(nameof(expression2));
 
 			return BooleanExpressions.CombineViaAndAlso(new[]
 			{
@@ -1175,9 +1170,9 @@ namespace Mindbox.Expressions
 				Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, bool>> expression2)
 		{
 			if (expression1 == null)
-				throw new ArgumentNullException("expression1");
+				throw new ArgumentNullException(nameof(expression1));
 			if (expression2 == null)
-				throw new ArgumentNullException("expression2");
+				throw new ArgumentNullException(nameof(expression2));
 
 			return BooleanExpressions.CombineViaAndAlso(new[]
 			{
@@ -1200,9 +1195,9 @@ namespace Mindbox.Expressions
 				Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, bool>> expression2)
 		{
 			if (expression1 == null)
-				throw new ArgumentNullException("expression1");
+				throw new ArgumentNullException(nameof(expression1));
 			if (expression2 == null)
-				throw new ArgumentNullException("expression2");
+				throw new ArgumentNullException(nameof(expression2));
 
 			return BooleanExpressions.CombineViaAndAlso(new[]
 			{
@@ -1225,9 +1220,9 @@ namespace Mindbox.Expressions
 				Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, bool>> expression2)
 		{
 			if (expression1 == null)
-				throw new ArgumentNullException("expression1");
+				throw new ArgumentNullException(nameof(expression1));
 			if (expression2 == null)
-				throw new ArgumentNullException("expression2");
+				throw new ArgumentNullException(nameof(expression2));
 
 			return BooleanExpressions.CombineViaAndAlso(new[]
 			{
@@ -1250,9 +1245,9 @@ namespace Mindbox.Expressions
 				Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, bool>> expression2)
 		{
 			if (expression1 == null)
-				throw new ArgumentNullException("expression1");
+				throw new ArgumentNullException(nameof(expression1));
 			if (expression2 == null)
-				throw new ArgumentNullException("expression2");
+				throw new ArgumentNullException(nameof(expression2));
 
 			return BooleanExpressions.CombineViaAndAlso(new[]
 			{
@@ -1275,9 +1270,9 @@ namespace Mindbox.Expressions
 				Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, bool>> expression2)
 		{
 			if (expression1 == null)
-				throw new ArgumentNullException("expression1");
+				throw new ArgumentNullException(nameof(expression1));
 			if (expression2 == null)
-				throw new ArgumentNullException("expression2");
+				throw new ArgumentNullException(nameof(expression2));
 
 			return BooleanExpressions.CombineViaAndAlso(new[]
 			{
@@ -1300,9 +1295,9 @@ namespace Mindbox.Expressions
 				Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, bool>> expression2)
 		{
 			if (expression1 == null)
-				throw new ArgumentNullException("expression1");
+				throw new ArgumentNullException(nameof(expression1));
 			if (expression2 == null)
-				throw new ArgumentNullException("expression2");
+				throw new ArgumentNullException(nameof(expression2));
 
 			return BooleanExpressions.CombineViaAndAlso(new[]
 			{
@@ -1310,7 +1305,6 @@ namespace Mindbox.Expressions
 				expression2
 			});
 		}
-#endif
 
 		/// <summary>
 		/// Combines two boolean expressions without parameters via OrElse
@@ -1325,9 +1319,9 @@ namespace Mindbox.Expressions
 			Expression<Func<bool>> expression2)
 		{
 			if (expression1 == null)
-				throw new ArgumentNullException("expression1");
+				throw new ArgumentNullException(nameof(expression1));
 			if (expression2 == null)
-				throw new ArgumentNullException("expression2");
+				throw new ArgumentNullException(nameof(expression2));
 
 			return BooleanExpressions.CombineViaOrElse(new[]
 			{
@@ -1349,9 +1343,9 @@ namespace Mindbox.Expressions
 			Expression<Func<T1, bool>> expression2)
 		{
 			if (expression1 == null)
-				throw new ArgumentNullException("expression1");
+				throw new ArgumentNullException(nameof(expression1));
 			if (expression2 == null)
-				throw new ArgumentNullException("expression2");
+				throw new ArgumentNullException(nameof(expression2));
 
 			return BooleanExpressions.CombineViaOrElse(new[]
 			{
@@ -1373,9 +1367,9 @@ namespace Mindbox.Expressions
 			Expression<Func<T1, T2, bool>> expression2)
 		{
 			if (expression1 == null)
-				throw new ArgumentNullException("expression1");
+				throw new ArgumentNullException(nameof(expression1));
 			if (expression2 == null)
-				throw new ArgumentNullException("expression2");
+				throw new ArgumentNullException(nameof(expression2));
 
 			return BooleanExpressions.CombineViaOrElse(new[]
 			{
@@ -1397,9 +1391,9 @@ namespace Mindbox.Expressions
 			Expression<Func<T1, T2, T3, bool>> expression2)
 		{
 			if (expression1 == null)
-				throw new ArgumentNullException("expression1");
+				throw new ArgumentNullException(nameof(expression1));
 			if (expression2 == null)
-				throw new ArgumentNullException("expression2");
+				throw new ArgumentNullException(nameof(expression2));
 
 			return BooleanExpressions.CombineViaOrElse(new[]
 			{
@@ -1421,9 +1415,9 @@ namespace Mindbox.Expressions
 			Expression<Func<T1, T2, T3, T4, bool>> expression2)
 		{
 			if (expression1 == null)
-				throw new ArgumentNullException("expression1");
+				throw new ArgumentNullException(nameof(expression1));
 			if (expression2 == null)
-				throw new ArgumentNullException("expression2");
+				throw new ArgumentNullException(nameof(expression2));
 
 			return BooleanExpressions.CombineViaOrElse(new[]
 			{
@@ -1432,7 +1426,6 @@ namespace Mindbox.Expressions
 			});
 		}
 
-#if NET40 || SL4 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE36 || PORTABLE328
 		/// <summary>
 		/// Combines two boolean expressions with same parameters via OrElse
 		/// (logical "or" that evaluates the second argument only when the first one is false).
@@ -1446,9 +1439,9 @@ namespace Mindbox.Expressions
 			Expression<Func<T1, T2, T3, T4, T5, bool>> expression2)
 		{
 			if (expression1 == null)
-				throw new ArgumentNullException("expression1");
+				throw new ArgumentNullException(nameof(expression1));
 			if (expression2 == null)
-				throw new ArgumentNullException("expression2");
+				throw new ArgumentNullException(nameof(expression2));
 
 			return BooleanExpressions.CombineViaOrElse(new[]
 			{
@@ -1470,9 +1463,9 @@ namespace Mindbox.Expressions
 			Expression<Func<T1, T2, T3, T4, T5, T6, bool>> expression2)
 		{
 			if (expression1 == null)
-				throw new ArgumentNullException("expression1");
+				throw new ArgumentNullException(nameof(expression1));
 			if (expression2 == null)
-				throw new ArgumentNullException("expression2");
+				throw new ArgumentNullException(nameof(expression2));
 
 			return BooleanExpressions.CombineViaOrElse(new[]
 			{
@@ -1494,9 +1487,9 @@ namespace Mindbox.Expressions
 			Expression<Func<T1, T2, T3, T4, T5, T6, T7, bool>> expression2)
 		{
 			if (expression1 == null)
-				throw new ArgumentNullException("expression1");
+				throw new ArgumentNullException(nameof(expression1));
 			if (expression2 == null)
-				throw new ArgumentNullException("expression2");
+				throw new ArgumentNullException(nameof(expression2));
 
 			return BooleanExpressions.CombineViaOrElse(new[]
 			{
@@ -1519,9 +1512,9 @@ namespace Mindbox.Expressions
 				Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, bool>> expression2)
 		{
 			if (expression1 == null)
-				throw new ArgumentNullException("expression1");
+				throw new ArgumentNullException(nameof(expression1));
 			if (expression2 == null)
-				throw new ArgumentNullException("expression2");
+				throw new ArgumentNullException(nameof(expression2));
 
 			return BooleanExpressions.CombineViaOrElse(new[]
 			{
@@ -1544,9 +1537,9 @@ namespace Mindbox.Expressions
 				Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, bool>> expression2)
 		{
 			if (expression1 == null)
-				throw new ArgumentNullException("expression1");
+				throw new ArgumentNullException(nameof(expression1));
 			if (expression2 == null)
-				throw new ArgumentNullException("expression2");
+				throw new ArgumentNullException(nameof(expression2));
 
 			return BooleanExpressions.CombineViaOrElse(new[]
 			{
@@ -1569,9 +1562,9 @@ namespace Mindbox.Expressions
 				Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, bool>> expression2)
 		{
 			if (expression1 == null)
-				throw new ArgumentNullException("expression1");
+				throw new ArgumentNullException(nameof(expression1));
 			if (expression2 == null)
-				throw new ArgumentNullException("expression2");
+				throw new ArgumentNullException(nameof(expression2));
 
 			return BooleanExpressions.CombineViaOrElse(new[]
 			{
@@ -1594,9 +1587,9 @@ namespace Mindbox.Expressions
 				Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, bool>> expression2)
 		{
 			if (expression1 == null)
-				throw new ArgumentNullException("expression1");
+				throw new ArgumentNullException(nameof(expression1));
 			if (expression2 == null)
-				throw new ArgumentNullException("expression2");
+				throw new ArgumentNullException(nameof(expression2));
 
 			return BooleanExpressions.CombineViaOrElse(new[]
 			{
@@ -1619,9 +1612,9 @@ namespace Mindbox.Expressions
 				Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, bool>> expression2)
 		{
 			if (expression1 == null)
-				throw new ArgumentNullException("expression1");
+				throw new ArgumentNullException(nameof(expression1));
 			if (expression2 == null)
-				throw new ArgumentNullException("expression2");
+				throw new ArgumentNullException(nameof(expression2));
 
 			return BooleanExpressions.CombineViaOrElse(new[]
 			{
@@ -1644,9 +1637,9 @@ namespace Mindbox.Expressions
 				Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, bool>> expression2)
 		{
 			if (expression1 == null)
-				throw new ArgumentNullException("expression1");
+				throw new ArgumentNullException(nameof(expression1));
 			if (expression2 == null)
-				throw new ArgumentNullException("expression2");
+				throw new ArgumentNullException(nameof(expression2));
 
 			return BooleanExpressions.CombineViaOrElse(new[]
 			{
@@ -1669,9 +1662,9 @@ namespace Mindbox.Expressions
 				Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, bool>> expression2)
 		{
 			if (expression1 == null)
-				throw new ArgumentNullException("expression1");
+				throw new ArgumentNullException(nameof(expression1));
 			if (expression2 == null)
-				throw new ArgumentNullException("expression2");
+				throw new ArgumentNullException(nameof(expression2));
 
 			return BooleanExpressions.CombineViaOrElse(new[]
 			{
@@ -1694,9 +1687,9 @@ namespace Mindbox.Expressions
 				Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, bool>> expression2)
 		{
 			if (expression1 == null)
-				throw new ArgumentNullException("expression1");
+				throw new ArgumentNullException(nameof(expression1));
 			if (expression2 == null)
-				throw new ArgumentNullException("expression2");
+				throw new ArgumentNullException(nameof(expression2));
 
 			return BooleanExpressions.CombineViaOrElse(new[]
 			{
@@ -1719,9 +1712,9 @@ namespace Mindbox.Expressions
 				Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, bool>> expression2)
 		{
 			if (expression1 == null)
-				throw new ArgumentNullException("expression1");
+				throw new ArgumentNullException(nameof(expression1));
 			if (expression2 == null)
-				throw new ArgumentNullException("expression2");
+				throw new ArgumentNullException(nameof(expression2));
 
 			return BooleanExpressions.CombineViaOrElse(new[]
 			{
@@ -1729,6 +1722,5 @@ namespace Mindbox.Expressions
 				expression2
 			});
 		}
-#endif
 	}
 }

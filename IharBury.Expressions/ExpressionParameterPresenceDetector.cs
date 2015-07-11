@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 
-namespace Mindbox.Expressions
+namespace IharBury.Expressions
 {
 	internal sealed class ExpressionParameterPresenceDetector : ExpressionVisitor
 	{
@@ -26,7 +24,7 @@ namespace Mindbox.Expressions
 		protected override Expression VisitParameter(ParameterExpression node)
 		{
 			if (node == null)
-				throw new ArgumentNullException("node");
+				throw new ArgumentNullException(nameof(node));
 
 			if (!allowedParameters.Contains(node))
 				doesExpressionHaveParameters = true;
@@ -34,11 +32,10 @@ namespace Mindbox.Expressions
 			return base.VisitParameter(node);
 		}
 
-#if NET40 || SL4 || CORE45 || WP8 || WINDOWS_PHONE_APP || PORTABLE36 || PORTABLE328
 		protected override Expression VisitLambda<T>(Expression<T> node)
 		{
 			if (node == null)
-				throw new ArgumentNullException("node");
+				throw new ArgumentNullException(nameof(node));
 
 			allowedParameters.AddRange(node.Parameters);
 			var result = base.VisitLambda(node);
@@ -46,18 +43,5 @@ namespace Mindbox.Expressions
 				allowedParameters.Remove(parameter);
 			return result;
 		}
-#else
-		protected override Expression VisitLambda(LambdaExpression node)
-		{
-			if (node == null)
-				throw new ArgumentNullException("node");
-
-			allowedParameters.AddRange(node.Parameters);
-			var result = base.VisitLambda(node);
-			foreach (var parameter in node.Parameters)
-				allowedParameters.Remove(parameter);
-			return result;
-		}
-#endif
 	}
 }
