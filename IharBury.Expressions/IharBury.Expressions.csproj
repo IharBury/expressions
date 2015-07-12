@@ -134,6 +134,7 @@
     <Compile Include="ExpressionParameterPresenceDetector.cs" />
     <Compile Include="ExpressionParameterSubstitutor.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="Lambda.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReflectionExpressions.cs" />
   </ItemGroup>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Linq.Expressions;
@@ -1652,6 +1653,20 @@ namespace IharBury.Expressions
                 expression1,
                 expression2
             });
+        }
+
+        /// <summary>
+        /// Returns default value of compile-time type of the element of the given enumerable.
+        /// Usefull for anonymous types.
+        /// </summary>
+        /// <typeparam name="T">Compile-time type of the element of the given enumerable.</typeparam>
+        /// <param name="enumerable"></param>
+        /// <returns>Default value of compile-time type of the element of the given enumerable.</returns>
+        public static T DefaultElement<T>(this IEnumerable<T> enumerable)
+        {
+            Contract.Requires<ArgumentNullException>(enumerable != null);
+
+            return default(T);
         }
     }
 }
