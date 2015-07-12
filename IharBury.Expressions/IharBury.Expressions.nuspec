@@ -10,7 +10,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <projectUrl>https://github.com/IharBury/expressions/wiki</projectUrl>
-    <releaseNotes>Initial fork. Only .NET 4.6 is supported.</releaseNotes>
+    <releaseNotes>Added methods to build expressions and delegates with anonymous types.</releaseNotes>
     <copyright>Copyright 2014 Mindbox, 2015 Ihar Bury</copyright>
     <tags>expressions linq lambda reflection iqueryable entityframework ef nhibernate</tags>
   </metadata>
