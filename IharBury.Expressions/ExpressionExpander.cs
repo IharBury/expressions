@@ -1,216 +1,202 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
 namespace IharBury.Expressions
 {
-	internal sealed class ExpressionExpander : ExpressionVisitor
-	{
-		private static readonly MethodInfo MethodInfoCreateDelegateMethod = 
-			ReflectionExpressions.GetMethodInfo<MethodInfo>(methodInfo => 
-				methodInfo.CreateDelegate(default(Type), default(object)));
+    internal sealed class ExpressionExpander : ExpressionVisitor
+    {
+        private static readonly MethodInfo MethodInfoCreateDelegateMethod =
+            ReflectionExpressions.GetMethodInfo<MethodInfo>(methodInfo =>
+                methodInfo.CreateDelegate(default(Type), default(object)));
 
-		private static readonly MethodInfo DelegateCreateDelegateMethod =
-			ReflectionExpressions.GetMethodInfo(() => 
-				Delegate.CreateDelegate(default(Type), default(object), default(MethodInfo)));
+        private static readonly MethodInfo DelegateCreateDelegateMethod =
+            ReflectionExpressions.GetMethodInfo(() =>
+                Delegate.CreateDelegate(default(Type), default(object), default(MethodInfo)));
 
-		private static readonly string EvaluateMethodName = 
-			ReflectionExpressions.GetMethodName<Expression<Func<object>>>(expression => expression.Evaluate());
+        private ExpressionExpander() { }
 
-		private static readonly string InvokeMethodName =
-			ReflectionExpressions.GetMethodName<Action>(action => action.Invoke());
+        [Pure]
+        public static Expression ExpandExpression(Expression expression)
+        {
+            Contract.Requires<ArgumentNullException>(expression != null);
+            Contract.Ensures(Contract.Result<Expression>() != null);
 
-		private static readonly string CompileMethodName =
-			ReflectionExpressions.GetMethodName<Expression<Func<object>>>(expression => expression.Compile());
+            return new ExpressionExpander().Visit(expression);
+        }
 
+        [Pure]
+        private static LambdaExpression TryGetLambdaExpressionFromExpression(Expression expression)
+        {
+            Contract.Requires<ArgumentNullException>(expression != null);
 
-		public static Expression ExpandExpression(Expression expression)
-		{
-			if (expression == null)
-				throw new ArgumentNullException(nameof(expression));
+            if (expression.NodeType == ExpressionType.Quote)
+                return (LambdaExpression)((UnaryExpression)expression).Operand;
 
-			return new ExpressionExpander().Visit(expression);
-		}
+            if (ExpressionParameterPresenceDetector.DoesExpressionHaveParameters(expression))
+                return null;
 
+            // Testing showed that evaluation via compilation works faster and the result is GCed.
+            return (LambdaExpression)Expression.Lambda(expression).Compile().DynamicInvoke();
+        }
 
-		private static LambdaExpression TryGetLambdaExpressionFromExpression(Expression expression)
-		{
-			if (expression == null)
-				throw new ArgumentNullException(nameof(expression));
+        [Pure]
+        private static bool IsEvaluateMethod(MethodInfo method)
+        {
+            Contract.Requires<ArgumentNullException>(method != null);
 
-			if (expression.NodeType == ExpressionType.Quote)
-				return (LambdaExpression)((UnaryExpression)expression).Operand;
+            return (method.DeclaringType == typeof(Extensions)) && (method.Name == nameof(Extensions.Evaluate));
+        }
 
-			if (ExpressionParameterPresenceDetector.DoesExpressionHaveParameters(expression))
-				return null;
+        [Pure]
+        private static bool IsCompileMethod(MethodInfo method)
+        {
+            Contract.Requires<ArgumentNullException>(method != null);
 
-			// Testing showed that evaluation via compilation works faster and the result is GCed.
-			return (LambdaExpression)Expression.Lambda(expression).Compile().DynamicInvoke();
-		}
+            return (method.DeclaringType != null) &&
+                method.DeclaringType.IsConstructedGenericType &&
+                (method.DeclaringType.GetGenericTypeDefinition() == typeof(Expression<>)) &&
+                (method.Name == nameof(Expression<Func<object>>.Compile));
+        }
 
-		private static bool IsEvaluateMethod(MethodInfo method)
-		{
-			if (method == null)
-				throw new ArgumentNullException(nameof(method));
+        protected override Expression VisitInvocation(InvocationExpression node)
+        {
+            var baseResult = (InvocationExpression)base.VisitInvocation(node);
 
-			return (method.DeclaringType == typeof(Extensions)) && (method.Name == EvaluateMethodName);
-		}
+            if (baseResult.Expression.NodeType == ExpressionType.Call)
+            {
+                var methodCallExpression = (MethodCallExpression)baseResult.Expression;
 
-		private static bool IsCompileMethod(MethodInfo method)
-		{
-			if (method == null)
-				throw new ArgumentNullException(nameof(method));
+                if (IsCompileMethod(methodCallExpression.Method))
+                {
+                    Expression result;
+                    if (TrySubstituteExpression(methodCallExpression.Object, baseResult.Arguments, out result))
+                        return result;
+                }
+            }
 
-			return (method.DeclaringType != null) &&
-				method.DeclaringType.IsConstructedGenericType &&
-				(method.DeclaringType.GetGenericTypeDefinition() == typeof(Expression<>)) &&
-				(method.Name == CompileMethodName);
-		}
+            return baseResult;
+        }
 
+        protected override Expression VisitMethodCall(MethodCallExpression node)
+        {
+            var baseResult = (MethodCallExpression)base.VisitMethodCall(node);
 
-		private ExpressionExpander() { }
+            if (IsEvaluateMethod(baseResult.Method))
+            {
+                if (baseResult.Arguments[0] == null)
+                    throw new InvalidOperationException("Expression being evaluated should not be null.");
 
+                Expression result;
+                if (TrySubstituteExpression(baseResult.Arguments[0], baseResult.Arguments.Skip(1).ToList(), out result))
+                    return result;
+            }
 
-		protected override Expression VisitInvocation(InvocationExpression node)
-		{
-			if (node == null)
-				throw new ArgumentNullException(nameof(node));
+            if ((baseResult.Method.DeclaringType != null) &&
+                (baseResult.Method.DeclaringType.BaseType == typeof(MulticastDelegate)) &&
+                (baseResult.Method.Name == nameof(Action.Invoke)) &&
+                (baseResult.Object != null) &&
+                (baseResult.Object.NodeType == ExpressionType.Call))
+            {
+                var methodCallExpression = (MethodCallExpression)baseResult.Object;
 
-			var baseResult = (InvocationExpression)base.VisitInvocation(node);
+                if (IsCompileMethod(methodCallExpression.Method))
+                {
+                    Expression result;
+                    if (TrySubstituteExpression(methodCallExpression.Object, baseResult.Arguments, out result))
+                        return result;
+                }
+            }
 
-			if (baseResult.Expression.NodeType == ExpressionType.Call)
-			{
-				var methodCallExpression = (MethodCallExpression)baseResult.Expression;
+            if ((baseResult.Method == MethodInfoCreateDelegateMethod) && (baseResult.Object.NodeType == ExpressionType.Constant))
+            {
+                var constantExpression = (ConstantExpression)baseResult.Object;
+                if (IsEvaluateMethod((MethodInfo)constantExpression.Value))
+                {
+                    if (baseResult.Arguments[1] == null)
+                        throw new InvalidOperationException("Expression being evaluated should not be null.");
 
-				if (IsCompileMethod(methodCallExpression.Method))
-				{
-					Expression result;
-					if (TrySubstituteExpression(methodCallExpression.Object, baseResult.Arguments, out result))
-						return result;
-				}
-			}
+                    var innerExpression = TryGetLambdaExpressionFromExpression(baseResult.Arguments[1]);
+                    if (innerExpression != null)
+                        return Visit(ExpressionParameterSubstitutor.SubstituteParameters(
+                            innerExpression,
+                            new Dictionary<ParameterExpression, Expression>()));
+                }
+            }
 
-			return baseResult;
-		}
+            if ((baseResult.Method == DelegateCreateDelegateMethod) &&
+                (baseResult.Arguments[2].NodeType == ExpressionType.Constant))
+            {
+                var constantExpression = (ConstantExpression)baseResult.Arguments[2];
+                if (IsEvaluateMethod((MethodInfo)constantExpression.Value))
+                {
+                    if (baseResult.Arguments[1] == null)
+                        throw new InvalidOperationException("Expression being evaluated should not be null.");
 
-		protected override Expression VisitMethodCall(MethodCallExpression node)
-		{
-			if (node == null)
-				throw new ArgumentNullException(nameof(node));
+                    var innerExpression = TryGetLambdaExpressionFromExpression(baseResult.Arguments[1]);
+                    if (innerExpression != null)
+                        return Visit(ExpressionParameterSubstitutor.SubstituteParameters(
+                            innerExpression,
+                            new Dictionary<ParameterExpression, Expression>()));
+                }
+            }
 
-			var baseResult = (MethodCallExpression)base.VisitMethodCall(node);
+            return baseResult;
+        }
 
-			if (IsEvaluateMethod(baseResult.Method))
-			{
-				Expression result;
-				if (TrySubstituteExpression(baseResult.Arguments[0], baseResult.Arguments.Skip(1).ToList(), out result))
-					return result;
-			}
+        protected override Expression VisitUnary(UnaryExpression node)
+        {
+            var baseResult = base.VisitUnary(node);
+            if (baseResult.NodeType == ExpressionType.Convert)
+            {
+                var baseResultUnary = (UnaryExpression)baseResult;
+                if ((baseResultUnary.Type == baseResultUnary.Operand.Type) &&
+                        (baseResultUnary.Method == null) &&
+                        !baseResultUnary.IsLifted &&
+                        !baseResultUnary.IsLiftedToNull)
+                    return baseResultUnary.Operand;
+            }
 
-			if ((baseResult.Method.DeclaringType != null) &&
-				(baseResult.Method.DeclaringType.BaseType == typeof(MulticastDelegate)) &&
-				(baseResult.Method.Name == InvokeMethodName) &&
-				(baseResult.Object != null) &&
-				(baseResult.Object.NodeType == ExpressionType.Call))
-			{
-				var methodCallExpression = (MethodCallExpression)baseResult.Object;
+            return baseResult;
+        }
 
-				if (IsCompileMethod(methodCallExpression.Method))
-				{
-					Expression result;
-					if (TrySubstituteExpression(methodCallExpression.Object, baseResult.Arguments, out result))
-						return result;
-				}
-			}
+        private bool TrySubstituteExpression(
+            Expression expressionExpression,
+            IReadOnlyList<Expression> arguments,
+            out Expression result)
+        {
+            Contract.Requires<ArgumentNullException>(expressionExpression != null);
+            Contract.Requires<ArgumentNullException>(arguments != null);
+            Contract.Requires((TryGetLambdaExpressionFromExpression(expressionExpression) == null) ||
+                (TryGetLambdaExpressionFromExpression(expressionExpression).Parameters.Count == arguments.Count));
+            Contract.Ensures(!Contract.Result<bool>() || (Contract.ValueAtReturn(out result) != null));
 
-			if ((baseResult.Method == MethodInfoCreateDelegateMethod) && (baseResult.Object.NodeType == ExpressionType.Constant))
-			{
-				var constantExpression = (ConstantExpression)baseResult.Object;
-				if (IsEvaluateMethod((MethodInfo)constantExpression.Value))
-				{
-					var innerExpression = TryGetLambdaExpressionFromExpression(baseResult.Arguments[1]);
-					if (innerExpression != null)
-						return Visit(ExpressionParameterSubstitutor.SubstituteParameters(
-							innerExpression,
-							new Dictionary<ParameterExpression, Expression>()));
-				}
-			}
+            var lambdaExpression = TryGetLambdaExpressionFromExpression(expressionExpression);
+            if (lambdaExpression != null)
+            {
+                var visitedLambdaExpression = (LambdaExpression)Visit(lambdaExpression);
 
-			if ((baseResult.Method == DelegateCreateDelegateMethod) && 
-				(baseResult.Arguments[2].NodeType == ExpressionType.Constant))
-			{
-				var constantExpression = (ConstantExpression)baseResult.Arguments[2];
-				if (IsEvaluateMethod((MethodInfo)constantExpression.Value))
-				{
-					var innerExpression = TryGetLambdaExpressionFromExpression(baseResult.Arguments[1]);
-					if (innerExpression != null)
-						return Visit(ExpressionParameterSubstitutor.SubstituteParameters(
-							innerExpression,
-							new Dictionary<ParameterExpression, Expression>()));
-				}
-			}
+                var parameterSubstitutions = new Dictionary<ParameterExpression, Expression>();
+                for (var parameterIndex = 0;
+                    parameterIndex < visitedLambdaExpression.Parameters.Count;
+                    parameterIndex++)
+                {
+                    var originalParameter = visitedLambdaExpression.Parameters[parameterIndex];
+                    var replacedParameter = arguments[parameterIndex];
+                    parameterSubstitutions.Add(originalParameter, replacedParameter);
+                }
 
-			return baseResult;
-		}
+                result = Visit(ExpressionParameterSubstitutor.SubstituteParameters(
+                    visitedLambdaExpression.Body,
+                    parameterSubstitutions));
+                return true;
+            }
 
-		protected override Expression VisitUnary(UnaryExpression node)
-		{
-			if (node == null)
-				throw new ArgumentNullException(nameof(node));
-
-			var baseResult = base.VisitUnary(node);
-			if (baseResult.NodeType == ExpressionType.Convert)
-			{
-				var baseResultUnary = (UnaryExpression)baseResult;
-				if ((baseResultUnary.Type == baseResultUnary.Operand.Type) &&
-						(baseResultUnary.Method == null) &&
-						!baseResultUnary.IsLifted &&
-						!baseResultUnary.IsLiftedToNull)
-					return baseResultUnary.Operand;
-			}
-
-			return baseResult;
-		}
-
-
-		private bool TrySubstituteExpression(
-			Expression expressionExpression, 
-			IReadOnlyList<Expression> arguments,
-			out Expression result)
-		{
-			if (expressionExpression == null)
-				throw new ArgumentNullException("expressionExpression");
-			if (arguments == null)
-				throw new ArgumentNullException("arguments");
-
-			var lambdaExpression = TryGetLambdaExpressionFromExpression(expressionExpression);
-			if (lambdaExpression != null)
-			{
-				if (lambdaExpression.Parameters.Count != arguments.Count)
-					throw new ArgumentException("Argument count doesn't match parameter count.");
-
-				var visitedLambdaExpression = (LambdaExpression)Visit(lambdaExpression);
-
-				var parameterSubstitutions = new Dictionary<ParameterExpression, Expression>();
-				for (var parameterIndex = 0;
-					parameterIndex < visitedLambdaExpression.Parameters.Count;
-					parameterIndex++)
-				{
-					var originalParameter = visitedLambdaExpression.Parameters[parameterIndex];
-					var replacedParameter = arguments[parameterIndex];
-					parameterSubstitutions.Add(originalParameter, replacedParameter);
-				}
-
-				result = Visit(ExpressionParameterSubstitutor.SubstituteParameters(
-					visitedLambdaExpression.Body,
-					parameterSubstitutions));
-				return true;
-			}
-
-			result = default(Expression);
-			return false;
-		}
-	}
+            result = default(Expression);
+            return false;
+        }
+    }
 }
