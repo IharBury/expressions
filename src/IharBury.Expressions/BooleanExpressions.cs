@@ -607,7 +607,7 @@ namespace IharBury.Expressions
 
             LambdaExpression firstExpression = null;
             Expression resultBody = null;
-            IReadOnlyList<ParameterExpression> resultParameters = null;
+            IList<ParameterExpression> resultParameters = null;
             foreach (var expression in expressions)
             {
                 if (expression == null)

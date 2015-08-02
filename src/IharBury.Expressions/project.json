@@ -17,6 +17,7 @@
         "System.Linq.Expressions": "4.0.10-*"
       }
     },
-    "net45": { }
+    "net45": { },
+    "net40": { }
   }
 }

@@ -475,7 +475,7 @@ namespace IharBury.Expressions.Tests
                     var methodCallExpression = (MethodCallExpression)node.Expression;
                     Assert.False(
                         (methodCallExpression.Method.DeclaringType != null) &&
-                            methodCallExpression.Method.DeclaringType.IsConstructedGenericType &&
+                            methodCallExpression.Method.DeclaringType.GetIsConstructedGenericType() &&
                             (methodCallExpression.Method.DeclaringType.GetGenericTypeDefinition() == typeof(Expression<>)) &&
                             (methodCallExpression.Method.Name == CompileMethodName),
                         $"The expression body has evaluation: \"{node}\".");
@@ -506,7 +506,7 @@ namespace IharBury.Expressions.Tests
                     $"The expression body has evaluation: \"{node}\".");
                 Assert.False(
                     (method.DeclaringType != null) &&
-                        (method.DeclaringType.GetTypeInfo().BaseType == typeof(MulticastDelegate)) &&
+                        (method.DeclaringType.GetBaseType() == typeof(MulticastDelegate)) &&
                         (method.Name == ReflectionExpressions.GetMethodName<Action>(action => action.Invoke())),
                     $"The expression body has invokation: \"{node}\".");
             }

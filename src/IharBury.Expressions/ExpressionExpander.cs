@@ -8,14 +8,18 @@ namespace IharBury.Expressions
 {
     internal sealed class ExpressionExpander : ExpressionVisitor
     {
-        private static readonly MethodInfo MethodInfoCreateDelegateMethod =
-            ReflectionExpressions.GetMethodInfo<MethodInfo>(methodInfo =>
-                methodInfo.CreateDelegate(default(Type), default(object)));
-
+        private static readonly MethodInfo MethodInfoCreateDelegateMethod;
         private static readonly MethodInfo DelegateCreateDelegateMethod;
 
         static ExpressionExpander()
         {
+            MethodInfoCreateDelegateMethod = typeof(MethodInfo).GetMethod(
+                "CreateDelegate",
+                new[]
+                {
+                    typeof(Type),
+                    typeof(object)
+                });
             DelegateCreateDelegateMethod = typeof(Delegate).GetMethod(
                 "CreateDelegate",
                 new[]
@@ -65,7 +69,7 @@ namespace IharBury.Expressions
                 throw new ArgumentNullException(nameof(method));
 
             return (method.DeclaringType != null) &&
-                method.DeclaringType.IsConstructedGenericType &&
+                method.DeclaringType.GetIsConstructedGenericType() &&
                 (method.DeclaringType.GetGenericTypeDefinition() == typeof(Expression<>)) &&
                 (method.Name == nameof(Expression<Func<object>>.Compile));
         }
@@ -104,7 +108,7 @@ namespace IharBury.Expressions
             }
 
             if ((baseResult.Method.DeclaringType != null) &&
-                (baseResult.Method.DeclaringType.GetTypeInfo().BaseType == typeof(MulticastDelegate)) &&
+                (baseResult.Method.DeclaringType.GetBaseType() == typeof(MulticastDelegate)) &&
                 (baseResult.Method.Name == nameof(Action.Invoke)) &&
                 (baseResult.Object != null) &&
                 (baseResult.Object.NodeType == ExpressionType.Call))
@@ -173,7 +177,7 @@ namespace IharBury.Expressions
 
         private bool TrySubstituteExpression(
             Expression expressionExpression,
-            IReadOnlyList<Expression> arguments,
+            IList<Expression> arguments,
             out Expression result)
         {
             if (expressionExpression == null)
