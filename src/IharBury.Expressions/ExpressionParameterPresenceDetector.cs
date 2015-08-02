@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq.Expressions;
 
 namespace IharBury.Expressions
@@ -11,7 +10,6 @@ namespace IharBury.Expressions
 
         private ExpressionParameterPresenceDetector() { }
 
-        [Pure]
         public static bool DoesExpressionHaveParameters(Expression expression)
         {
             var detector = new ExpressionParameterPresenceDetector();
@@ -34,12 +32,6 @@ namespace IharBury.Expressions
             foreach (var parameter in node.Parameters)
                 allowedParameters.Remove(parameter);
             return result;
-        }
-
-        [ContractInvariantMethod]
-        private void Invariants()
-        {
-            Contract.Invariant(allowedParameters != null);
         }
     }
 }

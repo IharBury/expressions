@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -13,25 +12,34 @@ namespace IharBury.Expressions
             ReflectionExpressions.GetMethodInfo<MethodInfo>(methodInfo =>
                 methodInfo.CreateDelegate(default(Type), default(object)));
 
-        private static readonly MethodInfo DelegateCreateDelegateMethod =
-            ReflectionExpressions.GetMethodInfo(() =>
-                Delegate.CreateDelegate(default(Type), default(object), default(MethodInfo)));
+        private static readonly MethodInfo DelegateCreateDelegateMethod;
+
+        static ExpressionExpander()
+        {
+            DelegateCreateDelegateMethod = typeof(Delegate).GetMethod(
+                "CreateDelegate",
+                new[]
+                {
+                    typeof(Type),
+                    typeof(object),
+                    typeof(MethodInfo)
+                });
+        }
 
         private ExpressionExpander() { }
 
-        [Pure]
         public static Expression ExpandExpression(Expression expression)
         {
-            Contract.Requires<ArgumentNullException>(expression != null);
-            Contract.Ensures(Contract.Result<Expression>() != null);
+            if (expression == null)
+                throw new ArgumentNullException(nameof(expression));
 
             return new ExpressionExpander().Visit(expression);
         }
 
-        [Pure]
         private static LambdaExpression TryGetLambdaExpressionFromExpression(Expression expression)
         {
-            Contract.Requires<ArgumentNullException>(expression != null);
+            if (expression == null)
+                throw new ArgumentNullException(nameof(expression));
 
             if (expression.NodeType == ExpressionType.Quote)
                 return (LambdaExpression)((UnaryExpression)expression).Operand;
@@ -43,18 +51,18 @@ namespace IharBury.Expressions
             return (LambdaExpression)Expression.Lambda(expression).Compile().DynamicInvoke();
         }
 
-        [Pure]
         private static bool IsEvaluateMethod(MethodInfo method)
         {
-            Contract.Requires<ArgumentNullException>(method != null);
+            if (method == null)
+                throw new ArgumentNullException(nameof(method));
 
             return (method.DeclaringType == typeof(Extensions)) && (method.Name == nameof(Extensions.Evaluate));
         }
 
-        [Pure]
         private static bool IsCompileMethod(MethodInfo method)
         {
-            Contract.Requires<ArgumentNullException>(method != null);
+            if (method == null)
+                throw new ArgumentNullException(nameof(method));
 
             return (method.DeclaringType != null) &&
                 method.DeclaringType.IsConstructedGenericType &&
@@ -96,7 +104,7 @@ namespace IharBury.Expressions
             }
 
             if ((baseResult.Method.DeclaringType != null) &&
-                (baseResult.Method.DeclaringType.BaseType == typeof(MulticastDelegate)) &&
+                (baseResult.Method.DeclaringType.GetTypeInfo().BaseType == typeof(MulticastDelegate)) &&
                 (baseResult.Method.Name == nameof(Action.Invoke)) &&
                 (baseResult.Object != null) &&
                 (baseResult.Object.NodeType == ExpressionType.Call))
@@ -168,15 +176,17 @@ namespace IharBury.Expressions
             IReadOnlyList<Expression> arguments,
             out Expression result)
         {
-            Contract.Requires<ArgumentNullException>(expressionExpression != null);
-            Contract.Requires<ArgumentNullException>(arguments != null);
-            Contract.Requires((TryGetLambdaExpressionFromExpression(expressionExpression) == null) ||
-                (TryGetLambdaExpressionFromExpression(expressionExpression).Parameters.Count == arguments.Count));
-            Contract.Ensures(!Contract.Result<bool>() || (Contract.ValueAtReturn(out result) != null));
+            if (expressionExpression == null)
+                throw new ArgumentNullException(nameof(expressionExpression));
+            if (arguments == null)
+                throw new ArgumentNullException(nameof(arguments));
 
             var lambdaExpression = TryGetLambdaExpressionFromExpression(expressionExpression);
             if (lambdaExpression != null)
             {
+                if (lambdaExpression.Parameters.Count != arguments.Count)
+                    throw new InvalidOperationException("Parameter count mismatch.");
+
                 var visitedLambdaExpression = (LambdaExpression)Visit(lambdaExpression);
 
                 var parameterSubstitutions = new Dictionary<ParameterExpression, Expression>();

@@ -1,38 +1,41 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.22823.1
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IharBury.Expressions", "IharBury.Expressions\IharBury.Expressions.csproj", "{9A046CDD-35A4-42E2-BB85-E0F1A7DF6E44}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{17E67771-410B-4CCB-ABF7-30E89B868247}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IharBury.Expressions.Tests", "IharBury.Expressions.Tests\IharBury.Expressions.Tests.csproj", "{2D614958-3315-407B-8326-5802374FDCB3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CC2F5DE4-0070-486A-B269-DEE912BDA490}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "IharBury.Expressions", "src\IharBury.Expressions\IharBury.Expressions.xproj", "{8A77AEDF-DF6A-4DB9-8499-DF0B89250E67}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "IharBury.Expressions.Tests", "test\IharBury.Expressions.Tests\IharBury.Expressions.Tests.xproj", "{43627114-3681-41BD-99EC-DCA4CBB68602}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{2E635B3B-8AF5-475D-8E28-5BEE24E6663D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
-		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
-		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9A046CDD-35A4-42E2-BB85-E0F1A7DF6E44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9A046CDD-35A4-42E2-BB85-E0F1A7DF6E44}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9A046CDD-35A4-42E2-BB85-E0F1A7DF6E44}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{9A046CDD-35A4-42E2-BB85-E0F1A7DF6E44}.Debug|x86.Build.0 = Debug|Any CPU
-		{9A046CDD-35A4-42E2-BB85-E0F1A7DF6E44}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9A046CDD-35A4-42E2-BB85-E0F1A7DF6E44}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9A046CDD-35A4-42E2-BB85-E0F1A7DF6E44}.Release|x86.ActiveCfg = Release|Any CPU
-		{9A046CDD-35A4-42E2-BB85-E0F1A7DF6E44}.Release|x86.Build.0 = Release|Any CPU
-		{2D614958-3315-407B-8326-5802374FDCB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2D614958-3315-407B-8326-5802374FDCB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2D614958-3315-407B-8326-5802374FDCB3}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{2D614958-3315-407B-8326-5802374FDCB3}.Debug|x86.Build.0 = Debug|Any CPU
-		{2D614958-3315-407B-8326-5802374FDCB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2D614958-3315-407B-8326-5802374FDCB3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2D614958-3315-407B-8326-5802374FDCB3}.Release|x86.ActiveCfg = Release|Any CPU
-		{2D614958-3315-407B-8326-5802374FDCB3}.Release|x86.Build.0 = Release|Any CPU
+		{8A77AEDF-DF6A-4DB9-8499-DF0B89250E67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A77AEDF-DF6A-4DB9-8499-DF0B89250E67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A77AEDF-DF6A-4DB9-8499-DF0B89250E67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A77AEDF-DF6A-4DB9-8499-DF0B89250E67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43627114-3681-41BD-99EC-DCA4CBB68602}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43627114-3681-41BD-99EC-DCA4CBB68602}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43627114-3681-41BD-99EC-DCA4CBB68602}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43627114-3681-41BD-99EC-DCA4CBB68602}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8A77AEDF-DF6A-4DB9-8499-DF0B89250E67} = {17E67771-410B-4CCB-ABF7-30E89B868247}
+		{43627114-3681-41BD-99EC-DCA4CBB68602} = {2E635B3B-8AF5-475D-8E28-5BEE24E6663D}
 	EndGlobalSection
 EndGlobal

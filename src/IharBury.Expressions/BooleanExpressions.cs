@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -9,7 +8,6 @@ namespace IharBury.Expressions
     /// <summary>
     /// Combines boolean expressions.
     /// </summary>
-    [Pure]
     public static class BooleanExpressions
     {
         /// <summary>
@@ -21,10 +19,8 @@ namespace IharBury.Expressions
         /// <returns>Combined expression.</returns>
         public static Expression<Func<bool>> CombineViaAndAlso(IEnumerable<Expression<Func<bool>>> expressions)
         {
-            Contract.Requires<ArgumentNullException>(expressions != null);
-            Contract.Requires(Contract.Exists(expressions, expression => true));
-            Contract.Requires(Contract.ForAll(expressions, expression => expression != null));
-            Contract.Ensures(Contract.Result<Expression<Func<bool>>>() != null);
+            if (expressions == null)
+                throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<bool>>)Combine(expressions, Expression.AndAlso);
         }
@@ -39,10 +35,8 @@ namespace IharBury.Expressions
         public static Expression<Func<T1, bool>> CombineViaAndAlso<T1>(
             IEnumerable<Expression<Func<T1, bool>>> expressions)
         {
-            Contract.Requires<ArgumentNullException>(expressions != null);
-            Contract.Requires(Contract.Exists(expressions, expression => true));
-            Contract.Requires(Contract.ForAll(expressions, expression => expression != null));
-            Contract.Ensures(Contract.Result<Expression<Func<T1, bool>>>() != null);
+            if (expressions == null)
+                throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, bool>>)Combine(expressions, Expression.AndAlso);
         }
@@ -57,10 +51,8 @@ namespace IharBury.Expressions
         public static Expression<Func<T1, T2, bool>> CombineViaAndAlso<T1, T2>(
             IEnumerable<Expression<Func<T1, T2, bool>>> expressions)
         {
-            Contract.Requires<ArgumentNullException>(expressions != null);
-            Contract.Requires(Contract.Exists(expressions, expression => true));
-            Contract.Requires(Contract.ForAll(expressions, expression => expression != null));
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, bool>>>() != null);
+            if (expressions == null)
+                throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, T2, bool>>)Combine(expressions, Expression.AndAlso);
         }
@@ -75,10 +67,8 @@ namespace IharBury.Expressions
         public static Expression<Func<T1, T2, T3, bool>> CombineViaAndAlso<T1, T2, T3>(
             IEnumerable<Expression<Func<T1, T2, T3, bool>>> expressions)
         {
-            Contract.Requires<ArgumentNullException>(expressions != null);
-            Contract.Requires(Contract.Exists(expressions, expression => true));
-            Contract.Requires(Contract.ForAll(expressions, expression => expression != null));
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, T3, bool>>>() != null);
+            if (expressions == null)
+                throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, T2, T3, bool>>)Combine(expressions, Expression.AndAlso);
         }
@@ -93,10 +83,8 @@ namespace IharBury.Expressions
         public static Expression<Func<T1, T2, T3, T4, bool>> CombineViaAndAlso<T1, T2, T3, T4>(
             IEnumerable<Expression<Func<T1, T2, T3, T4, bool>>> expressions)
         {
-            Contract.Requires<ArgumentNullException>(expressions != null);
-            Contract.Requires(Contract.Exists(expressions, expression => true));
-            Contract.Requires(Contract.ForAll(expressions, expression => expression != null));
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, T3, T4, bool>>>() != null);
+            if (expressions == null)
+                throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, T2, T3, T4, bool>>)Combine(expressions, Expression.AndAlso);
         }
@@ -111,10 +99,8 @@ namespace IharBury.Expressions
         public static Expression<Func<T1, T2, T3, T4, T5, bool>> CombineViaAndAlso<T1, T2, T3, T4, T5>(
             IEnumerable<Expression<Func<T1, T2, T3, T4, T5, bool>>> expressions)
         {
-            Contract.Requires<ArgumentNullException>(expressions != null);
-            Contract.Requires(Contract.Exists(expressions, expression => true));
-            Contract.Requires(Contract.ForAll(expressions, expression => expression != null));
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, T3, T4, T5, bool>>>() != null);
+            if (expressions == null)
+                throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, T2, T3, T4, T5, bool>>)Combine(expressions, Expression.AndAlso);
         }
@@ -129,10 +115,8 @@ namespace IharBury.Expressions
         public static Expression<Func<T1, T2, T3, T4, T5, T6, bool>> CombineViaAndAlso<T1, T2, T3, T4, T5, T6>(
             IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, bool>>> expressions)
         {
-            Contract.Requires<ArgumentNullException>(expressions != null);
-            Contract.Requires(Contract.Exists(expressions, expression => true));
-            Contract.Requires(Contract.ForAll(expressions, expression => expression != null));
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, T3, T4, T5, T6, bool>>>() != null);
+            if (expressions == null)
+                throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, T2, T3, T4, T5, T6, bool>>)Combine(expressions, Expression.AndAlso);
         }
@@ -147,10 +131,8 @@ namespace IharBury.Expressions
         public static Expression<Func<T1, T2, T3, T4, T5, T6, T7, bool>> CombineViaAndAlso<T1, T2, T3, T4, T5, T6, T7>(
             IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, T7, bool>>> expressions)
         {
-            Contract.Requires<ArgumentNullException>(expressions != null);
-            Contract.Requires(Contract.Exists(expressions, expression => true));
-            Contract.Requires(Contract.ForAll(expressions, expression => expression != null));
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, T3, T4, T5, T6, T7, bool>>>() != null);
+            if (expressions == null)
+                throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, bool>>)Combine(expressions, Expression.AndAlso);
         }
@@ -166,10 +148,8 @@ namespace IharBury.Expressions
             CombineViaAndAlso<T1, T2, T3, T4, T5, T6, T7, T8>(
                 IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, bool>>> expressions)
         {
-            Contract.Requires<ArgumentNullException>(expressions != null);
-            Contract.Requires(Contract.Exists(expressions, expression => true));
-            Contract.Requires(Contract.ForAll(expressions, expression => expression != null));
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, bool>>>() != null);
+            if (expressions == null)
+                throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, bool>>)Combine(expressions, Expression.AndAlso);
         }
@@ -185,10 +165,8 @@ namespace IharBury.Expressions
             CombineViaAndAlso<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
                 IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, bool>>> expressions)
         {
-            Contract.Requires<ArgumentNullException>(expressions != null);
-            Contract.Requires(Contract.Exists(expressions, expression => true));
-            Contract.Requires(Contract.ForAll(expressions, expression => expression != null));
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, bool>>>() != null);
+            if (expressions == null)
+                throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, bool>>)Combine(expressions, Expression.AndAlso);
         }
@@ -204,10 +182,8 @@ namespace IharBury.Expressions
             CombineViaAndAlso<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
                 IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, bool>>> expressions)
         {
-            Contract.Requires<ArgumentNullException>(expressions != null);
-            Contract.Requires(Contract.Exists(expressions, expression => true));
-            Contract.Requires(Contract.ForAll(expressions, expression => expression != null));
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, bool>>>() != null);
+            if (expressions == null)
+                throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, bool>>)Combine(expressions, Expression.AndAlso);
         }
@@ -223,10 +199,8 @@ namespace IharBury.Expressions
             CombineViaAndAlso<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
                 IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, bool>>> expressions)
         {
-            Contract.Requires<ArgumentNullException>(expressions != null);
-            Contract.Requires(Contract.Exists(expressions, expression => true));
-            Contract.Requires(Contract.ForAll(expressions, expression => expression != null));
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, bool>>>() != null);
+            if (expressions == null)
+                throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, bool>>)Combine(
                 expressions, 
@@ -244,11 +218,8 @@ namespace IharBury.Expressions
             CombineViaAndAlso<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
                 IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, bool>>> expressions)
         {
-            Contract.Requires<ArgumentNullException>(expressions != null);
-            Contract.Requires(Contract.Exists(expressions, expression => true));
-            Contract.Requires(Contract.ForAll(expressions, expression => expression != null));
-            Contract.Ensures(
-                Contract.Result<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, bool>>>() != null);
+            if (expressions == null)
+                throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, bool>>)Combine(
                 expressions, 
@@ -266,11 +237,8 @@ namespace IharBury.Expressions
             CombineViaAndAlso<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
                 IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, bool>>> expressions)
         {
-            Contract.Requires<ArgumentNullException>(expressions != null);
-            Contract.Requires(Contract.Exists(expressions, expression => true));
-            Contract.Requires(Contract.ForAll(expressions, expression => expression != null));
-            Contract.Ensures(
-                Contract.Result<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, bool>>>() != null);
+            if (expressions == null)
+                throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, bool>>)Combine(
                 expressions, 
@@ -288,11 +256,8 @@ namespace IharBury.Expressions
             CombineViaAndAlso<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
                 IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, bool>>> expressions)
         {
-            Contract.Requires<ArgumentNullException>(expressions != null);
-            Contract.Requires(Contract.Exists(expressions, expression => true));
-            Contract.Requires(Contract.ForAll(expressions, expression => expression != null));
-            Contract.Ensures(
-                Contract.Result<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, bool>>>() != null);
+            if (expressions == null)
+                throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, bool>>)Combine(
                 expressions, 
@@ -311,12 +276,8 @@ namespace IharBury.Expressions
                 IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, bool>>>
                     expressions)
         {
-            Contract.Requires<ArgumentNullException>(expressions != null);
-            Contract.Requires(Contract.Exists(expressions, expression => true));
-            Contract.Requires(Contract.ForAll(expressions, expression => expression != null));
-            Contract.Ensures(
-                Contract.Result<
-                    Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, bool>>>() != null);
+            if (expressions == null)
+                throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, bool>>)Combine(
                 expressions, 
@@ -335,12 +296,8 @@ namespace IharBury.Expressions
                 IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, bool>>>
                     expressions)
         {
-            Contract.Requires<ArgumentNullException>(expressions != null);
-            Contract.Requires(Contract.Exists(expressions, expression => true));
-            Contract.Requires(Contract.ForAll(expressions, expression => expression != null));
-            Contract.Ensures(
-                Contract.Result<
-                    Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, bool>>>() != null);
+            if (expressions == null)
+                throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, bool>>)Combine(
                 expressions, 
@@ -356,10 +313,8 @@ namespace IharBury.Expressions
         /// <returns>Combined expression.</returns>
         public static Expression<Func<bool>> CombineViaOrElse(IEnumerable<Expression<Func<bool>>> expressions)
         {
-            Contract.Requires<ArgumentNullException>(expressions != null);
-            Contract.Requires(Contract.Exists(expressions, expression => true));
-            Contract.Requires(Contract.ForAll(expressions, expression => expression != null));
-            Contract.Ensures(Contract.Result<Expression<Func<bool>>>() != null);
+            if (expressions == null)
+                throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<bool>>)Combine(expressions, Expression.OrElse);
         }
@@ -374,10 +329,8 @@ namespace IharBury.Expressions
         public static Expression<Func<T1, bool>> CombineViaOrElse<T1>(
             IEnumerable<Expression<Func<T1, bool>>> expressions)
         {
-            Contract.Requires<ArgumentNullException>(expressions != null);
-            Contract.Requires(Contract.Exists(expressions, expression => true));
-            Contract.Requires(Contract.ForAll(expressions, expression => expression != null));
-            Contract.Ensures(Contract.Result<Expression<Func<T1, bool>>>() != null);
+            if (expressions == null)
+                throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, bool>>)Combine(expressions, Expression.OrElse);
         }
@@ -392,10 +345,8 @@ namespace IharBury.Expressions
         public static Expression<Func<T1, T2, bool>> CombineViaOrElse<T1, T2>(
             IEnumerable<Expression<Func<T1, T2, bool>>> expressions)
         {
-            Contract.Requires<ArgumentNullException>(expressions != null);
-            Contract.Requires(Contract.Exists(expressions, expression => true));
-            Contract.Requires(Contract.ForAll(expressions, expression => expression != null));
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, bool>>>() != null);
+            if (expressions == null)
+                throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, T2, bool>>)Combine(expressions, Expression.OrElse);
         }
@@ -410,10 +361,8 @@ namespace IharBury.Expressions
         public static Expression<Func<T1, T2, T3, bool>> CombineViaOrElse<T1, T2, T3>(
             IEnumerable<Expression<Func<T1, T2, T3, bool>>> expressions)
         {
-            Contract.Requires<ArgumentNullException>(expressions != null);
-            Contract.Requires(Contract.Exists(expressions, expression => true));
-            Contract.Requires(Contract.ForAll(expressions, expression => expression != null));
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, T3, bool>>>() != null);
+            if (expressions == null)
+                throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, T2, T3, bool>>)Combine(expressions, Expression.OrElse);
         }
@@ -428,10 +377,8 @@ namespace IharBury.Expressions
         public static Expression<Func<T1, T2, T3, T4, bool>> CombineViaOrElse<T1, T2, T3, T4>(
             IEnumerable<Expression<Func<T1, T2, T3, T4, bool>>> expressions)
         {
-            Contract.Requires<ArgumentNullException>(expressions != null);
-            Contract.Requires(Contract.Exists(expressions, expression => true));
-            Contract.Requires(Contract.ForAll(expressions, expression => expression != null));
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, T3, T4, bool>>>() != null);
+            if (expressions == null)
+                throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, T2, T3, T4, bool>>)Combine(expressions, Expression.OrElse);
         }
@@ -446,10 +393,8 @@ namespace IharBury.Expressions
         public static Expression<Func<T1, T2, T3, T4, T5, bool>> CombineViaOrElse<T1, T2, T3, T4, T5>(
             IEnumerable<Expression<Func<T1, T2, T3, T4, T5, bool>>> expressions)
         {
-            Contract.Requires<ArgumentNullException>(expressions != null);
-            Contract.Requires(Contract.Exists(expressions, expression => true));
-            Contract.Requires(Contract.ForAll(expressions, expression => expression != null));
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, T3, T4, T5, bool>>>() != null);
+            if (expressions == null)
+                throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, T2, T3, T4, T5, bool>>)Combine(expressions, Expression.OrElse);
         }
@@ -464,10 +409,8 @@ namespace IharBury.Expressions
         public static Expression<Func<T1, T2, T3, T4, T5, T6, bool>> CombineViaOrElse<T1, T2, T3, T4, T5, T6>(
             IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, bool>>> expressions)
         {
-            Contract.Requires<ArgumentNullException>(expressions != null);
-            Contract.Requires(Contract.Exists(expressions, expression => true));
-            Contract.Requires(Contract.ForAll(expressions, expression => expression != null));
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, T3, T4, T5, T6, bool>>>() != null);
+            if (expressions == null)
+                throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, T2, T3, T4, T5, T6, bool>>)Combine(expressions, Expression.OrElse);
         }
@@ -482,10 +425,8 @@ namespace IharBury.Expressions
         public static Expression<Func<T1, T2, T3, T4, T5, T6, T7, bool>> CombineViaOrElse<T1, T2, T3, T4, T5, T6, T7>(
             IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, T7, bool>>> expressions)
         {
-            Contract.Requires<ArgumentNullException>(expressions != null);
-            Contract.Requires(Contract.Exists(expressions, expression => true));
-            Contract.Requires(Contract.ForAll(expressions, expression => expression != null));
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, T3, T4, T5, T6, T7, bool>>>() != null);
+            if (expressions == null)
+                throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, bool>>)Combine(expressions, Expression.OrElse);
         }
@@ -501,10 +442,8 @@ namespace IharBury.Expressions
             CombineViaOrElse<T1, T2, T3, T4, T5, T6, T7, T8>(
                 IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, bool>>> expressions)
         {
-            Contract.Requires<ArgumentNullException>(expressions != null);
-            Contract.Requires(Contract.Exists(expressions, expression => true));
-            Contract.Requires(Contract.ForAll(expressions, expression => expression != null));
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, bool>>>() != null);
+            if (expressions == null)
+                throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, bool>>)Combine(expressions, Expression.OrElse);
         }
@@ -520,10 +459,8 @@ namespace IharBury.Expressions
             CombineViaOrElse<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
                 IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, bool>>> expressions)
         {
-            Contract.Requires<ArgumentNullException>(expressions != null);
-            Contract.Requires(Contract.Exists(expressions, expression => true));
-            Contract.Requires(Contract.ForAll(expressions, expression => expression != null));
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, bool>>>() != null);
+            if (expressions == null)
+                throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, bool>>)Combine(expressions, Expression.OrElse);
         }
@@ -539,10 +476,8 @@ namespace IharBury.Expressions
             CombineViaOrElse<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
                 IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, bool>>> expressions)
         {
-            Contract.Requires<ArgumentNullException>(expressions != null);
-            Contract.Requires(Contract.Exists(expressions, expression => true));
-            Contract.Requires(Contract.ForAll(expressions, expression => expression != null));
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, bool>>>() != null);
+            if (expressions == null)
+                throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, bool>>)Combine(expressions, Expression.OrElse);
         }
@@ -558,10 +493,8 @@ namespace IharBury.Expressions
             CombineViaOrElse<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
                 IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, bool>>> expressions)
         {
-            Contract.Requires<ArgumentNullException>(expressions != null);
-            Contract.Requires(Contract.Exists(expressions, expression => true));
-            Contract.Requires(Contract.ForAll(expressions, expression => expression != null));
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, bool>>>() != null);
+            if (expressions == null)
+                throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, bool>>)Combine(expressions, Expression.OrElse);
         }
@@ -577,11 +510,8 @@ namespace IharBury.Expressions
             CombineViaOrElse<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
                 IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, bool>>> expressions)
         {
-            Contract.Requires<ArgumentNullException>(expressions != null);
-            Contract.Requires(Contract.Exists(expressions, expression => true));
-            Contract.Requires(Contract.ForAll(expressions, expression => expression != null));
-            Contract.Ensures(
-                Contract.Result<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, bool>>>() != null);
+            if (expressions == null)
+                throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, bool>>)Combine(
                 expressions, 
@@ -599,11 +529,8 @@ namespace IharBury.Expressions
             CombineViaOrElse<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
                 IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, bool>>> expressions)
         {
-            Contract.Requires<ArgumentNullException>(expressions != null);
-            Contract.Requires(Contract.Exists(expressions, expression => true));
-            Contract.Requires(Contract.ForAll(expressions, expression => expression != null));
-            Contract.Ensures(
-                Contract.Result<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, bool>>>() != null);
+            if (expressions == null)
+                throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, bool>>)Combine(
                 expressions, 
@@ -621,11 +548,8 @@ namespace IharBury.Expressions
             CombineViaOrElse<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
                 IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, bool>>> expressions)
         {
-            Contract.Requires<ArgumentNullException>(expressions != null);
-            Contract.Requires(Contract.Exists(expressions, expression => true));
-            Contract.Requires(Contract.ForAll(expressions, expression => expression != null));
-            Contract.Ensures(
-                Contract.Result<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, bool>>>() != null);
+            if (expressions == null)
+                throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, bool>>)Combine(
                 expressions, 
@@ -644,12 +568,8 @@ namespace IharBury.Expressions
                 IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, bool>>>
                     expressions)
         {
-            Contract.Requires<ArgumentNullException>(expressions != null);
-            Contract.Requires(Contract.Exists(expressions, expression => true));
-            Contract.Requires(Contract.ForAll(expressions, expression => expression != null));
-            Contract.Ensures(
-                Contract.Result<
-                    Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, bool>>>() != null);
+            if (expressions == null)
+                throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, bool>>)Combine(
                 expressions, 
@@ -668,12 +588,8 @@ namespace IharBury.Expressions
                 IEnumerable<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, bool>>>
                     expressions)
         {
-            Contract.Requires<ArgumentNullException>(expressions != null);
-            Contract.Requires(Contract.Exists(expressions, expression => true));
-            Contract.Requires(Contract.ForAll(expressions, expression => expression != null));
-            Contract.Ensures(
-                Contract.Result<
-                    Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, bool>>>() != null);
+            if (expressions == null)
+                throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, bool>>)Combine(
                 expressions, 
@@ -684,32 +600,39 @@ namespace IharBury.Expressions
             IEnumerable<LambdaExpression> expressions,
             Func<Expression, Expression, Expression> operation)
         {
-            Contract.Requires<ArgumentNullException>(expressions != null);
-            Contract.Requires<ArgumentNullException>(operation != null);
-            Contract.Requires(Contract.Exists(expressions, expression => true));
-            Contract.Requires(Contract.ForAll(expressions, expression => expression != null));
-            Contract.Requires(Contract.ForAll(
-                expressions, 
-                expression => expression.Parameters.Count == expressions.First().Parameters.Count));
-            Contract.Requires(Contract.ForAll(
-                expressions,
-                expression => Contract.ForAll(
-                    Enumerable.Range(0, expression.Parameters.Count),
-                    parameterIndex => expression.Parameters[parameterIndex].Type == 
-                        expressions.First().Parameters[parameterIndex].Type)));
-            Contract.Ensures(Contract.Result<LambdaExpression>() != null);
+            if (expressions == null)
+                throw new ArgumentNullException(nameof(expressions));
+            if (operation == null)
+                throw new ArgumentNullException(nameof(operation));
 
+            LambdaExpression firstExpression = null;
             Expression resultBody = null;
             IReadOnlyList<ParameterExpression> resultParameters = null;
             foreach (var expression in expressions)
             {
+                if (expression == null)
+                    throw new ArgumentException("Expression list contains null.", nameof(expressions));
+
                 if (resultBody == null)
                 {
+                    firstExpression = expression;
                     resultBody = expression.Body;
                     resultParameters = expression.Parameters;
                 }
                 else
                 {
+                    if (expression.Parameters.Count != firstExpression.Parameters.Count)
+                        throw new ArgumentException(
+                            $"Expressions have different parameter count.\n{firstExpression}\n{expression}", 
+                            nameof(expressions));
+                    for (var parameterIndex = 0; parameterIndex < expression.Parameters.Count; parameterIndex++)
+                        if (expression.Parameters[parameterIndex].Type != firstExpression.Parameters[parameterIndex].Type)
+                            throw new ArgumentException(
+                                $"Expressions have different parameter types.\n{firstExpression}\n{expression}\n" +
+                                    $"Parameter #{parameterIndex + 1}.\n{firstExpression.Parameters[parameterIndex].Type}\n" +
+                                    $"{expression.Parameters[parameterIndex].Type}", 
+                                nameof(expressions));
+
                     var parameterSubstitutions = new Dictionary<ParameterExpression, Expression>(resultParameters.Count);
                     for (var parameterIndex = 0; parameterIndex < resultParameters.Count; parameterIndex++)
                         parameterSubstitutions.Add(expression.Parameters[parameterIndex], resultParameters[parameterIndex]);
@@ -718,6 +641,8 @@ namespace IharBury.Expressions
                         ExpressionParameterSubstitutor.SubstituteParameters(expression.Body, parameterSubstitutions));
                 }
             }
+            if (firstExpression == null)
+                throw new ArgumentException("Expression list is empty.", nameof(expressions));
             return Expression.Lambda(resultBody, resultParameters);
         }
     }

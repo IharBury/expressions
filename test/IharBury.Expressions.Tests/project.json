@@ -1,0 +1,28 @@
+{
+  "version": "1.1.0",
+  "description": "Unit tests for IharBury.Expressions",
+  "authors": [ "Ihar Bury" ],
+  "tags": [ "expressions", "linq", "lambda", "reflection", "iqueryable", "entityframework", "ef", "nhibernate" ],
+  "projectUrl": "https://github.com/IharBury/expressions/wiki",
+  "licenseUrl": "http://opensource.org/licenses/mit-license.php",
+
+  "dependencies": {
+    "System.Collections": "4.0.0-*",
+    "System.Linq": "4.0.0-*",
+    "System.Runtime": "4.0.0-*",
+    "IharBury.Expressions": "1.1.0",
+    "System.Reflection": "4.0.0-*",
+    "xunit": "2.1.0-*"
+  },
+  "commands": {
+    "test": "xunit.runner.dnx"
+  },
+  "frameworks": {
+    "dnxcore50": {
+      "dependencies": {
+        "xunit.runner.dnx": "2.1-*",
+        "System.Linq.Expressions": "4.0.10-*"
+      }
+    }
+  }
+}

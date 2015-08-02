@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq.Expressions;
 
 namespace IharBury.Expressions
@@ -11,28 +10,29 @@ namespace IharBury.Expressions
 
         private ExpressionParameterSubstitutor(IDictionary<ParameterExpression, Expression> parameterSubstitutions)
         {
-            Contract.Requires<ArgumentNullException>(parameterSubstitutions != null);
+            if (parameterSubstitutions == null)
+                throw new ArgumentNullException(nameof(parameterSubstitutions));
 
             this.parameterSubstitutions = new Dictionary<ParameterExpression, Expression>(parameterSubstitutions);
         }
 
-        [Pure]
         public static Expression SubstituteParameters(
             Expression expression,
             IDictionary<ParameterExpression, Expression> parameterSubstitutions)
         {
-            Contract.Requires<ArgumentNullException>(parameterSubstitutions != null);
+            if (parameterSubstitutions == null)
+                throw new ArgumentNullException(nameof(parameterSubstitutions));
 
             return new ExpressionParameterSubstitutor(parameterSubstitutions).Visit(expression);
         }
 
-        [Pure]
         public static Expression SubstituteParameter(
             Expression expression,
             ParameterExpression oldParameter,
             Expression newParameter)
         {
-            Contract.Requires<ArgumentNullException>(oldParameter != null);
+            if (oldParameter == null)
+                throw new ArgumentNullException(nameof(oldParameter));
 
             return SubstituteParameters(
                 expression,
@@ -64,13 +64,8 @@ namespace IharBury.Expressions
                 parameterSubstitutions.Add(oldParameter, newParameter);
             }
 
-            return node.Update(Visit(node.Body), newParameters);
-        }
-
-        [ContractInvariantMethod]
-        private void Invariants()
-        {
-            Contract.Invariant(parameterSubstitutions != null);
+            // There is no matching Update method in .NET Core yet.
+            return Expression.Lambda<T>(Visit(node.Body), node.Name, node.TailCall, newParameters);
         }
     }
 }

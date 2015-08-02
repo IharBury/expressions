@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace IharBury.Expressions.Tests
 {
-    [TestClass]
     public class LambdaExpressionTests
     {
-        [TestMethod]
+        [Fact]
         public void ExpressionWith0ParametersLambda()
         {
             var expression = Lambda.Expression(() => new { ResultProperty = 0 });
-            Assert.AreEqual(typeof(Expression<>), expression.GetType().GetGenericTypeDefinition());
-            expression.Evaluate();
+            Assert.Equal(typeof(Expression<>), expression.GetType().GetGenericTypeDefinition());
+            expression.Compile().Invoke();
         }
 
-        [TestMethod]
+        [Fact]
         public void ExpressionWith1ParameterLambda()
         {
             var argument1Example = new
@@ -26,14 +25,14 @@ namespace IharBury.Expressions.Tests
             var expression = Lambda.Expression(
                 argument1Example,
                 parameter1 => new { ResultProperty = 0 });
-            Assert.AreEqual(typeof(Expression<>), expression.GetType().GetGenericTypeDefinition());
-            expression.Evaluate(argument1Example);
+            Assert.Equal(typeof(Expression<>), expression.GetType().GetGenericTypeDefinition());
+            expression.Compile().Invoke(argument1Example);
         }
 
-        [TestMethod]
+        [Fact]
         public void ExpressionWith1ParameterLambdaWithParameterTypeFromEnumerable()
         {
-            var argument1EnumerableExample = new[] 
+            var argument1EnumerableExample = new[]
             {
                 new
                 {
@@ -43,11 +42,11 @@ namespace IharBury.Expressions.Tests
             var expression = Lambda.Expression(
                 argument1EnumerableExample.DefaultElement(),
                 parameter1 => new { ResultProperty = 0 });
-            Assert.AreEqual(typeof(Expression<>), expression.GetType().GetGenericTypeDefinition());
-            expression.Evaluate(argument1EnumerableExample.First());
+            Assert.Equal(typeof(Expression<>), expression.GetType().GetGenericTypeDefinition());
+            expression.Compile().Invoke(argument1EnumerableExample.First());
         }
 
-        [TestMethod]
+        [Fact]
         public void ExpressionWith2ParametersLambda()
         {
             var argument1Example = new
@@ -62,11 +61,11 @@ namespace IharBury.Expressions.Tests
                 argument1Example,
                 argument2Example,
                 (parameter1, parameter2) => new { ResultProperty = 0 });
-            Assert.AreEqual(typeof(Expression<>), expression.GetType().GetGenericTypeDefinition());
-            expression.Evaluate(argument1Example, argument2Example);
+            Assert.Equal(typeof(Expression<>), expression.GetType().GetGenericTypeDefinition());
+            expression.Compile().Invoke(argument1Example, argument2Example);
         }
 
-        [TestMethod]
+        [Fact]
         public void ExpressionWith3ParametersLambda()
         {
             var argument1Example = new
@@ -86,11 +85,11 @@ namespace IharBury.Expressions.Tests
                 argument2Example,
                 argument3Example,
                 (parameter1, parameter2, parameter3) => new { ResultProperty = 0 });
-            Assert.AreEqual(typeof(Expression<>), expression.GetType().GetGenericTypeDefinition());
-            expression.Evaluate(argument1Example, argument2Example, argument3Example);
+            Assert.Equal(typeof(Expression<>), expression.GetType().GetGenericTypeDefinition());
+            expression.Compile().Invoke(argument1Example, argument2Example, argument3Example);
         }
 
-        [TestMethod]
+        [Fact]
         public void ExpressionWith4ParametersLambda()
         {
             var argument1Example = new
@@ -115,11 +114,11 @@ namespace IharBury.Expressions.Tests
                 argument3Example,
                 argument4Example,
                 (parameter1, parameter2, parameter3, parameter4) => new { ResultProperty = 0 });
-            Assert.AreEqual(typeof(Expression<>), expression.GetType().GetGenericTypeDefinition());
-            expression.Evaluate(argument1Example, argument2Example, argument3Example, argument4Example);
+            Assert.Equal(typeof(Expression<>), expression.GetType().GetGenericTypeDefinition());
+            expression.Compile().Invoke(argument1Example, argument2Example, argument3Example, argument4Example);
         }
 
-        [TestMethod]
+        [Fact]
         public void ExpressionWith5ParametersLambda()
         {
             var argument1Example = new
@@ -149,11 +148,11 @@ namespace IharBury.Expressions.Tests
                 argument4Example,
                 argument5Example,
                 (parameter1, parameter2, parameter3, parameter4, parameter5) => new { ResultProperty = 0 });
-            Assert.AreEqual(typeof(Expression<>), expression.GetType().GetGenericTypeDefinition());
-            expression.Evaluate(argument1Example, argument2Example, argument3Example, argument4Example, argument5Example);
+            Assert.Equal(typeof(Expression<>), expression.GetType().GetGenericTypeDefinition());
+            expression.Compile().Invoke(argument1Example, argument2Example, argument3Example, argument4Example, argument5Example);
         }
 
-        [TestMethod]
+        [Fact]
         public void ExpressionWith6ParametersLambda()
         {
             var argument1Example = new
@@ -188,17 +187,17 @@ namespace IharBury.Expressions.Tests
                 argument5Example,
                 argument6Example,
                 (parameter1, parameter2, parameter3, parameter4, parameter5, parameter6) => new { ResultProperty = 0 });
-            Assert.AreEqual(typeof(Expression<>), expression.GetType().GetGenericTypeDefinition());
-            expression.Evaluate(
-                argument1Example, 
-                argument2Example, 
-                argument3Example, 
-                argument4Example, 
+            Assert.Equal(typeof(Expression<>), expression.GetType().GetGenericTypeDefinition());
+            expression.Compile().Invoke(
+                argument1Example,
+                argument2Example,
+                argument3Example,
+                argument4Example,
                 argument5Example,
                 argument6Example);
         }
 
-        [TestMethod]
+        [Fact]
         public void ExpressionWith7ParametersLambda()
         {
             var argument1Example = new
@@ -237,15 +236,15 @@ namespace IharBury.Expressions.Tests
                 argument5Example,
                 argument6Example,
                 argument7Example,
-                (parameter1, 
-                    parameter2, 
-                    parameter3, 
-                    parameter4, 
-                    parameter5, 
-                    parameter6, 
+                (parameter1,
+                    parameter2,
+                    parameter3,
+                    parameter4,
+                    parameter5,
+                    parameter6,
                     parameter7) => new { ResultProperty = 0 });
-            Assert.AreEqual(typeof(Expression<>), expression.GetType().GetGenericTypeDefinition());
-            expression.Evaluate(
+            Assert.Equal(typeof(Expression<>), expression.GetType().GetGenericTypeDefinition());
+            expression.Compile().Invoke(
                 argument1Example,
                 argument2Example,
                 argument3Example,
@@ -255,7 +254,7 @@ namespace IharBury.Expressions.Tests
                 argument7Example);
         }
 
-        [TestMethod]
+        [Fact]
         public void ExpressionWith8ParametersLambda()
         {
             var argument1Example = new
@@ -307,8 +306,8 @@ namespace IharBury.Expressions.Tests
                     parameter6,
                     parameter7,
                     parameter8) => new { ResultProperty = 0 });
-            Assert.AreEqual(typeof(Expression<>), expression.GetType().GetGenericTypeDefinition());
-            expression.Evaluate(
+            Assert.Equal(typeof(Expression<>), expression.GetType().GetGenericTypeDefinition());
+            expression.Compile().Invoke(
                 argument1Example,
                 argument2Example,
                 argument3Example,
@@ -319,7 +318,7 @@ namespace IharBury.Expressions.Tests
                 argument8Example);
         }
 
-        [TestMethod]
+        [Fact]
         public void ExpressionWith9ParametersLambda()
         {
             var argument1Example = new
@@ -377,8 +376,8 @@ namespace IharBury.Expressions.Tests
                     parameter7,
                     parameter8,
                     parameter9) => new { ResultProperty = 0 });
-            Assert.AreEqual(typeof(Expression<>), expression.GetType().GetGenericTypeDefinition());
-            expression.Evaluate(
+            Assert.Equal(typeof(Expression<>), expression.GetType().GetGenericTypeDefinition());
+            expression.Compile().Invoke(
                 argument1Example,
                 argument2Example,
                 argument3Example,
@@ -390,7 +389,7 @@ namespace IharBury.Expressions.Tests
                 argument9Example);
         }
 
-        [TestMethod]
+        [Fact]
         public void ExpressionWith10ParametersLambda()
         {
             var argument1Example = new
@@ -454,8 +453,8 @@ namespace IharBury.Expressions.Tests
                     parameter8,
                     parameter9,
                     parameter10) => new { ResultProperty = 0 });
-            Assert.AreEqual(typeof(Expression<>), expression.GetType().GetGenericTypeDefinition());
-            expression.Evaluate(
+            Assert.Equal(typeof(Expression<>), expression.GetType().GetGenericTypeDefinition());
+            expression.Compile().Invoke(
                 argument1Example,
                 argument2Example,
                 argument3Example,
@@ -468,7 +467,7 @@ namespace IharBury.Expressions.Tests
                 argument10Example);
         }
 
-        [TestMethod]
+        [Fact]
         public void ExpressionWith11ParametersLambda()
         {
             var argument1Example = new
@@ -538,8 +537,8 @@ namespace IharBury.Expressions.Tests
                     parameter9,
                     parameter10,
                     parameter11) => new { ResultProperty = 0 });
-            Assert.AreEqual(typeof(Expression<>), expression.GetType().GetGenericTypeDefinition());
-            expression.Evaluate(
+            Assert.Equal(typeof(Expression<>), expression.GetType().GetGenericTypeDefinition());
+            expression.Compile().Invoke(
                 argument1Example,
                 argument2Example,
                 argument3Example,
@@ -553,7 +552,7 @@ namespace IharBury.Expressions.Tests
                 argument11Example);
         }
 
-        [TestMethod]
+        [Fact]
         public void ExpressionWith12ParametersLambda()
         {
             var argument1Example = new
@@ -629,8 +628,8 @@ namespace IharBury.Expressions.Tests
                     parameter10,
                     parameter11,
                     parameter12) => new { ResultProperty = 0 });
-            Assert.AreEqual(typeof(Expression<>), expression.GetType().GetGenericTypeDefinition());
-            expression.Evaluate(
+            Assert.Equal(typeof(Expression<>), expression.GetType().GetGenericTypeDefinition());
+            expression.Compile().Invoke(
                 argument1Example,
                 argument2Example,
                 argument3Example,
@@ -645,7 +644,7 @@ namespace IharBury.Expressions.Tests
                 argument12Example);
         }
 
-        [TestMethod]
+        [Fact]
         public void ExpressionWith13ParametersLambda()
         {
             var argument1Example = new
@@ -727,8 +726,8 @@ namespace IharBury.Expressions.Tests
                     parameter11,
                     parameter12,
                     parameter13) => new { ResultProperty = 0 });
-            Assert.AreEqual(typeof(Expression<>), expression.GetType().GetGenericTypeDefinition());
-            expression.Evaluate(
+            Assert.Equal(typeof(Expression<>), expression.GetType().GetGenericTypeDefinition());
+            expression.Compile().Invoke(
                 argument1Example,
                 argument2Example,
                 argument3Example,
@@ -744,7 +743,7 @@ namespace IharBury.Expressions.Tests
                 argument13Example);
         }
 
-        [TestMethod]
+        [Fact]
         public void ExpressionWith14ParametersLambda()
         {
             var argument1Example = new
@@ -832,8 +831,8 @@ namespace IharBury.Expressions.Tests
                     parameter12,
                     parameter13,
                     parameter14) => new { ResultProperty = 0 });
-            Assert.AreEqual(typeof(Expression<>), expression.GetType().GetGenericTypeDefinition());
-            expression.Evaluate(
+            Assert.Equal(typeof(Expression<>), expression.GetType().GetGenericTypeDefinition());
+            expression.Compile().Invoke(
                 argument1Example,
                 argument2Example,
                 argument3Example,
@@ -850,7 +849,7 @@ namespace IharBury.Expressions.Tests
                 argument14Example);
         }
 
-        [TestMethod]
+        [Fact]
         public void ExpressionWith15ParametersLambda()
         {
             var argument1Example = new
@@ -944,8 +943,8 @@ namespace IharBury.Expressions.Tests
                     parameter13,
                     parameter14,
                     parameter15) => new { ResultProperty = 0 });
-            Assert.AreEqual(typeof(Expression<>), expression.GetType().GetGenericTypeDefinition());
-            expression.Evaluate(
+            Assert.Equal(typeof(Expression<>), expression.GetType().GetGenericTypeDefinition());
+            expression.Compile().Invoke(
                 argument1Example,
                 argument2Example,
                 argument3Example,
@@ -963,7 +962,7 @@ namespace IharBury.Expressions.Tests
                 argument15Example);
         }
 
-        [TestMethod]
+        [Fact]
         public void ExpressionWith16ParametersLambda()
         {
             var argument1Example = new
@@ -1063,8 +1062,8 @@ namespace IharBury.Expressions.Tests
                     parameter14,
                     parameter15,
                     parameter16) => new { ResultProperty = 0 });
-            Assert.AreEqual(typeof(Expression<>), expression.GetType().GetGenericTypeDefinition());
-            expression.Evaluate(
+            Assert.Equal(typeof(Expression<>), expression.GetType().GetGenericTypeDefinition());
+            expression.Compile().Invoke(
                 argument1Example,
                 argument2Example,
                 argument3Example,
@@ -1083,15 +1082,15 @@ namespace IharBury.Expressions.Tests
                 argument16Example);
         }
 
-        [TestMethod]
+        [Fact]
         public void FuncWith0ParametersLambda()
         {
             var lambdaDelegate = Lambda.Func(() => new { ResultProperty = 0 });
-            Assert.IsInstanceOfType(lambdaDelegate, typeof(Delegate));
+            Assert.IsAssignableFrom<Delegate>(lambdaDelegate);
             lambdaDelegate();
         }
 
-        [TestMethod]
+        [Fact]
         public void FuncWith1ParameterLambda()
         {
             var argument1Example = new
@@ -1101,11 +1100,11 @@ namespace IharBury.Expressions.Tests
             var lambdaDelegate = Lambda.Func(
                 argument1Example,
                 parameter1 => new { ResultProperty = 0 });
-            Assert.IsInstanceOfType(lambdaDelegate, typeof(Delegate));
+            Assert.IsAssignableFrom<Delegate>(lambdaDelegate);
             lambdaDelegate(argument1Example);
         }
 
-        [TestMethod]
+        [Fact]
         public void FuncWith2ParametersLambda()
         {
             var argument1Example = new
@@ -1120,11 +1119,11 @@ namespace IharBury.Expressions.Tests
                 argument1Example,
                 argument2Example,
                 (parameter1, parameter2) => new { ResultProperty = 0 });
-            Assert.IsInstanceOfType(lambdaDelegate, typeof(Delegate));
+            Assert.IsAssignableFrom<Delegate>(lambdaDelegate);
             lambdaDelegate(argument1Example, argument2Example);
         }
 
-        [TestMethod]
+        [Fact]
         public void FuncWith3ParametersLambda()
         {
             var argument1Example = new
@@ -1144,11 +1143,11 @@ namespace IharBury.Expressions.Tests
                 argument2Example,
                 argument3Example,
                 (parameter1, parameter2, parameter3) => new { ResultProperty = 0 });
-            Assert.IsInstanceOfType(lambdaDelegate, typeof(Delegate));
+            Assert.IsAssignableFrom<Delegate>(lambdaDelegate);
             lambdaDelegate(argument1Example, argument2Example, argument3Example);
         }
 
-        [TestMethod]
+        [Fact]
         public void FuncWith4ParametersLambda()
         {
             var argument1Example = new
@@ -1173,11 +1172,11 @@ namespace IharBury.Expressions.Tests
                 argument3Example,
                 argument4Example,
                 (parameter1, parameter2, parameter3, parameter4) => new { ResultProperty = 0 });
-            Assert.IsInstanceOfType(lambdaDelegate, typeof(Delegate));
+            Assert.IsAssignableFrom<Delegate>(lambdaDelegate);
             lambdaDelegate(argument1Example, argument2Example, argument3Example, argument4Example);
         }
 
-        [TestMethod]
+        [Fact]
         public void FuncWith5ParametersLambda()
         {
             var argument1Example = new
@@ -1207,11 +1206,11 @@ namespace IharBury.Expressions.Tests
                 argument4Example,
                 argument5Example,
                 (parameter1, parameter2, parameter3, parameter4, parameter5) => new { ResultProperty = 0 });
-            Assert.IsInstanceOfType(lambdaDelegate, typeof(Delegate));
+            Assert.IsAssignableFrom<Delegate>(lambdaDelegate);
             lambdaDelegate(argument1Example, argument2Example, argument3Example, argument4Example, argument5Example);
         }
 
-        [TestMethod]
+        [Fact]
         public void FuncWith6ParametersLambda()
         {
             var argument1Example = new
@@ -1246,17 +1245,17 @@ namespace IharBury.Expressions.Tests
                 argument5Example,
                 argument6Example,
                 (parameter1, parameter2, parameter3, parameter4, parameter5, parameter6) => new { ResultProperty = 0 });
-            Assert.IsInstanceOfType(lambdaDelegate, typeof(Delegate));
+            Assert.IsAssignableFrom<Delegate>(lambdaDelegate);
             lambdaDelegate(
-                argument1Example, 
-                argument2Example, 
-                argument3Example, 
-                argument4Example, 
-                argument5Example, 
+                argument1Example,
+                argument2Example,
+                argument3Example,
+                argument4Example,
+                argument5Example,
                 argument6Example);
         }
 
-        [TestMethod]
+        [Fact]
         public void FuncWith7ParametersLambda()
         {
             var argument1Example = new
@@ -1295,14 +1294,14 @@ namespace IharBury.Expressions.Tests
                 argument5Example,
                 argument6Example,
                 argument7Example,
-                (parameter1, 
-                    parameter2, 
-                    parameter3, 
-                    parameter4, 
-                    parameter5, 
-                    parameter6, 
+                (parameter1,
+                    parameter2,
+                    parameter3,
+                    parameter4,
+                    parameter5,
+                    parameter6,
                     parameter7) => new { ResultProperty = 0 });
-            Assert.IsInstanceOfType(lambdaDelegate, typeof(Delegate));
+            Assert.IsAssignableFrom<Delegate>(lambdaDelegate);
             lambdaDelegate(
                 argument1Example,
                 argument2Example,
@@ -1313,7 +1312,7 @@ namespace IharBury.Expressions.Tests
                 argument7Example);
         }
 
-        [TestMethod]
+        [Fact]
         public void FuncWith8ParametersLambda()
         {
             var argument1Example = new
@@ -1365,7 +1364,7 @@ namespace IharBury.Expressions.Tests
                     parameter6,
                     parameter7,
                     parameter8) => new { ResultProperty = 0 });
-            Assert.IsInstanceOfType(lambdaDelegate, typeof(Delegate));
+            Assert.IsAssignableFrom<Delegate>(lambdaDelegate);
             lambdaDelegate(
                 argument1Example,
                 argument2Example,
@@ -1377,7 +1376,7 @@ namespace IharBury.Expressions.Tests
                 argument8Example);
         }
 
-        [TestMethod]
+        [Fact]
         public void FuncWith9ParametersLambda()
         {
             var argument1Example = new
@@ -1435,7 +1434,7 @@ namespace IharBury.Expressions.Tests
                     parameter7,
                     parameter8,
                     parameter9) => new { ResultProperty = 0 });
-            Assert.IsInstanceOfType(lambdaDelegate, typeof(Delegate));
+            Assert.IsAssignableFrom<Delegate>(lambdaDelegate);
             lambdaDelegate(
                 argument1Example,
                 argument2Example,
@@ -1448,7 +1447,7 @@ namespace IharBury.Expressions.Tests
                 argument9Example);
         }
 
-        [TestMethod]
+        [Fact]
         public void FuncWith10ParametersLambda()
         {
             var argument1Example = new
@@ -1512,7 +1511,7 @@ namespace IharBury.Expressions.Tests
                     parameter8,
                     parameter9,
                     parameter10) => new { ResultProperty = 0 });
-            Assert.IsInstanceOfType(lambdaDelegate, typeof(Delegate));
+            Assert.IsAssignableFrom<Delegate>(lambdaDelegate);
             lambdaDelegate(
                 argument1Example,
                 argument2Example,
@@ -1526,7 +1525,7 @@ namespace IharBury.Expressions.Tests
                 argument10Example);
         }
 
-        [TestMethod]
+        [Fact]
         public void FuncWith11ParametersLambda()
         {
             var argument1Example = new
@@ -1596,7 +1595,7 @@ namespace IharBury.Expressions.Tests
                     parameter9,
                     parameter10,
                     parameter11) => new { ResultProperty = 0 });
-            Assert.IsInstanceOfType(lambdaDelegate, typeof(Delegate));
+            Assert.IsAssignableFrom<Delegate>(lambdaDelegate);
             lambdaDelegate(
                 argument1Example,
                 argument2Example,
@@ -1611,7 +1610,7 @@ namespace IharBury.Expressions.Tests
                 argument11Example);
         }
 
-        [TestMethod]
+        [Fact]
         public void FuncWith12ParametersLambda()
         {
             var argument1Example = new
@@ -1687,7 +1686,7 @@ namespace IharBury.Expressions.Tests
                     parameter10,
                     parameter11,
                     parameter12) => new { ResultProperty = 0 });
-            Assert.IsInstanceOfType(lambdaDelegate, typeof(Delegate));
+            Assert.IsAssignableFrom<Delegate>(lambdaDelegate);
             lambdaDelegate(
                 argument1Example,
                 argument2Example,
@@ -1703,7 +1702,7 @@ namespace IharBury.Expressions.Tests
                 argument12Example);
         }
 
-        [TestMethod]
+        [Fact]
         public void FuncWith13ParametersLambda()
         {
             var argument1Example = new
@@ -1785,7 +1784,7 @@ namespace IharBury.Expressions.Tests
                     parameter11,
                     parameter12,
                     parameter13) => new { ResultProperty = 0 });
-            Assert.IsInstanceOfType(lambdaDelegate, typeof(Delegate));
+            Assert.IsAssignableFrom<Delegate>(lambdaDelegate);
             lambdaDelegate(
                 argument1Example,
                 argument2Example,
@@ -1802,7 +1801,7 @@ namespace IharBury.Expressions.Tests
                 argument13Example);
         }
 
-        [TestMethod]
+        [Fact]
         public void FuncWith14ParametersLambda()
         {
             var argument1Example = new
@@ -1890,7 +1889,7 @@ namespace IharBury.Expressions.Tests
                     parameter12,
                     parameter13,
                     parameter14) => new { ResultProperty = 0 });
-            Assert.IsInstanceOfType(lambdaDelegate, typeof(Delegate));
+            Assert.IsAssignableFrom<Delegate>(lambdaDelegate);
             lambdaDelegate(
                 argument1Example,
                 argument2Example,
@@ -1908,7 +1907,7 @@ namespace IharBury.Expressions.Tests
                 argument14Example);
         }
 
-        [TestMethod]
+        [Fact]
         public void FuncWith15ParametersLambda()
         {
             var argument1Example = new
@@ -2002,7 +2001,7 @@ namespace IharBury.Expressions.Tests
                     parameter13,
                     parameter14,
                     parameter15) => new { ResultProperty = 0 });
-            Assert.IsInstanceOfType(lambdaDelegate, typeof(Delegate));
+            Assert.IsAssignableFrom<Delegate>(lambdaDelegate);
             lambdaDelegate(
                 argument1Example,
                 argument2Example,
@@ -2021,7 +2020,7 @@ namespace IharBury.Expressions.Tests
                 argument15Example);
         }
 
-        [TestMethod]
+        [Fact]
         public void FuncWith16ParametersLambda()
         {
             var argument1Example = new
@@ -2121,7 +2120,7 @@ namespace IharBury.Expressions.Tests
                     parameter14,
                     parameter15,
                     parameter16) => new { ResultProperty = 0 });
-            Assert.IsInstanceOfType(lambdaDelegate, typeof(Delegate));
+            Assert.IsAssignableFrom<Delegate>(lambdaDelegate);
             lambdaDelegate(
                 argument1Example,
                 argument2Example,

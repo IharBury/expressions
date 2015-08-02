@@ -1,0 +1,24 @@
+{
+  "version": "1.1.0",
+  "description": "Allows to include lambda expressions into each other in c# and Visual Basic. Also allows to avoid using string constants in reflection thus enabling easy refactoring.",
+  "authors": [ "Ihar Bury" ],
+  "tags": [ "expressions", "linq", "lambda", "reflection", "iqueryable", "entityframework", "ef", "nhibernate" ],
+  "projectUrl": "https://github.com/IharBury/expressions/wiki",
+  "licenseUrl": "http://opensource.org/licenses/mit-license.php",
+
+  "dependencies": {
+    "System.Collections": "4.0.0-*",
+    "System.Linq": "4.0.0-*",
+    "System.Runtime": "4.0.0-*",
+    "System.Reflection": "4.0.0-*",
+    "System.Reflection.TypeExtensions": "4.0.0-*",
+    "System.Linq.Expressions": "4.0.0-*"
+  },
+
+  "frameworks": {
+    "dotnet": {
+      "System.Linq.Expressions": "4.0.10-*"
+    },
+    "net45": { }
+  }
+}

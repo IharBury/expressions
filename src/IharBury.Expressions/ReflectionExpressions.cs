@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -9,7 +8,6 @@ namespace IharBury.Expressions
     /// <summary>
     /// Allows acquiring MemberInfo objects and member names in a refactoring friendly way via expressions.
     /// </summary>
-    [Pure]
     public static class ReflectionExpressions
     {
         private const string GetterSpecialNamePrefix = "get_";
@@ -90,9 +88,8 @@ namespace IharBury.Expressions
         /// <param name="callExpression">Method call expression. Can contain any valid argument values.</param>
         public static MethodInfo GetMethodInfo<TObject>(Expression<Func<TObject, object>> callExpression)
         {
-            Contract.Requires<ArgumentNullException>(callExpression != null);
-            Contract.Requires(TryGetMethodInfo(callExpression) != null);
-            Contract.Ensures(Contract.Result<MethodInfo>() != null);
+            if (callExpression == null)
+                throw new ArgumentNullException(nameof(callExpression));
 
             return GetMethodInfo((LambdaExpression)callExpression);
         }
@@ -105,9 +102,8 @@ namespace IharBury.Expressions
         /// <param name="callExpression">Method call expression. Can contain any valid argument values.</param>
         public static MethodInfo GetMethodInfo<TObject>(Expression<Action<TObject>> callExpression)
         {
-            Contract.Requires<ArgumentNullException>(callExpression != null);
-            Contract.Requires(TryGetMethodInfo(callExpression) != null);
-            Contract.Ensures(Contract.Result<MethodInfo>() != null);
+            if (callExpression == null)
+                throw new ArgumentNullException(nameof(callExpression));
 
             return GetMethodInfo((LambdaExpression)callExpression);
         }
@@ -119,9 +115,8 @@ namespace IharBury.Expressions
         /// <param name="callExpression">Method call expression. Can contain any valid argument values.</param>
         public static MethodInfo GetMethodInfo(Expression<Func<object>> callExpression)
         {
-            Contract.Requires<ArgumentNullException>(callExpression != null);
-            Contract.Requires(TryGetMethodInfo(callExpression) != null);
-            Contract.Ensures(Contract.Result<MethodInfo>() != null);
+            if (callExpression == null)
+                throw new ArgumentNullException(nameof(callExpression));
 
             return GetMethodInfo((LambdaExpression)callExpression);
         }
@@ -133,9 +128,8 @@ namespace IharBury.Expressions
         /// <param name="callExpression">Method call expression. Can contain any valid argument values.</param>
         public static MethodInfo GetMethodInfo(Expression<Action> callExpression)
         {
-            Contract.Requires<ArgumentNullException>(callExpression != null);
-            Contract.Requires(TryGetMethodInfo(callExpression) != null);
-            Contract.Ensures(Contract.Result<MethodInfo>() != null);
+            if (callExpression == null)
+                throw new ArgumentNullException(nameof(callExpression));
 
             return GetMethodInfo((LambdaExpression)callExpression);
         }
@@ -147,12 +141,12 @@ namespace IharBury.Expressions
         /// <param name="callExpression">Method call expression. Can contain any valid argument values.</param>
         public static MethodInfo GetMethodInfo(LambdaExpression callExpression)
         {
-            Contract.Requires<ArgumentNullException>(callExpression != null);
-            Contract.Requires(TryGetMethodInfo(callExpression) != null);
-            Contract.Ensures(Contract.Result<MethodInfo>() != null);
+            if (callExpression == null)
+                throw new ArgumentNullException(nameof(callExpression));
 
             var methodInfo = TryGetMethodInfo(callExpression);
-            Contract.Assert(methodInfo != null);
+            if (methodInfo == null)
+                throw new ArgumentException("Not a method call expression.", nameof(callExpression));
             return methodInfo;
         }
 
@@ -221,9 +215,8 @@ namespace IharBury.Expressions
         /// <param name="callExpression">Method call expression. Can contain any valid argument values.</param>
         public static string GetMethodName<TObject>(Expression<Func<TObject, object>> callExpression)
         {
-            Contract.Requires<ArgumentNullException>(callExpression != null);
-            Contract.Requires(TryGetMethodInfo(callExpression) != null);
-            Contract.Ensures(Contract.Result<string>() != null);
+            if (callExpression == null)
+                throw new ArgumentNullException(nameof(callExpression));
 
             return GetMethodName((LambdaExpression)callExpression);
         }
@@ -236,9 +229,8 @@ namespace IharBury.Expressions
         /// <param name="callExpression">Method call expression. Can contain any valid argument values.</param>
         public static string GetMethodName<TObject>(Expression<Action<TObject>> callExpression)
         {
-            Contract.Requires<ArgumentNullException>(callExpression != null);
-            Contract.Requires(TryGetMethodInfo(callExpression) != null);
-            Contract.Ensures(Contract.Result<string>() != null);
+            if (callExpression == null)
+                throw new ArgumentNullException(nameof(callExpression));
 
             return GetMethodName((LambdaExpression)callExpression);
         }
@@ -250,9 +242,8 @@ namespace IharBury.Expressions
         /// <param name="callExpression">Method call expression. Can contain any valid argument values.</param>
         public static string GetMethodName(Expression<Func<object>> callExpression)
         {
-            Contract.Requires<ArgumentNullException>(callExpression != null);
-            Contract.Requires(TryGetMethodInfo(callExpression) != null);
-            Contract.Ensures(Contract.Result<string>() != null);
+            if (callExpression == null)
+                throw new ArgumentNullException(nameof(callExpression));
 
             return GetMethodName((LambdaExpression)callExpression);
         }
@@ -264,9 +255,8 @@ namespace IharBury.Expressions
         /// <param name="callExpression">Method call expression. Can contain any valid argument values.</param>
         public static string GetMethodName(Expression<Action> callExpression)
         {
-            Contract.Requires<ArgumentNullException>(callExpression != null);
-            Contract.Requires(TryGetMethodInfo(callExpression) != null);
-            Contract.Ensures(Contract.Result<string>() != null);
+            if (callExpression == null)
+                throw new ArgumentNullException(nameof(callExpression));
 
             return GetMethodName((LambdaExpression)callExpression);
         }
@@ -278,9 +268,8 @@ namespace IharBury.Expressions
         /// <param name="callExpression">Method call expression. Can contain any valid argument values.</param>
         public static string GetMethodName(LambdaExpression callExpression)
         {
-            Contract.Requires<ArgumentNullException>(callExpression != null);
-            Contract.Requires(TryGetMethodInfo(callExpression) != null);
-            Contract.Ensures(Contract.Result<string>() != null);
+            if (callExpression == null)
+                throw new ArgumentNullException(nameof(callExpression));
 
             return GetMethodInfo(callExpression).Name;
         }
@@ -354,9 +343,8 @@ namespace IharBury.Expressions
         /// Can contain any valid argument values for indexed properties.</param>
         public static PropertyInfo GetPropertyInfo<TObject>(Expression<Func<TObject, object>> propertyExpression)
         {
-            Contract.Requires<ArgumentNullException>(propertyExpression != null);
-            Contract.Requires(TryGetPropertyInfo(propertyExpression) != null);
-            Contract.Ensures(Contract.Result<PropertyInfo>() != null);
+            if (propertyExpression == null)
+                throw new ArgumentNullException(nameof(propertyExpression));
 
             return GetPropertyInfo((LambdaExpression)propertyExpression);
         }
@@ -369,9 +357,8 @@ namespace IharBury.Expressions
         /// Can contain any valid argument values for indexed properties.</param>
         public static PropertyInfo GetPropertyInfo(Expression<Func<object>> propertyExpression)
         {
-            Contract.Requires<ArgumentNullException>(propertyExpression != null);
-            Contract.Requires(TryGetPropertyInfo(propertyExpression) != null);
-            Contract.Ensures(Contract.Result<PropertyInfo>() != null);
+            if (propertyExpression == null)
+                throw new ArgumentNullException(nameof(propertyExpression));
 
             return GetPropertyInfo((LambdaExpression)propertyExpression);
         }
@@ -384,12 +371,14 @@ namespace IharBury.Expressions
         /// Can contain any valid argument values for indexed properties.</param>
         public static PropertyInfo GetPropertyInfo(LambdaExpression propertyExpression)
         {
-            Contract.Requires<ArgumentNullException>(propertyExpression != null);
-            Contract.Requires(TryGetPropertyInfo(propertyExpression) != null);
-            Contract.Ensures(Contract.Result<PropertyInfo>() != null);
+            if (propertyExpression == null)
+                throw new ArgumentNullException(nameof(propertyExpression));
 
             var propertyInfo = TryGetPropertyInfo(propertyExpression);
-            Contract.Assert(propertyInfo != null);
+            if (propertyInfo == null)
+                throw new ArgumentException(
+                    "Neither a property access nor a property getter call expression.",
+                    nameof(propertyExpression));
             return propertyInfo;
         }
 
@@ -439,9 +428,8 @@ namespace IharBury.Expressions
         /// Can contain any valid argument values for indexed properties.</param>
         public static string GetPropertyName<TObject>(Expression<Func<TObject, object>> propertyExpression)
         {
-            Contract.Requires<ArgumentNullException>(propertyExpression != null);
-            Contract.Requires(TryGetPropertyInfo(propertyExpression) != null);
-            Contract.Ensures(Contract.Result<string>() != null);
+            if (propertyExpression == null)
+                throw new ArgumentNullException(nameof(propertyExpression));
 
             return GetPropertyName((LambdaExpression)propertyExpression);
         }
@@ -454,9 +442,8 @@ namespace IharBury.Expressions
         /// Can contain any valid argument values for indexed properties.</param>
         public static string GetPropertyName(Expression<Func<object>> propertyExpression)
         {
-            Contract.Requires<ArgumentNullException>(propertyExpression != null);
-            Contract.Requires(TryGetPropertyInfo(propertyExpression) != null);
-            Contract.Ensures(Contract.Result<string>() != null);
+            if (propertyExpression == null)
+                throw new ArgumentNullException(nameof(propertyExpression));
 
             return GetPropertyName((LambdaExpression)propertyExpression);
         }
@@ -469,9 +456,8 @@ namespace IharBury.Expressions
         /// Can contain any valid argument values for indexed properties.</param>
         public static string GetPropertyName(LambdaExpression propertyExpression)
         {
-            Contract.Requires<ArgumentNullException>(propertyExpression != null);
-            Contract.Requires(TryGetPropertyInfo(propertyExpression) != null);
-            Contract.Ensures(Contract.Result<string>() != null);
+            if (propertyExpression == null)
+                throw new ArgumentNullException(nameof(propertyExpression));
 
             return GetPropertyInfo(propertyExpression).Name;
         }
@@ -529,9 +515,8 @@ namespace IharBury.Expressions
         /// <param name="fieldExpression">Field access expression.</param>
         public static FieldInfo GetFieldInfo<TObject>(Expression<Func<TObject, object>> fieldExpression)
         {
-            Contract.Requires<ArgumentNullException>(fieldExpression != null);
-            Contract.Requires(TryGetFieldInfo(fieldExpression) != null);
-            Contract.Ensures(Contract.Result<FieldInfo>() != null);
+            if (fieldExpression == null)
+                throw new ArgumentNullException(nameof(fieldExpression));
 
             return GetFieldInfo((LambdaExpression)fieldExpression);
         }
@@ -543,9 +528,8 @@ namespace IharBury.Expressions
         /// <param name="fieldExpression">Field access expression.</param>
         public static FieldInfo GetFieldInfo(Expression<Func<object>> fieldExpression)
         {
-            Contract.Requires<ArgumentNullException>(fieldExpression != null);
-            Contract.Requires(TryGetFieldInfo(fieldExpression) != null);
-            Contract.Ensures(Contract.Result<FieldInfo>() != null);
+            if (fieldExpression == null)
+                throw new ArgumentNullException(nameof(fieldExpression));
 
             return GetFieldInfo((LambdaExpression)fieldExpression);
         }
@@ -557,12 +541,12 @@ namespace IharBury.Expressions
         /// <param name="fieldExpression">Field access expression.</param>
         public static FieldInfo GetFieldInfo(LambdaExpression fieldExpression)
         {
-            Contract.Requires<ArgumentNullException>(fieldExpression != null);
-            Contract.Requires(TryGetFieldInfo(fieldExpression) != null);
-            Contract.Ensures(Contract.Result<FieldInfo>() != null);
+            if (fieldExpression == null)
+                throw new ArgumentNullException(nameof(fieldExpression));
 
             var fieldInfo = TryGetFieldInfo(fieldExpression);
-            Contract.Assert(fieldInfo != null);
+            if (fieldInfo == null)
+                throw new ArgumentException("Not a field access expression.", nameof(fieldExpression));
             return fieldInfo;
         }
 
@@ -608,9 +592,8 @@ namespace IharBury.Expressions
         /// <param name="fieldExpression">Field access expression.</param>
         public static string GetFieldName<TObject>(Expression<Func<TObject, object>> fieldExpression)
         {
-            Contract.Requires<ArgumentNullException>(fieldExpression != null);
-            Contract.Requires(TryGetFieldInfo(fieldExpression) != null);
-            Contract.Ensures(Contract.Result<string>() != null);
+            if (fieldExpression == null)
+                throw new ArgumentNullException(nameof(fieldExpression));
 
             return GetFieldName((LambdaExpression)fieldExpression);
         }
@@ -622,9 +605,8 @@ namespace IharBury.Expressions
         /// <param name="fieldExpression">Field access expression.</param>
         public static string GetFieldName(Expression<Func<object>> fieldExpression)
         {
-            Contract.Requires<ArgumentNullException>(fieldExpression != null);
-            Contract.Requires(TryGetFieldInfo(fieldExpression) != null);
-            Contract.Ensures(Contract.Result<string>() != null);
+            if (fieldExpression == null)
+                throw new ArgumentNullException(nameof(fieldExpression));
 
             return GetFieldName((LambdaExpression)fieldExpression);
         }
@@ -636,16 +618,16 @@ namespace IharBury.Expressions
         /// <param name="fieldExpression">Field access expression.</param>
         public static string GetFieldName(LambdaExpression fieldExpression)
         {
-            Contract.Requires<ArgumentNullException>(fieldExpression != null);
-            Contract.Requires(TryGetFieldInfo(fieldExpression) != null);
-            Contract.Ensures(Contract.Result<string>() != null);
+            if (fieldExpression == null)
+                throw new ArgumentNullException(nameof(fieldExpression));
 
             return GetFieldInfo(fieldExpression).Name;
         }
 
         private static Expression RemoveConverts(Expression expression)
         {
-            Contract.Requires<ArgumentNullException>(expression != null);
+            if (expression == null)
+                throw new ArgumentNullException(nameof(expression));
 
             var effectiveExpression = expression;
             while (true)

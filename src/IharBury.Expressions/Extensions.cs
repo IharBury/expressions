@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -9,7 +8,6 @@ namespace IharBury.Expressions
     /// <summary>
     /// Contains extension methods.
     /// </summary>
-    [Pure]
     public static class Extensions
     {
         /// <summary>
@@ -22,8 +20,8 @@ namespace IharBury.Expressions
         /// <returns>Expression with replaced nested expression evaluations.</returns>
         public static Expression ExpandExpressions(this Expression expression)
         {
-            Contract.Requires<ArgumentNullException>(expression != null);
-            Contract.Ensures(Contract.Result<Expression>() != null);
+            if (expression == null)
+                throw new ArgumentNullException(nameof(expression));
 
             return ExpressionExpander.ExpandExpression(expression);
         }
@@ -38,8 +36,8 @@ namespace IharBury.Expressions
         /// <returns>Expression with replaced nested expression evaluations.</returns>
         public static Expression<TDelegate> ExpandExpressions<TDelegate>(this Expression<TDelegate> expression)
         {
-            Contract.Requires<ArgumentNullException>(expression != null);
-            Contract.Ensures(Contract.Result<Expression<TDelegate>>() != null);
+            if (expression == null)
+                throw new ArgumentNullException(nameof(expression));
 
             return (Expression<TDelegate>)ExpandExpressions((Expression)expression);
         }
@@ -55,8 +53,8 @@ namespace IharBury.Expressions
         /// <returns>Query rebuilt using expressions with replaced nested expression evaluations.</returns>
         public static IQueryable<T> ExpandExpressions<T>(this IQueryable<T> query)
         {
-            Contract.Requires<ArgumentNullException>(query != null);
-            Contract.Ensures(Contract.Result<IQueryable<T>>() != null);
+            if (query == null)
+                throw new ArgumentNullException(nameof(query));
 
             return (IQueryable<T>)query.Provider.CreateQuery(query.Expression.ExpandExpressions());
         }
@@ -71,7 +69,8 @@ namespace IharBury.Expressions
         /// <returns>Expression result.</returns>
         public static TResult Evaluate<TResult>(this Expression<Func<TResult>> expression)
         {
-            Contract.Requires<ArgumentNullException>(expression != null);
+            if (expression == null)
+                throw new ArgumentNullException(nameof(expression));
 
             return expression.Compile().Invoke();
         }
@@ -90,7 +89,8 @@ namespace IharBury.Expressions
             this Expression<Func<T1, TResult>> expression,
             T1 argument1)
         {
-            Contract.Requires<ArgumentNullException>(expression != null);
+            if (expression == null)
+                throw new ArgumentNullException(nameof(expression));
 
             return expression.Compile().Invoke(argument1);
         }
@@ -112,7 +112,8 @@ namespace IharBury.Expressions
             T1 argument1,
             T2 argument2)
         {
-            Contract.Requires<ArgumentNullException>(expression != null);
+            if (expression == null)
+                throw new ArgumentNullException(nameof(expression));
 
             return expression.Compile().Invoke(
                 argument1,
@@ -139,7 +140,8 @@ namespace IharBury.Expressions
             T2 argument2,
             T3 argument3)
         {
-            Contract.Requires<ArgumentNullException>(expression != null);
+            if (expression == null)
+                throw new ArgumentNullException(nameof(expression));
 
             return expression.Compile().Invoke(
                 argument1,
@@ -170,7 +172,8 @@ namespace IharBury.Expressions
             T3 argument3,
             T4 argument4)
         {
-            Contract.Requires<ArgumentNullException>(expression != null);
+            if (expression == null)
+                throw new ArgumentNullException(nameof(expression));
 
             return expression.Compile().Invoke(
                 argument1,
@@ -205,7 +208,8 @@ namespace IharBury.Expressions
             T4 argument4,
             T5 argument5)
         {
-            Contract.Requires<ArgumentNullException>(expression != null);
+            if (expression == null)
+                throw new ArgumentNullException(nameof(expression));
 
             return expression.Compile().Invoke(
                 argument1,
@@ -244,7 +248,8 @@ namespace IharBury.Expressions
             T5 argument5,
             T6 argument6)
         {
-            Contract.Requires<ArgumentNullException>(expression != null);
+            if (expression == null)
+                throw new ArgumentNullException(nameof(expression));
 
             return expression.Compile().Invoke(
                 argument1,
@@ -287,7 +292,8 @@ namespace IharBury.Expressions
             T6 argument6,
             T7 argument7)
         {
-            Contract.Requires<ArgumentNullException>(expression != null);
+            if (expression == null)
+                throw new ArgumentNullException(nameof(expression));
 
             return expression.Compile().Invoke(
                 argument1,
@@ -334,7 +340,8 @@ namespace IharBury.Expressions
             T7 argument7,
             T8 argument8)
         {
-            Contract.Requires<ArgumentNullException>(expression != null);
+            if (expression == null)
+                throw new ArgumentNullException(nameof(expression));
 
             return expression.Compile().Invoke(
                 argument1,
@@ -385,7 +392,8 @@ namespace IharBury.Expressions
             T8 argument8,
             T9 argument9)
         {
-            Contract.Requires<ArgumentNullException>(expression != null);
+            if (expression == null)
+                throw new ArgumentNullException(nameof(expression));
 
             return expression.Compile().Invoke(
                 argument1,
@@ -440,7 +448,8 @@ namespace IharBury.Expressions
             T9 argument9,
             T10 argument10)
         {
-            Contract.Requires<ArgumentNullException>(expression != null);
+            if (expression == null)
+                throw new ArgumentNullException(nameof(expression));
 
             return expression.Compile().Invoke(
                 argument1,
@@ -499,7 +508,8 @@ namespace IharBury.Expressions
             T10 argument10,
             T11 argument11)
         {
-            Contract.Requires<ArgumentNullException>(expression != null);
+            if (expression == null)
+                throw new ArgumentNullException(nameof(expression));
 
             return expression.Compile().Invoke(
                 argument1,
@@ -562,7 +572,8 @@ namespace IharBury.Expressions
             T11 argument11,
             T12 argument12)
         {
-            Contract.Requires<ArgumentNullException>(expression != null);
+            if (expression == null)
+                throw new ArgumentNullException(nameof(expression));
 
             return expression.Compile().Invoke(
                 argument1,
@@ -629,7 +640,8 @@ namespace IharBury.Expressions
             T12 argument12,
             T13 argument13)
         {
-            Contract.Requires<ArgumentNullException>(expression != null);
+            if (expression == null)
+                throw new ArgumentNullException(nameof(expression));
 
             return expression.Compile().Invoke(
                 argument1,
@@ -700,7 +712,8 @@ namespace IharBury.Expressions
             T13 argument13,
             T14 argument14)
         {
-            Contract.Requires<ArgumentNullException>(expression != null);
+            if (expression == null)
+                throw new ArgumentNullException(nameof(expression));
 
             return expression.Compile().Invoke(
                 argument1,
@@ -775,7 +788,8 @@ namespace IharBury.Expressions
             T14 argument14,
             T15 argument15)
         {
-            Contract.Requires<ArgumentNullException>(expression != null);
+            if (expression == null)
+                throw new ArgumentNullException(nameof(expression));
 
             return expression.Compile().Invoke(
                 argument1,
@@ -854,7 +868,8 @@ namespace IharBury.Expressions
             T15 argument15,
             T16 argument16)
         {
-            Contract.Requires<ArgumentNullException>(expression != null);
+            if (expression == null)
+                throw new ArgumentNullException(nameof(expression));
 
             return expression.Compile().Invoke(
                 argument1,
@@ -886,9 +901,10 @@ namespace IharBury.Expressions
             this Expression<Func<bool>> expression1,
             Expression<Func<bool>> expression2)
         {
-            Contract.Requires<ArgumentNullException>(expression1 != null);
-            Contract.Requires<ArgumentNullException>(expression2 != null);
-            Contract.Ensures(Contract.Result<Expression<Func<bool>>>() != null);
+            if (expression1 == null)
+                throw new ArgumentNullException(nameof(expression1));
+            if (expression2 == null)
+                throw new ArgumentNullException(nameof(expression2));
 
             return BooleanExpressions.CombineViaAndAlso(new[]
             {
@@ -908,9 +924,10 @@ namespace IharBury.Expressions
             this Expression<Func<T1, bool>> expression1,
             Expression<Func<T1, bool>> expression2)
         {
-            Contract.Requires<ArgumentNullException>(expression1 != null);
-            Contract.Requires<ArgumentNullException>(expression2 != null);
-            Contract.Ensures(Contract.Result<Expression<Func<T1, bool>>>() != null);
+            if (expression1 == null)
+                throw new ArgumentNullException(nameof(expression1));
+            if (expression2 == null)
+                throw new ArgumentNullException(nameof(expression2));
 
             return BooleanExpressions.CombineViaAndAlso(new[]
             {
@@ -930,9 +947,10 @@ namespace IharBury.Expressions
             this Expression<Func<T1, T2, bool>> expression1,
             Expression<Func<T1, T2, bool>> expression2)
         {
-            Contract.Requires<ArgumentNullException>(expression1 != null);
-            Contract.Requires<ArgumentNullException>(expression2 != null);
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, bool>>>() != null);
+            if (expression1 == null)
+                throw new ArgumentNullException(nameof(expression1));
+            if (expression2 == null)
+                throw new ArgumentNullException(nameof(expression2));
 
             return BooleanExpressions.CombineViaAndAlso(new[]
             {
@@ -952,9 +970,10 @@ namespace IharBury.Expressions
             this Expression<Func<T1, T2, T3, bool>> expression1,
             Expression<Func<T1, T2, T3, bool>> expression2)
         {
-            Contract.Requires<ArgumentNullException>(expression1 != null);
-            Contract.Requires<ArgumentNullException>(expression2 != null);
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, T3, bool>>>() != null);
+            if (expression1 == null)
+                throw new ArgumentNullException(nameof(expression1));
+            if (expression2 == null)
+                throw new ArgumentNullException(nameof(expression2));
 
             return BooleanExpressions.CombineViaAndAlso(new[]
             {
@@ -974,9 +993,10 @@ namespace IharBury.Expressions
             this Expression<Func<T1, T2, T3, T4, bool>> expression1,
             Expression<Func<T1, T2, T3, T4, bool>> expression2)
         {
-            Contract.Requires<ArgumentNullException>(expression1 != null);
-            Contract.Requires<ArgumentNullException>(expression2 != null);
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, T3, T4, bool>>>() != null);
+            if (expression1 == null)
+                throw new ArgumentNullException(nameof(expression1));
+            if (expression2 == null)
+                throw new ArgumentNullException(nameof(expression2));
 
             return BooleanExpressions.CombineViaAndAlso(new[]
             {
@@ -996,9 +1016,10 @@ namespace IharBury.Expressions
             this Expression<Func<T1, T2, T3, T4, T5, bool>> expression1,
             Expression<Func<T1, T2, T3, T4, T5, bool>> expression2)
         {
-            Contract.Requires<ArgumentNullException>(expression1 != null);
-            Contract.Requires<ArgumentNullException>(expression2 != null);
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, T3, T4, T5, bool>>>() != null);
+            if (expression1 == null)
+                throw new ArgumentNullException(nameof(expression1));
+            if (expression2 == null)
+                throw new ArgumentNullException(nameof(expression2));
 
             return BooleanExpressions.CombineViaAndAlso(new[]
             {
@@ -1018,9 +1039,10 @@ namespace IharBury.Expressions
             this Expression<Func<T1, T2, T3, T4, T5, T6, bool>> expression1,
             Expression<Func<T1, T2, T3, T4, T5, T6, bool>> expression2)
         {
-            Contract.Requires<ArgumentNullException>(expression1 != null);
-            Contract.Requires<ArgumentNullException>(expression2 != null);
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, T3, T4, T5, T6, bool>>>() != null);
+            if (expression1 == null)
+                throw new ArgumentNullException(nameof(expression1));
+            if (expression2 == null)
+                throw new ArgumentNullException(nameof(expression2));
 
             return BooleanExpressions.CombineViaAndAlso(new[]
             {
@@ -1040,9 +1062,10 @@ namespace IharBury.Expressions
             this Expression<Func<T1, T2, T3, T4, T5, T6, T7, bool>> expression1,
             Expression<Func<T1, T2, T3, T4, T5, T6, T7, bool>> expression2)
         {
-            Contract.Requires<ArgumentNullException>(expression1 != null);
-            Contract.Requires<ArgumentNullException>(expression2 != null);
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, T3, T4, T5, T6, T7, bool>>>() != null);
+            if (expression1 == null)
+                throw new ArgumentNullException(nameof(expression1));
+            if (expression2 == null)
+                throw new ArgumentNullException(nameof(expression2));
 
             return BooleanExpressions.CombineViaAndAlso(new[]
             {
@@ -1063,9 +1086,10 @@ namespace IharBury.Expressions
                 this Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, bool>> expression1,
                 Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, bool>> expression2)
         {
-            Contract.Requires<ArgumentNullException>(expression1 != null);
-            Contract.Requires<ArgumentNullException>(expression2 != null);
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, bool>>>() != null);
+            if (expression1 == null)
+                throw new ArgumentNullException(nameof(expression1));
+            if (expression2 == null)
+                throw new ArgumentNullException(nameof(expression2));
 
             return BooleanExpressions.CombineViaAndAlso(new[]
             {
@@ -1086,9 +1110,10 @@ namespace IharBury.Expressions
                 this Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, bool>> expression1,
                 Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, bool>> expression2)
         {
-            Contract.Requires<ArgumentNullException>(expression1 != null);
-            Contract.Requires<ArgumentNullException>(expression2 != null);
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, bool>>>() != null);
+            if (expression1 == null)
+                throw new ArgumentNullException(nameof(expression1));
+            if (expression2 == null)
+                throw new ArgumentNullException(nameof(expression2));
 
             return BooleanExpressions.CombineViaAndAlso(new[]
             {
@@ -1109,9 +1134,10 @@ namespace IharBury.Expressions
                 this Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, bool>> expression1,
                 Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, bool>> expression2)
         {
-            Contract.Requires<ArgumentNullException>(expression1 != null);
-            Contract.Requires<ArgumentNullException>(expression2 != null);
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, bool>>>() != null);
+            if (expression1 == null)
+                throw new ArgumentNullException(nameof(expression1));
+            if (expression2 == null)
+                throw new ArgumentNullException(nameof(expression2));
 
             return BooleanExpressions.CombineViaAndAlso(new[]
             {
@@ -1132,9 +1158,10 @@ namespace IharBury.Expressions
                 this Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, bool>> expression1,
                 Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, bool>> expression2)
         {
-            Contract.Requires<ArgumentNullException>(expression1 != null);
-            Contract.Requires<ArgumentNullException>(expression2 != null);
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, bool>>>() != null);
+            if (expression1 == null)
+                throw new ArgumentNullException(nameof(expression1));
+            if (expression2 == null)
+                throw new ArgumentNullException(nameof(expression2));
 
             return BooleanExpressions.CombineViaAndAlso(new[]
             {
@@ -1155,10 +1182,10 @@ namespace IharBury.Expressions
                 this Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, bool>> expression1,
                 Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, bool>> expression2)
         {
-            Contract.Requires<ArgumentNullException>(expression1 != null);
-            Contract.Requires<ArgumentNullException>(expression2 != null);
-            Contract.Ensures(
-                Contract.Result<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, bool>>>() != null);
+            if (expression1 == null)
+                throw new ArgumentNullException(nameof(expression1));
+            if (expression2 == null)
+                throw new ArgumentNullException(nameof(expression2));
 
             return BooleanExpressions.CombineViaAndAlso(new[]
             {
@@ -1179,10 +1206,10 @@ namespace IharBury.Expressions
                 this Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, bool>> expression1,
                 Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, bool>> expression2)
         {
-            Contract.Requires<ArgumentNullException>(expression1 != null);
-            Contract.Requires<ArgumentNullException>(expression2 != null);
-            Contract.Ensures(
-                Contract.Result<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, bool>>>() != null);
+            if (expression1 == null)
+                throw new ArgumentNullException(nameof(expression1));
+            if (expression2 == null)
+                throw new ArgumentNullException(nameof(expression2));
 
             return BooleanExpressions.CombineViaAndAlso(new[]
             {
@@ -1203,10 +1230,10 @@ namespace IharBury.Expressions
                 this Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, bool>> expression1,
                 Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, bool>> expression2)
         {
-            Contract.Requires<ArgumentNullException>(expression1 != null);
-            Contract.Requires<ArgumentNullException>(expression2 != null);
-            Contract.Ensures(
-                Contract.Result<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, bool>>>() != null);
+            if (expression1 == null)
+                throw new ArgumentNullException(nameof(expression1));
+            if (expression2 == null)
+                throw new ArgumentNullException(nameof(expression2));
 
             return BooleanExpressions.CombineViaAndAlso(new[]
             {
@@ -1227,11 +1254,10 @@ namespace IharBury.Expressions
                 this Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, bool>> expression1,
                 Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, bool>> expression2)
         {
-            Contract.Requires<ArgumentNullException>(expression1 != null);
-            Contract.Requires<ArgumentNullException>(expression2 != null);
-            Contract.Ensures(
-                Contract.Result<
-                    Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, bool>>>() != null);
+            if (expression1 == null)
+                throw new ArgumentNullException(nameof(expression1));
+            if (expression2 == null)
+                throw new ArgumentNullException(nameof(expression2));
 
             return BooleanExpressions.CombineViaAndAlso(new[]
             {
@@ -1252,11 +1278,10 @@ namespace IharBury.Expressions
                 this Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, bool>> expression1,
                 Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, bool>> expression2)
         {
-            Contract.Requires<ArgumentNullException>(expression1 != null);
-            Contract.Requires<ArgumentNullException>(expression2 != null);
-            Contract.Ensures(
-                Contract.Result<
-                    Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, bool>>>() != null);
+            if (expression1 == null)
+                throw new ArgumentNullException(nameof(expression1));
+            if (expression2 == null)
+                throw new ArgumentNullException(nameof(expression2));
 
             return BooleanExpressions.CombineViaAndAlso(new[]
             {
@@ -1276,9 +1301,10 @@ namespace IharBury.Expressions
             this Expression<Func<bool>> expression1,
             Expression<Func<bool>> expression2)
         {
-            Contract.Requires<ArgumentNullException>(expression1 != null);
-            Contract.Requires<ArgumentNullException>(expression2 != null);
-            Contract.Ensures(Contract.Result<Expression<Func<bool>>>() != null);
+            if (expression1 == null)
+                throw new ArgumentNullException(nameof(expression1));
+            if (expression2 == null)
+                throw new ArgumentNullException(nameof(expression2));
 
             return BooleanExpressions.CombineViaOrElse(new[]
             {
@@ -1298,9 +1324,10 @@ namespace IharBury.Expressions
             this Expression<Func<T1, bool>> expression1,
             Expression<Func<T1, bool>> expression2)
         {
-            Contract.Requires<ArgumentNullException>(expression1 != null);
-            Contract.Requires<ArgumentNullException>(expression2 != null);
-            Contract.Ensures(Contract.Result<Expression<Func<T1, bool>>>() != null);
+            if (expression1 == null)
+                throw new ArgumentNullException(nameof(expression1));
+            if (expression2 == null)
+                throw new ArgumentNullException(nameof(expression2));
 
             return BooleanExpressions.CombineViaOrElse(new[]
             {
@@ -1320,9 +1347,10 @@ namespace IharBury.Expressions
             this Expression<Func<T1, T2, bool>> expression1,
             Expression<Func<T1, T2, bool>> expression2)
         {
-            Contract.Requires<ArgumentNullException>(expression1 != null);
-            Contract.Requires<ArgumentNullException>(expression2 != null);
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, bool>>>() != null);
+            if (expression1 == null)
+                throw new ArgumentNullException(nameof(expression1));
+            if (expression2 == null)
+                throw new ArgumentNullException(nameof(expression2));
 
             return BooleanExpressions.CombineViaOrElse(new[]
             {
@@ -1342,9 +1370,10 @@ namespace IharBury.Expressions
             this Expression<Func<T1, T2, T3, bool>> expression1,
             Expression<Func<T1, T2, T3, bool>> expression2)
         {
-            Contract.Requires<ArgumentNullException>(expression1 != null);
-            Contract.Requires<ArgumentNullException>(expression2 != null);
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, T3, bool>>>() != null);
+            if (expression1 == null)
+                throw new ArgumentNullException(nameof(expression1));
+            if (expression2 == null)
+                throw new ArgumentNullException(nameof(expression2));
 
             return BooleanExpressions.CombineViaOrElse(new[]
             {
@@ -1364,9 +1393,10 @@ namespace IharBury.Expressions
             this Expression<Func<T1, T2, T3, T4, bool>> expression1,
             Expression<Func<T1, T2, T3, T4, bool>> expression2)
         {
-            Contract.Requires<ArgumentNullException>(expression1 != null);
-            Contract.Requires<ArgumentNullException>(expression2 != null);
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, T3, T4, bool>>>() != null);
+            if (expression1 == null)
+                throw new ArgumentNullException(nameof(expression1));
+            if (expression2 == null)
+                throw new ArgumentNullException(nameof(expression2));
 
             return BooleanExpressions.CombineViaOrElse(new[]
             {
@@ -1386,9 +1416,10 @@ namespace IharBury.Expressions
             this Expression<Func<T1, T2, T3, T4, T5, bool>> expression1,
             Expression<Func<T1, T2, T3, T4, T5, bool>> expression2)
         {
-            Contract.Requires<ArgumentNullException>(expression1 != null);
-            Contract.Requires<ArgumentNullException>(expression2 != null);
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, T3, T4, T5, bool>>>() != null);
+            if (expression1 == null)
+                throw new ArgumentNullException(nameof(expression1));
+            if (expression2 == null)
+                throw new ArgumentNullException(nameof(expression2));
 
             return BooleanExpressions.CombineViaOrElse(new[]
             {
@@ -1408,9 +1439,10 @@ namespace IharBury.Expressions
             this Expression<Func<T1, T2, T3, T4, T5, T6, bool>> expression1,
             Expression<Func<T1, T2, T3, T4, T5, T6, bool>> expression2)
         {
-            Contract.Requires<ArgumentNullException>(expression1 != null);
-            Contract.Requires<ArgumentNullException>(expression2 != null);
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, T3, T4, T5, T6, bool>>>() != null);
+            if (expression1 == null)
+                throw new ArgumentNullException(nameof(expression1));
+            if (expression2 == null)
+                throw new ArgumentNullException(nameof(expression2));
 
             return BooleanExpressions.CombineViaOrElse(new[]
             {
@@ -1430,9 +1462,10 @@ namespace IharBury.Expressions
             this Expression<Func<T1, T2, T3, T4, T5, T6, T7, bool>> expression1,
             Expression<Func<T1, T2, T3, T4, T5, T6, T7, bool>> expression2)
         {
-            Contract.Requires<ArgumentNullException>(expression1 != null);
-            Contract.Requires<ArgumentNullException>(expression2 != null);
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, T3, T4, T5, T6, T7, bool>>>() != null);
+            if (expression1 == null)
+                throw new ArgumentNullException(nameof(expression1));
+            if (expression2 == null)
+                throw new ArgumentNullException(nameof(expression2));
 
             return BooleanExpressions.CombineViaOrElse(new[]
             {
@@ -1453,9 +1486,10 @@ namespace IharBury.Expressions
                 this Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, bool>> expression1,
                 Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, bool>> expression2)
         {
-            Contract.Requires<ArgumentNullException>(expression1 != null);
-            Contract.Requires<ArgumentNullException>(expression2 != null);
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, bool>>>() != null);
+            if (expression1 == null)
+                throw new ArgumentNullException(nameof(expression1));
+            if (expression2 == null)
+                throw new ArgumentNullException(nameof(expression2));
 
             return BooleanExpressions.CombineViaOrElse(new[]
             {
@@ -1476,9 +1510,10 @@ namespace IharBury.Expressions
                 this Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, bool>> expression1,
                 Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, bool>> expression2)
         {
-            Contract.Requires<ArgumentNullException>(expression1 != null);
-            Contract.Requires<ArgumentNullException>(expression2 != null);
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, bool>>>() != null);
+            if (expression1 == null)
+                throw new ArgumentNullException(nameof(expression1));
+            if (expression2 == null)
+                throw new ArgumentNullException(nameof(expression2));
 
             return BooleanExpressions.CombineViaOrElse(new[]
             {
@@ -1499,9 +1534,10 @@ namespace IharBury.Expressions
                 this Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, bool>> expression1,
                 Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, bool>> expression2)
         {
-            Contract.Requires<ArgumentNullException>(expression1 != null);
-            Contract.Requires<ArgumentNullException>(expression2 != null);
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, bool>>>() != null);
+            if (expression1 == null)
+                throw new ArgumentNullException(nameof(expression1));
+            if (expression2 == null)
+                throw new ArgumentNullException(nameof(expression2));
 
             return BooleanExpressions.CombineViaOrElse(new[]
             {
@@ -1522,9 +1558,10 @@ namespace IharBury.Expressions
                 this Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, bool>> expression1,
                 Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, bool>> expression2)
         {
-            Contract.Requires<ArgumentNullException>(expression1 != null);
-            Contract.Requires<ArgumentNullException>(expression2 != null);
-            Contract.Ensures(Contract.Result<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, bool>>>() != null);
+            if (expression1 == null)
+                throw new ArgumentNullException(nameof(expression1));
+            if (expression2 == null)
+                throw new ArgumentNullException(nameof(expression2));
 
             return BooleanExpressions.CombineViaOrElse(new[]
             {
@@ -1545,10 +1582,10 @@ namespace IharBury.Expressions
                 this Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, bool>> expression1,
                 Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, bool>> expression2)
         {
-            Contract.Requires<ArgumentNullException>(expression1 != null);
-            Contract.Requires<ArgumentNullException>(expression2 != null);
-            Contract.Ensures(
-                Contract.Result<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, bool>>>() != null);
+            if (expression1 == null)
+                throw new ArgumentNullException(nameof(expression1));
+            if (expression2 == null)
+                throw new ArgumentNullException(nameof(expression2));
 
             return BooleanExpressions.CombineViaOrElse(new[]
             {
@@ -1569,10 +1606,10 @@ namespace IharBury.Expressions
                 this Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, bool>> expression1,
                 Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, bool>> expression2)
         {
-            Contract.Requires<ArgumentNullException>(expression1 != null);
-            Contract.Requires<ArgumentNullException>(expression2 != null);
-            Contract.Ensures(
-                Contract.Result<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, bool>>>() != null);
+            if (expression1 == null)
+                throw new ArgumentNullException(nameof(expression1));
+            if (expression2 == null)
+                throw new ArgumentNullException(nameof(expression2));
 
             return BooleanExpressions.CombineViaOrElse(new[]
             {
@@ -1593,10 +1630,10 @@ namespace IharBury.Expressions
                 this Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, bool>> expression1,
                 Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, bool>> expression2)
         {
-            Contract.Requires<ArgumentNullException>(expression1 != null);
-            Contract.Requires<ArgumentNullException>(expression2 != null);
-            Contract.Ensures(
-                Contract.Result<Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, bool>>>() != null);
+            if (expression1 == null)
+                throw new ArgumentNullException(nameof(expression1));
+            if (expression2 == null)
+                throw new ArgumentNullException(nameof(expression2));
 
             return BooleanExpressions.CombineViaOrElse(new[]
             {
@@ -1617,11 +1654,10 @@ namespace IharBury.Expressions
                 this Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, bool>> expression1,
                 Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, bool>> expression2)
         {
-            Contract.Requires<ArgumentNullException>(expression1 != null);
-            Contract.Requires<ArgumentNullException>(expression2 != null);
-            Contract.Ensures(
-                Contract.Result<
-                    Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, bool>>>() != null);
+            if (expression1 == null)
+                throw new ArgumentNullException(nameof(expression1));
+            if (expression2 == null)
+                throw new ArgumentNullException(nameof(expression2));
 
             return BooleanExpressions.CombineViaOrElse(new[]
             {
@@ -1642,11 +1678,10 @@ namespace IharBury.Expressions
                 this Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, bool>> expression1,
                 Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, bool>> expression2)
         {
-            Contract.Requires<ArgumentNullException>(expression1 != null);
-            Contract.Requires<ArgumentNullException>(expression2 != null);
-            Contract.Ensures(
-                Contract.Result<
-                    Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, bool>>>() != null);
+            if (expression1 == null)
+                throw new ArgumentNullException(nameof(expression1));
+            if (expression2 == null)
+                throw new ArgumentNullException(nameof(expression2));
 
             return BooleanExpressions.CombineViaOrElse(new[]
             {
@@ -1664,7 +1699,8 @@ namespace IharBury.Expressions
         /// <returns>Default value of compile-time type of the element of the given enumerable.</returns>
         public static T DefaultElement<T>(this IEnumerable<T> enumerable)
         {
-            Contract.Requires<ArgumentNullException>(enumerable != null);
+            if (enumerable == null)
+                throw new ArgumentNullException(nameof(enumerable));
 
             return default(T);
         }

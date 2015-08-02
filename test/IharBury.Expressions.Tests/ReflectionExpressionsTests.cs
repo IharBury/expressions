@@ -1,155 +1,154 @@
 ﻿using System;
 using System.Linq.Expressions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace IharBury.Expressions.Tests
 {
-    [TestClass]
     public class ReflectionExpressionsTests
     {
-        [TestMethod]
+        [Fact]
         public void GetMethodInfoInstanceFunctionTest()
         {
             var result = ReflectionExpressions.GetMethodInfo<Test8>(methodObject => methodObject.Method1());
-            Assert.AreEqual("Method1", result.Name);
+            Assert.Equal("Method1", result.Name);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetMethodInfoInstanceFunctionVariableTest()
         {
             Expression<Func<Test8, int>> expression = methodObject => methodObject.Method1();
             var result = ReflectionExpressions.GetMethodInfo(expression);
-            Assert.AreEqual("Method1", result.Name);
+            Assert.Equal("Method1", result.Name);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetMethodInfoInstanceFunctionWithArgumentsTest()
         {
             var result = ReflectionExpressions.GetMethodInfo<Test8>(methodObject =>
                 methodObject.Method2(default(string), default(int)));
-            Assert.AreEqual("Method2", result.Name);
+            Assert.Equal("Method2", result.Name);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetMethodInfoInstanceVoidTest()
         {
             var result = ReflectionExpressions.GetMethodInfo<Test8>(methodObject => methodObject.Method3());
-            Assert.AreEqual("Method3", result.Name);
+            Assert.Equal("Method3", result.Name);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetMethodInfoStaticVoidTest()
         {
             var result = ReflectionExpressions.GetMethodInfo(() => Test8.Method4());
-            Assert.AreEqual("Method4", result.Name);
+            Assert.Equal("Method4", result.Name);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetMethodInfoStaticFunctionTest()
         {
             var result = ReflectionExpressions.GetMethodInfo(() => Test8.Method5());
-            Assert.AreEqual("Method5", result.Name);
+            Assert.Equal("Method5", result.Name);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetMethodInfoStaticFunctionVariableTest()
         {
             Expression<Func<int>> expression = () => Test8.Method5();
             var result = ReflectionExpressions.GetMethodInfo(expression);
-            Assert.AreEqual("Method5", result.Name);
+            Assert.Equal("Method5", result.Name);
         }
 
-        [TestMethod]
+        [Fact]
         public void TryGetPropertyNameTest()
         {
             Expression<Func<Test2, object>> expression = test => test.X;
-            Assert.AreEqual("X", ReflectionExpressions.TryGetPropertyName(expression));
+            Assert.Equal("X", ReflectionExpressions.TryGetPropertyName(expression));
         }
 
-        [TestMethod]
+        [Fact]
         public void TryGetPropertyNameGenericInterfaceConstraintTest()
         {
             TryGetPropertyNameGeneric<Test3>();
         }
 
-        [TestMethod]
+        [Fact]
         public void TryGetIndexedPropertyNameTest()
         {
             Expression<Func<Test2, object>> expression = test => test[default(string)];
-            Assert.AreEqual("Item", ReflectionExpressions.TryGetPropertyName(expression));
+            Assert.Equal("Item", ReflectionExpressions.TryGetPropertyName(expression));
         }
 
-        [TestMethod]
+        [Fact]
         public void TryGetFieldNameTest()
         {
             Expression<Func<Test2, object>> expression = test => test.y;
-            Assert.AreEqual("y", ReflectionExpressions.TryGetFieldName(expression));
+            Assert.Equal("y", ReflectionExpressions.TryGetFieldName(expression));
         }
 
-        [TestMethod]
+        [Fact]
         public void TryGetMethodNameNullTest1()
         {
-            Assert.IsNull(ReflectionExpressions.TryGetMethodName((Expression<Func<object, object>>)null));
+            Assert.Null(ReflectionExpressions.TryGetMethodName((Expression<Func<object, object>>)null));
         }
 
-        [TestMethod]
+        [Fact]
         public void TryGetMethodNameNullTest2()
         {
-            Assert.IsNull(ReflectionExpressions.TryGetMethodName((Expression<Action<object>>)null));
+            Assert.Null(ReflectionExpressions.TryGetMethodName((Expression<Action<object>>)null));
         }
 
-        [TestMethod]
+        [Fact]
         public void TryGetMethodNameNullTest3()
         {
-            Assert.IsNull(ReflectionExpressions.TryGetMethodName((Expression<Func<object>>)null));
+            Assert.Null(ReflectionExpressions.TryGetMethodName((Expression<Func<object>>)null));
         }
 
-        [TestMethod]
+        [Fact]
         public void TryGetMethodNameNullTest4()
         {
-            Assert.IsNull(ReflectionExpressions.TryGetMethodName((Expression<Action>)null));
+            Assert.Null(ReflectionExpressions.TryGetMethodName((Expression<Action>)null));
         }
 
-        [TestMethod]
+        [Fact]
         public void TryGetMethodNameNullTest5()
         {
-            Assert.IsNull(ReflectionExpressions.TryGetMethodName((LambdaExpression)null));
+            Assert.Null(ReflectionExpressions.TryGetMethodName((LambdaExpression)null));
         }
 
-        [TestMethod]
+        [Fact]
         public void TryGetPropertyNameNullTest1()
         {
-            Assert.IsNull(ReflectionExpressions.TryGetPropertyName((Expression<Func<object, object>>)null));
+            Assert.Null(ReflectionExpressions.TryGetPropertyName((Expression<Func<object, object>>)null));
         }
 
-        [TestMethod]
+        [Fact]
         public void TryGetPropertyNameNullTest2()
         {
-            Assert.IsNull(ReflectionExpressions.TryGetPropertyName((Expression<Func<object>>)null));
+            Assert.Null(ReflectionExpressions.TryGetPropertyName((Expression<Func<object>>)null));
         }
 
-        [TestMethod]
+        [Fact]
         public void TryGetPropertyNameNullTest3()
         {
-            Assert.IsNull(ReflectionExpressions.TryGetPropertyName((LambdaExpression)null));
+            Assert.Null(ReflectionExpressions.TryGetPropertyName((LambdaExpression)null));
         }
 
-        [TestMethod]
+        [Fact]
         public void TryGetFieldNameNullTest1()
         {
-            Assert.IsNull(ReflectionExpressions.TryGetFieldName((Expression<Func<object, object>>)null));
+            Assert.Null(ReflectionExpressions.TryGetFieldName((Expression<Func<object, object>>)null));
         }
 
-        [TestMethod]
+        [Fact]
         public void TryGetFieldNameNullTest2()
         {
-            Assert.IsNull(ReflectionExpressions.TryGetFieldName((Expression<Func<object>>)null));
+            Assert.Null(ReflectionExpressions.TryGetFieldName((Expression<Func<object>>)null));
         }
 
-        [TestMethod]
+        [Fact]
         public void TryGetFieldNameNullTest3()
         {
-            Assert.IsNull(ReflectionExpressions.TryGetFieldName((LambdaExpression)null));
+            Assert.Null(ReflectionExpressions.TryGetFieldName((LambdaExpression)null));
         }
 
         // When using interface and new() generic constraints, expression contains Convert to the interface.
@@ -157,7 +156,7 @@ namespace IharBury.Expressions.Tests
             where T : ITest1, new()
         {
             Expression<Func<T, object>> expression = test => test.Y;
-            Assert.AreEqual("Y", ReflectionExpressions.TryGetPropertyName(expression));
+            Assert.Equal("Y", ReflectionExpressions.TryGetPropertyName(expression));
         }
 
         private interface ITest1
