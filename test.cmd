@@ -17,7 +17,8 @@ copy %USERPROFILE%\.dnx\packages\System.Reflection.TypeExtensions\4.0.0\lib\net4
 md artifacts\test\net45 >nul 2>nul
 copy artifacts\bin\IharBury.Expressions.Tests\%configuration%\net45\IharBury.Expressions.Tests.dll artifacts\test\net45 >nul 2>nul
 copy %USERPROFILE%\.dnx\packages\xunit\1.9.2\lib\net20\*.* artifacts\test\net45 >nul 2>nul
-copy artifacts\bin\IharBury.Expressions\%configuration%\net45\IharBury.Expressions.dll artifacts\test\net45 >nul 2>nul
+copy artifacts\bin\IharBury.Expressions\%configuration%\dotnet5.1\IharBury.Expressions.dll artifacts\test\net45 >nul 2>nul
+copy %USERPROFILE%\.dnx\packages\System.Reflection.TypeExtensions\4.0.0\lib\net46\System.Reflection.TypeExtensions.dll artifacts\test\net45 >nul 2>nul
 %USERPROFILE%\.dnx\packages\xunit.runner.console\2.1.0\tools\xunit.console.exe artifacts\test\net45\IharBury.Expressions.Tests.dll
 
 md artifacts\test\net40 >nul 2>nul
