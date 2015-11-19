@@ -71,7 +71,7 @@ namespace IharBury.Expressions
 #if NET35
             return Expression.Lambda(node.Type, Visit(node.Body), newParameters);
 #else
-#if DOTNET
+#if DOTNET5_1
             // There is no matching Update method in .NET Core yet.
             return Expression.Lambda<T>(Visit(node.Body), node.Name, node.TailCall, newParameters);
 #else

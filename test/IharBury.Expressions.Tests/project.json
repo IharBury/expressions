@@ -1,12 +1,12 @@
 {
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Unit tests for IharBury.Expressions",
   "authors": [ "Ihar Bury" ],
   "tags": [ "expressions", "linq", "lambda", "reflection", "iqueryable", "entityframework", "ef", "nhibernate" ],
   "projectUrl": "https://github.com/IharBury/expressions/wiki",
   "licenseUrl": "http://opensource.org/licenses/mit-license.php",
   "dependencies": {
-    "IharBury.Expressions": "1.1.1"
+    "IharBury.Expressions": "1.1.2"
   },
   "commands": {
     "test": "xunit.runner.dnx"
