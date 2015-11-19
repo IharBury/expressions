@@ -116,6 +116,7 @@ namespace IharBury.Expressions.Tests
             }
         }
 
+#if !NET35
         [Fact]
         public void AndAlso5ParameterTest()
         {
@@ -391,6 +392,7 @@ namespace IharBury.Expressions.Tests
                 }
             }
         }
+#endif
 
         [Fact]
         public void AndAlso2ParameterReplacementTest()
@@ -524,6 +526,7 @@ namespace IharBury.Expressions.Tests
             }
         }
 
+#if !NET35
         [Fact]
         public void OrElse5ParameterTest()
         {
@@ -799,6 +802,7 @@ namespace IharBury.Expressions.Tests
                 }
             }
         }
+#endif
 
         [Fact]
         public void OrElse2ParameterReplacementTest()

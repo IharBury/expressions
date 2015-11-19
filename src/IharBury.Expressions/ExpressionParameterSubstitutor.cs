@@ -53,7 +53,11 @@ namespace IharBury.Expressions
                 base.VisitParameter(node);
         }
 
+#if NET35
+        protected override Expression VisitLambda(LambdaExpression node)
+#else
         protected override Expression VisitLambda<T>(Expression<T> node)
+#endif
         {
             var newParameters = new List<ParameterExpression>(node.Parameters.Count);
 
@@ -64,8 +68,16 @@ namespace IharBury.Expressions
                 parameterSubstitutions.Add(oldParameter, newParameter);
             }
 
+#if NET35
+            return Expression.Lambda(node.Type, Visit(node.Body), newParameters);
+#else
+#if DOTNET
             // There is no matching Update method in .NET Core yet.
             return Expression.Lambda<T>(Visit(node.Body), node.Name, node.TailCall, newParameters);
+#else
+            return node.Update(Visit(node.Body), newParameters);
+#endif
+#endif
         }
     }
 }

@@ -539,7 +539,11 @@ namespace IharBury.Expressions.Tests
                 new NoDuplicateParameterAssertion().Visit(expression);
             }
 
+#if NET35
+            protected override Expression VisitLambda(LambdaExpression node)
+#else
             protected override Expression VisitLambda<T>(Expression<T> node)
+#endif
             {
                 foreach (var parameter in node.Parameters)
                 {

@@ -1,12 +1,12 @@
 {
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Unit tests for IharBury.Expressions",
   "authors": [ "Ihar Bury" ],
   "tags": [ "expressions", "linq", "lambda", "reflection", "iqueryable", "entityframework", "ef", "nhibernate" ],
   "projectUrl": "https://github.com/IharBury/expressions/wiki",
   "licenseUrl": "http://opensource.org/licenses/mit-license.php",
   "dependencies": {
-    "IharBury.Expressions": "1.1.0"
+    "IharBury.Expressions": "1.1.1"
   },
   "commands": {
     "test": "xunit.runner.dnx"
@@ -14,25 +14,38 @@
   "frameworks": {
     "dnxcore50": {
       "dependencies": {
-        "System.Collections": "4.0.0-*",
-        "System.Linq": "4.0.0-*",
-        "System.Runtime": "4.0.0-*",
-        "System.Reflection": "4.0.0-*",
-        "xunit": "2.1.0-*",
-        "xunit.runner.dnx": "2.1-*",
-        "System.Linq.Expressions": "4.0.10-*"
+        "xunit": "2.1.0",
+        "xunit.runner.dnx": "2.1.0-*"
+      }
+    },
+    "dnx451": {
+      "dependencies": {
+        "xunit": "2.1.0",
+        "xunit.runner.dnx": "2.1.0-*"
+      }
+    },
+    "net46": {
+      "dependencies": {
+        "xunit": "1.9.2",
+        "xunit.runner.console": "2.1.0"
       }
     },
     "net45": {
       "dependencies": {
         "xunit": "1.9.2",
-        "xunit.runner.console": "2.0.0"
+        "xunit.runner.console": "2.1.0"
       }
     },
     "net40": {
       "dependencies": {
         "xunit": "1.9.2",
-        "xunit.runner.console": "2.0.0"
+        "xunit.runner.console": "2.1.0"
+      }
+    },
+    "net35": {
+      "dependencies": {
+        "xunit": "1.9.2",
+        "xunit.runner.console": "2.1.0"
       }
     }
   }

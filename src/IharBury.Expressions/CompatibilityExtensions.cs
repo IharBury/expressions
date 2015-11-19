@@ -11,7 +11,7 @@ namespace IharBury.Expressions
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
-#if NET40
+#if NET35 || NET40
             return type.BaseType;
 #else
             return type.GetTypeInfo().BaseType;
@@ -23,8 +23,8 @@ namespace IharBury.Expressions
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
-#if NET40
-            return (IEnumerable<PropertyInfo>)type.GetProperties(BindingFlags.DeclaredOnly | 
+#if NET35 || NET40
+            return type.GetProperties(BindingFlags.DeclaredOnly | 
                 BindingFlags.Instance | 
                 BindingFlags.Static | 
                 BindingFlags.Public | 
@@ -39,7 +39,7 @@ namespace IharBury.Expressions
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
-#if NET40
+#if NET35 || NET40
             return type.IsGenericType && !type.IsGenericTypeDefinition;
 #else
             return type.IsConstructedGenericType;
