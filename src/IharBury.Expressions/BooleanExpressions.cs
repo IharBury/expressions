@@ -23,7 +23,7 @@ namespace IharBury.Expressions
                 throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<bool>>)Combine(
-#if NET35
+#if NET35 || NET35_CLIENT
                 expressions.Cast<LambdaExpression>(),
 #else
                 expressions, 
@@ -45,7 +45,7 @@ namespace IharBury.Expressions
                 throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, bool>>)Combine(
-#if NET35
+#if NET35 || NET35_CLIENT
                 expressions.Cast<LambdaExpression>(),
 #else
                 expressions, 
@@ -67,7 +67,7 @@ namespace IharBury.Expressions
                 throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, T2, bool>>)Combine(
-#if NET35
+#if NET35 || NET35_CLIENT
                 expressions.Cast<LambdaExpression>(),
 #else
                 expressions, 
@@ -89,7 +89,7 @@ namespace IharBury.Expressions
                 throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, T2, T3, bool>>)Combine(
-#if NET35
+#if NET35 || NET35_CLIENT
                 expressions.Cast<LambdaExpression>(),
 #else
                 expressions, 
@@ -111,7 +111,7 @@ namespace IharBury.Expressions
                 throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, T2, T3, T4, bool>>)Combine(
-#if NET35
+#if NET35 || NET35_CLIENT
                 expressions.Cast<LambdaExpression>(),
 #else
                 expressions, 
@@ -119,7 +119,7 @@ namespace IharBury.Expressions
                 Expression.AndAlso);
         }
 
-#if !NET35
+#if !NET35 && !NET35_CLIENT
         /// <summary>
         /// Combines boolean expressions with same parameters via AndAlso 
         /// (logical "and" that evaluates the second argument only when the first one is true).
@@ -349,7 +349,7 @@ namespace IharBury.Expressions
                 throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<bool>>)Combine(
-#if NET35
+#if NET35 || NET35_CLIENT
                 expressions.Cast<LambdaExpression>(),
 #else
                 expressions, 
@@ -371,7 +371,7 @@ namespace IharBury.Expressions
                 throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, bool>>)Combine(
-#if NET35
+#if NET35 || NET35_CLIENT
                 expressions.Cast<LambdaExpression>(),
 #else
                 expressions, 
@@ -393,7 +393,7 @@ namespace IharBury.Expressions
                 throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, T2, bool>>)Combine(
-#if NET35
+#if NET35 || NET35_CLIENT
                 expressions.Cast<LambdaExpression>(),
 #else
                 expressions, 
@@ -415,7 +415,7 @@ namespace IharBury.Expressions
                 throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, T2, T3, bool>>)Combine(
-#if NET35
+#if NET35 || NET35_CLIENT
                 expressions.Cast<LambdaExpression>(),
 #else
                 expressions, 
@@ -437,7 +437,7 @@ namespace IharBury.Expressions
                 throw new ArgumentNullException(nameof(expressions));
 
             return (Expression<Func<T1, T2, T3, T4, bool>>)Combine(
-#if NET35
+#if NET35 || NET35_CLIENT
                 expressions.Cast<LambdaExpression>(),
 #else
                 expressions, 
@@ -445,7 +445,7 @@ namespace IharBury.Expressions
                 Expression.OrElse);
         }
 
-#if !NET35
+#if !NET35 && !NET35_CLIENT
         /// <summary>
         /// Combines boolean expressions with same parameters via OrElse 
         /// (logical "or" that evaluates the second argument only when the first one is false).
@@ -709,7 +709,7 @@ namespace IharBury.Expressions
                 throw new ArgumentException("Expression list is empty.", nameof(expressions));
             return Expression.Lambda(
                 resultBody,
-#if NET35
+#if NET35 || NET35_CLIENT
                 resultParameters.ToArray());
 #else
                 resultParameters);

@@ -118,7 +118,7 @@ namespace IharBury.Expressions.Tests
             expression.Compile().Invoke(argument1Example, argument2Example, argument3Example, argument4Example);
         }
 
-#if !NET35
+#if !NET35 && !NET35_CLIENT
         [Fact]
         public void ExpressionWith5ParametersLambda()
         {
@@ -1178,7 +1178,7 @@ namespace IharBury.Expressions.Tests
             lambdaDelegate(argument1Example, argument2Example, argument3Example, argument4Example);
         }
 
-#if !NET35
+#if !NET35 && !NET35_CLIENT
         [Fact]
         public void FuncWith5ParametersLambda()
         {

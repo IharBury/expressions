@@ -116,7 +116,7 @@ namespace IharBury.Expressions.Tests
             }
         }
 
-#if !NET35
+#if !NET35 && !NET35_CLIENT
         [Fact]
         public void AndAlso5ParameterTest()
         {
@@ -526,7 +526,7 @@ namespace IharBury.Expressions.Tests
             }
         }
 
-#if !NET35
+#if !NET35 && !NET35_CLIENT
         [Fact]
         public void OrElse5ParameterTest()
         {

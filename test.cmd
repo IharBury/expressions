@@ -33,6 +33,18 @@ copy %USERPROFILE%\.dnx\packages\xunit\1.9.2\lib\net20\*.* artifacts\test\net35 
 copy artifacts\bin\IharBury.Expressions\%configuration%\net35\IharBury.Expressions.dll artifacts\test\net35 >nul 2>nul
 %USERPROFILE%\.dnx\packages\xunit.runner.console\2.1.0\tools\xunit.console.exe artifacts\test\net35\IharBury.Expressions.Tests.dll
 
+md artifacts\test\net40-client >nul 2>nul
+copy artifacts\bin\IharBury.Expressions.Tests\%configuration%\net40-client\IharBury.Expressions.Tests.dll artifacts\test\net40-client >nul 2>nul
+copy %USERPROFILE%\.dnx\packages\xunit\1.9.2\lib\net20\*.* artifacts\test\net40-client >nul 2>nul
+copy artifacts\bin\IharBury.Expressions\%configuration%\net40-client\IharBury.Expressions.dll artifacts\test\net40-client >nul 2>nul
+%USERPROFILE%\.dnx\packages\xunit.runner.console\2.1.0\tools\xunit.console.exe artifacts\test\net40-client\IharBury.Expressions.Tests.dll
+
+md artifacts\test\net35-client >nul 2>nul
+copy artifacts\bin\IharBury.Expressions.Tests\%configuration%\net35-client\IharBury.Expressions.Tests.dll artifacts\test\net35-client >nul 2>nul
+copy %USERPROFILE%\.dnx\packages\xunit\1.9.2\lib\net20\*.* artifacts\test\net35-client >nul 2>nul
+copy artifacts\bin\IharBury.Expressions\%configuration%\net35-client\IharBury.Expressions.dll artifacts\test\net35-client >nul 2>nul
+%USERPROFILE%\.dnx\packages\xunit.runner.console\2.1.0\tools\xunit.console.exe artifacts\test\net35-client\IharBury.Expressions.Tests.dll
+
 %USERPROFILE%\.dnx\runtimes\dnx-coreclr-win-x64.1.0.0-rc1-final\bin\dnx --project test\IharBury.Expressions.Tests test
 
 %USERPROFILE%\.dnx\runtimes\dnx-clr-win-x64.1.0.0-rc1-final\bin\dnx --project test\IharBury.Expressions.Tests test

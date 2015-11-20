@@ -17,7 +17,9 @@
         "System.Linq.Expressions": "4.0.0"
       }
     },
-    "net40": { },
-    "net35": { }
+    "net4.0": { },
+    "net3.5": { },
+    "net4.0-client": { },
+    "net3.5-client": { }
   }
 }
