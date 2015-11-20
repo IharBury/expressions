@@ -183,7 +183,7 @@ namespace IharBury.Expressions
                 argument4);
         }
 
-#if !NET35 && !NET35_CLIENT
+#if !NET35 && !NET35_CLIENT && !NET37_CF
         /// <summary>
         /// Represent expression evaluation. Intended to be used in another expression that is later transformed
         /// via <c>ExpandExpressions</c> method.
@@ -1008,7 +1008,7 @@ namespace IharBury.Expressions
             });
         }
 
-#if !NET35 && !NET35_CLIENT
+#if !NET35 && !NET35_CLIENT && !NET37_CF
         /// <summary>
         /// Combines two boolean expressions with same parameters via AndAlso 
         /// (logical "and" that evaluates the second argument only when the first one is true).
@@ -1410,7 +1410,7 @@ namespace IharBury.Expressions
             });
         }
 
-#if !NET35 && !NET35_CLIENT
+#if !NET35 && !NET35_CLIENT && !NET37_CF
         /// <summary>
         /// Combines two boolean expressions with same parameters via OrElse
         /// (logical "or" that evaluates the second argument only when the first one is false).

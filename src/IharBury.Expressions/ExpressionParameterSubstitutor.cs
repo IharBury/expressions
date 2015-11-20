@@ -53,7 +53,7 @@ namespace IharBury.Expressions
                 base.VisitParameter(node);
         }
 
-#if NET35 || NET35_CLIENT
+#if NET35 || NET35_CLIENT || NET37_CF
         protected override Expression VisitLambda(LambdaExpression node)
 #else
         protected override Expression VisitLambda<T>(Expression<T> node)
@@ -68,7 +68,7 @@ namespace IharBury.Expressions
                 parameterSubstitutions.Add(oldParameter, newParameter);
             }
 
-#if NET35 || NET35_CLIENT
+#if NET35 || NET35_CLIENT || NET37_CF
             return Expression.Lambda(node.Type, Visit(node.Body), newParameters);
 #else
 #if DOTNET5_1

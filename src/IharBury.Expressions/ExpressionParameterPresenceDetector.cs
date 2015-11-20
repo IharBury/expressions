@@ -25,7 +25,7 @@ namespace IharBury.Expressions
             return base.VisitParameter(node);
         }
 
-#if NET35 || NET35_CLIENT
+#if NET35 || NET35_CLIENT || NET37_CF
         protected override Expression VisitLambda(LambdaExpression node)
 #else
         protected override Expression VisitLambda<T>(Expression<T> node)

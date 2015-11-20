@@ -1,4 +1,4 @@
-﻿#if NET35 || NET35_CLIENT
+﻿#if NET35 || NET35_CLIENT || NET37_CF
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

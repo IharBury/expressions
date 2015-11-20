@@ -20,6 +20,7 @@
     "net4.0": { },
     "net3.5": { },
     "net4.0-client": { },
-    "net3.5-client": { }
+    "net3.5-client": { },
+    "net3.7-cf": { }
   }
 }
