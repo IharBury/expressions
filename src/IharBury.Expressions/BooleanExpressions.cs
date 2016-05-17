@@ -22,13 +22,7 @@ namespace IharBury.Expressions
             if (expressions == null)
                 throw new ArgumentNullException(nameof(expressions));
 
-            return (Expression<Func<bool>>)Combine(
-#if NET35 || NET35_CLIENT || NET37_CF
-                expressions.Cast<LambdaExpression>(),
-#else
-                expressions, 
-#endif
-                Expression.AndAlso);
+            return (Expression<Func<bool>>)Combine(expressions.CovariantCast(), Expression.AndAlso);
         }
 
         /// <summary>
@@ -44,13 +38,7 @@ namespace IharBury.Expressions
             if (expressions == null)
                 throw new ArgumentNullException(nameof(expressions));
 
-            return (Expression<Func<T1, bool>>)Combine(
-#if NET35 || NET35_CLIENT || NET37_CF
-                expressions.Cast<LambdaExpression>(),
-#else
-                expressions, 
-#endif
-                Expression.AndAlso);
+            return (Expression<Func<T1, bool>>)Combine(expressions.CovariantCast(), Expression.AndAlso);
         }
 
         /// <summary>
@@ -66,13 +54,7 @@ namespace IharBury.Expressions
             if (expressions == null)
                 throw new ArgumentNullException(nameof(expressions));
 
-            return (Expression<Func<T1, T2, bool>>)Combine(
-#if NET35 || NET35_CLIENT || NET37_CF
-                expressions.Cast<LambdaExpression>(),
-#else
-                expressions, 
-#endif
-                Expression.AndAlso);
+            return (Expression<Func<T1, T2, bool>>)Combine(expressions.CovariantCast(), Expression.AndAlso);
         }
 
         /// <summary>
@@ -88,13 +70,7 @@ namespace IharBury.Expressions
             if (expressions == null)
                 throw new ArgumentNullException(nameof(expressions));
 
-            return (Expression<Func<T1, T2, T3, bool>>)Combine(
-#if NET35 || NET35_CLIENT || NET37_CF
-                expressions.Cast<LambdaExpression>(),
-#else
-                expressions, 
-#endif
-                Expression.AndAlso);
+            return (Expression<Func<T1, T2, T3, bool>>)Combine(expressions.CovariantCast(), Expression.AndAlso);
         }
 
         /// <summary>
@@ -110,16 +86,10 @@ namespace IharBury.Expressions
             if (expressions == null)
                 throw new ArgumentNullException(nameof(expressions));
 
-            return (Expression<Func<T1, T2, T3, T4, bool>>)Combine(
-#if NET35 || NET35_CLIENT || NET37_CF
-                expressions.Cast<LambdaExpression>(),
-#else
-                expressions, 
-#endif
-                Expression.AndAlso);
+            return (Expression<Func<T1, T2, T3, T4, bool>>)Combine(expressions.CovariantCast(), Expression.AndAlso);
         }
 
-#if !NET35 && !NET35_CLIENT && !NET37_CF
+#if !NET35 && !NET35_CLIENT
         /// <summary>
         /// Combines boolean expressions with same parameters via AndAlso 
         /// (logical "and" that evaluates the second argument only when the first one is true).
@@ -348,13 +318,7 @@ namespace IharBury.Expressions
             if (expressions == null)
                 throw new ArgumentNullException(nameof(expressions));
 
-            return (Expression<Func<bool>>)Combine(
-#if NET35 || NET35_CLIENT || NET37_CF
-                expressions.Cast<LambdaExpression>(),
-#else
-                expressions, 
-#endif
-                Expression.OrElse);
+            return (Expression<Func<bool>>)Combine(expressions.CovariantCast(), Expression.OrElse);
         }
 
         /// <summary>
@@ -370,13 +334,7 @@ namespace IharBury.Expressions
             if (expressions == null)
                 throw new ArgumentNullException(nameof(expressions));
 
-            return (Expression<Func<T1, bool>>)Combine(
-#if NET35 || NET35_CLIENT || NET37_CF
-                expressions.Cast<LambdaExpression>(),
-#else
-                expressions, 
-#endif
-                Expression.OrElse);
+            return (Expression<Func<T1, bool>>)Combine(expressions.CovariantCast(), Expression.OrElse);
         }
 
         /// <summary>
@@ -392,13 +350,7 @@ namespace IharBury.Expressions
             if (expressions == null)
                 throw new ArgumentNullException(nameof(expressions));
 
-            return (Expression<Func<T1, T2, bool>>)Combine(
-#if NET35 || NET35_CLIENT || NET37_CF
-                expressions.Cast<LambdaExpression>(),
-#else
-                expressions, 
-#endif
-                Expression.OrElse);
+            return (Expression<Func<T1, T2, bool>>)Combine(expressions.CovariantCast(), Expression.OrElse);
         }
 
         /// <summary>
@@ -414,13 +366,7 @@ namespace IharBury.Expressions
             if (expressions == null)
                 throw new ArgumentNullException(nameof(expressions));
 
-            return (Expression<Func<T1, T2, T3, bool>>)Combine(
-#if NET35 || NET35_CLIENT || NET37_CF
-                expressions.Cast<LambdaExpression>(),
-#else
-                expressions, 
-#endif
-                Expression.OrElse);
+            return (Expression<Func<T1, T2, T3, bool>>)Combine(expressions.CovariantCast(), Expression.OrElse);
         }
 
         /// <summary>
@@ -436,16 +382,10 @@ namespace IharBury.Expressions
             if (expressions == null)
                 throw new ArgumentNullException(nameof(expressions));
 
-            return (Expression<Func<T1, T2, T3, T4, bool>>)Combine(
-#if NET35 || NET35_CLIENT || NET37_CF
-                expressions.Cast<LambdaExpression>(),
-#else
-                expressions, 
-#endif
-                Expression.OrElse);
+            return (Expression<Func<T1, T2, T3, T4, bool>>)Combine(expressions.CovariantCast(), Expression.OrElse);
         }
 
-#if !NET35 && !NET35_CLIENT && !NET37_CF
+#if !NET35 && !NET35_CLIENT
         /// <summary>
         /// Combines boolean expressions with same parameters via OrElse 
         /// (logical "or" that evaluates the second argument only when the first one is false).
@@ -707,13 +647,7 @@ namespace IharBury.Expressions
             }
             if (firstExpression == null)
                 throw new ArgumentException("Expression list is empty.", nameof(expressions));
-            return Expression.Lambda(
-                resultBody,
-#if NET35 || NET35_CLIENT || NET37_CF
-                resultParameters.ToArray());
-#else
-                resultParameters);
-#endif
+            return resultBody.CreateLambda(resultParameters);
         }
     }
 }

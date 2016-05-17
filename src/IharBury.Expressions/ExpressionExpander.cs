@@ -8,27 +8,10 @@ namespace IharBury.Expressions
 {
     internal sealed class ExpressionExpander : ExpressionVisitor
     {
-        private static readonly MethodInfo MethodInfoCreateDelegateMethod;
-        private static readonly MethodInfo DelegateCreateDelegateMethod;
-
-        static ExpressionExpander()
-        {
-            MethodInfoCreateDelegateMethod = typeof(MethodInfo).GetMethod(
-                "CreateDelegate",
-                new[]
-                {
-                    typeof(Type),
-                    typeof(object)
-                });
-            DelegateCreateDelegateMethod = typeof(Delegate).GetMethod(
-                "CreateDelegate",
-                new[]
-                {
-                    typeof(Type),
-                    typeof(object),
-                    typeof(MethodInfo)
-                });
-        }
+        private static readonly MethodInfo MethodInfoCreateDelegateMethod = typeof(MethodInfo)
+            .FindMethod("CreateDelegate", typeof(Type), typeof(object));
+        private static readonly MethodInfo DelegateCreateDelegateMethod = typeof(Delegate)
+            .FindMethod("CreateDelegate", typeof(Type), typeof(object), typeof(MethodInfo));
 
         private ExpressionExpander() { }
 
