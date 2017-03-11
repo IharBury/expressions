@@ -53,11 +53,7 @@ namespace IharBury.Expressions
                 base.VisitParameter(node);
         }
 
-#if NET35 || NET35_CLIENT
-        protected override Expression VisitLambda(LambdaExpression node)
-#else
         protected override Expression VisitLambda<T>(Expression<T> node)
-#endif
         {
             var newParameters = new List<ParameterExpression>(node.Parameters.Count);
 

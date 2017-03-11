@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Unit tests for IharBury.Expressions</Description>
+    <VersionPrefix>1.2.0</VersionPrefix>
+    <Authors>Ihar Bury</Authors>
+    <TargetFrameworks>netcoreapp1.0;net462;net45</TargetFrameworks>
+    <AssemblyName>IharBury.Expressions.Tests</AssemblyName>
+    <PackageId>IharBury.Expressions.Tests</PackageId>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+    <PackageTags>expressions;linq;lambda;reflection;iqueryable;entityframework;ef;nhibernate</PackageTags>
+    <PackageProjectUrl>https://github.com/IharBury/expressions/wiki</PackageProjectUrl>
+    <PackageLicenseUrl>http://opensource.org/licenses/mit-license.php</PackageLicenseUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\IharBury.Expressions\IharBury.Expressions.csproj" />
+    <PackageReference Include="xunit" Version="2.2.0" />
+    <PackageReference Include="xunit.runner.console" Version="2.2.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0" />
+    <PackageReference Include="microsoft.testplatform.testhost" Version="15.0.0" />
+    <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
+  </ItemGroup>
+
+</Project>

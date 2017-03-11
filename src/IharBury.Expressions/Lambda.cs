@@ -112,7 +112,6 @@ namespace IharBury.Expressions
             return lambda;
         }
 
-#if !NET35 && !NET35_CLIENT
         /// <summary>
         /// Returns lambda as expression.
         /// </summary>
@@ -697,7 +696,6 @@ namespace IharBury.Expressions
 
             return lambda;
         }
-#endif
 
         /// <summary>
         /// Returns lambda as delegate.
@@ -803,7 +801,6 @@ namespace IharBury.Expressions
             return lambda;
         }
 
-#if !NET35 && !NET35_CLIENT
         /// <summary>
         /// Returns lambda as delegate.
         /// </summary>
@@ -1382,6 +1379,5 @@ namespace IharBury.Expressions
 
             return lambda;
         }
-#endif
     }
 }

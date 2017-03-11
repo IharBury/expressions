@@ -25,11 +25,7 @@ namespace IharBury.Expressions
             return base.VisitParameter(node);
         }
 
-#if NET35 || NET35_CLIENT
-        protected override Expression VisitLambda(LambdaExpression node)
-#else
         protected override Expression VisitLambda<T>(Expression<T> node)
-#endif
         {
             allowedParameters.AddRange(node.Parameters);
             var result = base.VisitLambda(node);

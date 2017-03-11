@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 
 namespace IharBury.Expressions
@@ -22,7 +21,7 @@ namespace IharBury.Expressions
             if (expressions == null)
                 throw new ArgumentNullException(nameof(expressions));
 
-            return (Expression<Func<bool>>)Combine(expressions.CovariantCast(), Expression.AndAlso);
+            return (Expression<Func<bool>>)Combine(expressions, Expression.AndAlso);
         }
 
         /// <summary>
@@ -38,7 +37,7 @@ namespace IharBury.Expressions
             if (expressions == null)
                 throw new ArgumentNullException(nameof(expressions));
 
-            return (Expression<Func<T1, bool>>)Combine(expressions.CovariantCast(), Expression.AndAlso);
+            return (Expression<Func<T1, bool>>)Combine(expressions, Expression.AndAlso);
         }
 
         /// <summary>
@@ -54,7 +53,7 @@ namespace IharBury.Expressions
             if (expressions == null)
                 throw new ArgumentNullException(nameof(expressions));
 
-            return (Expression<Func<T1, T2, bool>>)Combine(expressions.CovariantCast(), Expression.AndAlso);
+            return (Expression<Func<T1, T2, bool>>)Combine(expressions, Expression.AndAlso);
         }
 
         /// <summary>
@@ -70,7 +69,7 @@ namespace IharBury.Expressions
             if (expressions == null)
                 throw new ArgumentNullException(nameof(expressions));
 
-            return (Expression<Func<T1, T2, T3, bool>>)Combine(expressions.CovariantCast(), Expression.AndAlso);
+            return (Expression<Func<T1, T2, T3, bool>>)Combine(expressions, Expression.AndAlso);
         }
 
         /// <summary>
@@ -86,10 +85,9 @@ namespace IharBury.Expressions
             if (expressions == null)
                 throw new ArgumentNullException(nameof(expressions));
 
-            return (Expression<Func<T1, T2, T3, T4, bool>>)Combine(expressions.CovariantCast(), Expression.AndAlso);
+            return (Expression<Func<T1, T2, T3, T4, bool>>)Combine(expressions, Expression.AndAlso);
         }
 
-#if !NET35 && !NET35_CLIENT
         /// <summary>
         /// Combines boolean expressions with same parameters via AndAlso 
         /// (logical "and" that evaluates the second argument only when the first one is true).
@@ -304,7 +302,6 @@ namespace IharBury.Expressions
                 expressions, 
                 Expression.AndAlso);
         }
-#endif
 
         /// <summary>
         /// Combines boolean expressions without parameters via OrElse 
@@ -318,7 +315,7 @@ namespace IharBury.Expressions
             if (expressions == null)
                 throw new ArgumentNullException(nameof(expressions));
 
-            return (Expression<Func<bool>>)Combine(expressions.CovariantCast(), Expression.OrElse);
+            return (Expression<Func<bool>>)Combine(expressions, Expression.OrElse);
         }
 
         /// <summary>
@@ -334,7 +331,7 @@ namespace IharBury.Expressions
             if (expressions == null)
                 throw new ArgumentNullException(nameof(expressions));
 
-            return (Expression<Func<T1, bool>>)Combine(expressions.CovariantCast(), Expression.OrElse);
+            return (Expression<Func<T1, bool>>)Combine(expressions, Expression.OrElse);
         }
 
         /// <summary>
@@ -350,7 +347,7 @@ namespace IharBury.Expressions
             if (expressions == null)
                 throw new ArgumentNullException(nameof(expressions));
 
-            return (Expression<Func<T1, T2, bool>>)Combine(expressions.CovariantCast(), Expression.OrElse);
+            return (Expression<Func<T1, T2, bool>>)Combine(expressions, Expression.OrElse);
         }
 
         /// <summary>
@@ -366,7 +363,7 @@ namespace IharBury.Expressions
             if (expressions == null)
                 throw new ArgumentNullException(nameof(expressions));
 
-            return (Expression<Func<T1, T2, T3, bool>>)Combine(expressions.CovariantCast(), Expression.OrElse);
+            return (Expression<Func<T1, T2, T3, bool>>)Combine(expressions, Expression.OrElse);
         }
 
         /// <summary>
@@ -382,10 +379,9 @@ namespace IharBury.Expressions
             if (expressions == null)
                 throw new ArgumentNullException(nameof(expressions));
 
-            return (Expression<Func<T1, T2, T3, T4, bool>>)Combine(expressions.CovariantCast(), Expression.OrElse);
+            return (Expression<Func<T1, T2, T3, T4, bool>>)Combine(expressions, Expression.OrElse);
         }
 
-#if !NET35 && !NET35_CLIENT
         /// <summary>
         /// Combines boolean expressions with same parameters via OrElse 
         /// (logical "or" that evaluates the second argument only when the first one is false).
@@ -598,7 +594,6 @@ namespace IharBury.Expressions
                 expressions, 
                 Expression.OrElse);
         }
-#endif
 
         private static LambdaExpression Combine(
             IEnumerable<LambdaExpression> expressions,
@@ -647,7 +642,7 @@ namespace IharBury.Expressions
             }
             if (firstExpression == null)
                 throw new ArgumentException("Expression list is empty.", nameof(expressions));
-            return resultBody.CreateLambda(resultParameters);
+            return Expression.Lambda(resultBody, resultParameters);
         }
     }
 }

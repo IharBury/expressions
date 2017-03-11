@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Allows to include lambda expressions into each other in c# and Visual Basic. Also allows to avoid using string constants in reflection thus enabling easy refactoring.</Description>
+    <VersionPrefix>1.2.0</VersionPrefix>
+    <Authors>Ihar Bury</Authors>
+    <TargetFrameworks>netstandard1.0</TargetFrameworks>
+    <AssemblyName>IharBury.Expressions</AssemblyName>
+    <PackageId>IharBury.Expressions</PackageId>
+    <PackageTags>expressions;linq;lambda;reflection;iqueryable;entityframework;ef;nhibernate</PackageTags>
+    <PackageProjectUrl>https://github.com/IharBury/expressions/wiki</PackageProjectUrl>
+    <PackageLicenseUrl>http://opensource.org/licenses/mit-license.php</PackageLicenseUrl>
+  </PropertyGroup>
+
+</Project>

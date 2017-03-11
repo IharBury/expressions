@@ -325,8 +325,9 @@ namespace IharBury.Expressions
                         return methodCallExpression
                             .Method
                             .DeclaringType
-                            .GetDeclaredProperties()
-                            .SingleOrDefault(property => property.GetGetMethod() == methodCallExpression.Method);
+                            .GetTypeInfo()
+                            .DeclaredProperties
+                            .SingleOrDefault(property => property.GetMethod == methodCallExpression.Method);
                     return null;
 
                 default:

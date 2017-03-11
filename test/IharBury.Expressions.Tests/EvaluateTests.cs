@@ -46,7 +46,6 @@ namespace IharBury.Expressions.Tests
             Assert.Equal(30, f1.Evaluate(1, 2, 3, 4));
         }
 
-#if !NET35 && !NET35_CLIENT
         [Fact]
         public void Evaluate5ArgumentsTest()
         {
@@ -159,6 +158,5 @@ namespace IharBury.Expressions.Tests
 
             Assert.Equal(40, f1.Evaluate(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16));
         }
-#endif
     }
 }

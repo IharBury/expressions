@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 
 namespace IharBury.Expressions
 {
@@ -183,7 +182,6 @@ namespace IharBury.Expressions
                 argument4);
         }
 
-#if !NET35 && !NET35_CLIENT
         /// <summary>
         /// Represent expression evaluation. Intended to be used in another expression that is later transformed
         /// via <c>ExpandExpressions</c> method.
@@ -891,7 +889,6 @@ namespace IharBury.Expressions
                 argument15,
                 argument16);
         }
-#endif
 
         /// <summary>
         /// Combines two boolean expressions without parameters via AndAlso 
@@ -1008,7 +1005,6 @@ namespace IharBury.Expressions
             });
         }
 
-#if !NET35 && !NET35_CLIENT
         /// <summary>
         /// Combines two boolean expressions with same parameters via AndAlso 
         /// (logical "and" that evaluates the second argument only when the first one is true).
@@ -1293,7 +1289,6 @@ namespace IharBury.Expressions
                 expression2
             });
         }
-#endif
 
         /// <summary>
         /// Combines two boolean expressions without parameters via OrElse
@@ -1410,7 +1405,6 @@ namespace IharBury.Expressions
             });
         }
 
-#if !NET35 && !NET35_CLIENT
         /// <summary>
         /// Combines two boolean expressions with same parameters via OrElse
         /// (logical "or" that evaluates the second argument only when the first one is false).
@@ -1695,7 +1689,6 @@ namespace IharBury.Expressions
                 expression2
             });
         }
-#endif
 
         /// <summary>
         /// Returns default value of compile-time type of the element of the given enumerable.

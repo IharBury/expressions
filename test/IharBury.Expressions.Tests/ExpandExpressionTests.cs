@@ -475,7 +475,7 @@ namespace IharBury.Expressions.Tests
                     var methodCallExpression = (MethodCallExpression)node.Expression;
                     Assert.False(
                         (methodCallExpression.Method.DeclaringType != null) &&
-                            methodCallExpression.Method.DeclaringType.GetIsConstructedGenericType() &&
+                            methodCallExpression.Method.DeclaringType.IsConstructedGenericType &&
                             (methodCallExpression.Method.DeclaringType.GetGenericTypeDefinition() == typeof(Expression<>)) &&
                             (methodCallExpression.Method.Name == CompileMethodName),
                         $"The expression body has evaluation: \"{node}\".");
@@ -506,7 +506,7 @@ namespace IharBury.Expressions.Tests
                     $"The expression body has evaluation: \"{node}\".");
                 Assert.False(
                     (method.DeclaringType != null) &&
-                        (method.DeclaringType.GetBaseType() == typeof(MulticastDelegate)) &&
+                        (method.DeclaringType.GetTypeInfo().BaseType == typeof(MulticastDelegate)) &&
                         (method.Name == ReflectionExpressions.GetMethodName<Action>(action => action.Invoke())),
                     $"The expression body has invokation: \"{node}\".");
             }
@@ -539,11 +539,7 @@ namespace IharBury.Expressions.Tests
                 new NoDuplicateParameterAssertion().Visit(expression);
             }
 
-#if NET35 || NET35_CLIENT
-            protected override Expression VisitLambda(LambdaExpression node)
-#else
             protected override Expression VisitLambda<T>(Expression<T> node)
-#endif
             {
                 foreach (var parameter in node.Parameters)
                 {

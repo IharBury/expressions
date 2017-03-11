@@ -8,10 +8,26 @@ namespace IharBury.Expressions
 {
     internal sealed class ExpressionExpander : ExpressionVisitor
     {
-        private static readonly MethodInfo MethodInfoCreateDelegateMethod = typeof(MethodInfo)
-            .FindMethod("CreateDelegate", typeof(Type), typeof(object));
-        private static readonly MethodInfo DelegateCreateDelegateMethod = typeof(Delegate)
-            .FindMethod("CreateDelegate", typeof(Type), typeof(object), typeof(MethodInfo));
+        private static readonly MethodInfo MethodInfoCreateDelegateMethod = 
+            FindMethod(typeof(MethodInfo), "CreateDelegate", typeof(Type), typeof(object));
+        private static readonly MethodInfo DelegateCreateDelegateMethod = 
+            FindMethod(typeof(Delegate), "CreateDelegate", typeof(Type), typeof(object), typeof(MethodInfo));
+
+        private static MethodInfo FindMethod(Type type, string name, params Type[] parameterTypes)
+        {
+            if (type == null)
+                throw new ArgumentNullException(nameof(type));
+            if (string.IsNullOrEmpty(name))
+                throw new ArgumentException($"string.{nameof(string.IsNullOrEmpty)}({nameof(name)}name)", nameof(name));
+            if (parameterTypes == null)
+                throw new ArgumentNullException(nameof(parameterTypes));
+
+            return type
+                .GetTypeInfo()
+                .GetDeclaredMethods(name)
+                .SingleOrDefault(method =>
+                    method.GetParameters().Select(parameter => parameter.ParameterType).SequenceEqual(parameterTypes));
+        }
 
         private ExpressionExpander() { }
 
@@ -52,7 +68,7 @@ namespace IharBury.Expressions
                 throw new ArgumentNullException(nameof(method));
 
             return (method.DeclaringType != null) &&
-                method.DeclaringType.GetIsConstructedGenericType() &&
+                method.DeclaringType.IsConstructedGenericType &&
                 (method.DeclaringType.GetGenericTypeDefinition() == typeof(Expression<>)) &&
                 (method.Name == nameof(Expression<Func<object>>.Compile));
         }
@@ -91,7 +107,7 @@ namespace IharBury.Expressions
             }
 
             if ((baseResult.Method.DeclaringType != null) &&
-                (baseResult.Method.DeclaringType.GetBaseType() == typeof(MulticastDelegate)) &&
+                (baseResult.Method.DeclaringType.GetTypeInfo().BaseType == typeof(MulticastDelegate)) &&
                 (baseResult.Method.Name == nameof(Action.Invoke)) &&
                 (baseResult.Object != null) &&
                 (baseResult.Object.NodeType == ExpressionType.Call))
